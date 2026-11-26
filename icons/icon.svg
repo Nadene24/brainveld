@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Brainveld</title>
+  <defs>
+    <linearGradient id="bvi-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A1260"/>
+      <stop offset=".45" stop-color="#C2367A"/>
+      <stop offset=".78" stop-color="#FF7A45"/>
+      <stop offset="1" stop-color="#FFB347"/>
+    </linearGradient>
+    <radialGradient id="bvi-sun" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FFF1A8"/>
+      <stop offset=".7" stop-color="#FFD35A"/>
+      <stop offset="1" stop-color="#FFB33A"/>
+    </radialGradient>
+    <linearGradient id="bvi-brain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#B4F28A"/>
+      <stop offset="1" stop-color="#4CC26A"/>
+    </linearGradient>
+    <clipPath id="bvi-clip"><rect width="512" height="512" rx="116"/></clipPath>
+  </defs>
+  <g clip-path="url(#bvi-clip)">
+    <rect width="512" height="512" fill="url(#bvi-sky)"/>
+    <!-- night stars fading into sunset -->
+    <g fill="#fff">
+      <circle cx="70" cy="70" r="4" opacity=".9"/><circle cx="130" cy="44" r="2.5" opacity=".7"/>
+      <circle cx="402" cy="60" r="3" opacity=".8"/><circle cx="452" cy="118" r="2.5" opacity=".6"/>
+      <circle cx="48" cy="150" r="2.5" opacity=".6"/>
+    </g>
+    <!-- sun -->
+    <circle cx="256" cy="318" r="150" fill="url(#bvi-sun)"/>
+    <circle cx="256" cy="318" r="178" fill="none" stroke="#FFD35A" stroke-width="6" opacity=".35"/>
+    <!-- distant veld -->
+    <path d="M0 404 Q90 372 180 392 T360 384 T512 396 L512 512 L0 512Z" fill="#7A2A5E"/>
+    <!-- baobab trunk and branches -->
+    <g fill="#2B1240">
+      <path d="M184 462 C170 404 180 344 210 302 C222 284 234 272 242 262 L270 262 C278 272 290 284 302 302 C332 344 342 404 328 462Z"/>
+      <path d="M226 296 C196 286 168 288 140 276 L144 262 C172 272 200 270 236 282Z"/>
+      <path d="M286 296 C316 286 344 288 372 276 L368 262 C340 272 312 270 276 282Z"/>
+      <path d="M140 276 L124 270 L130 258 L146 264Z M372 276 L388 270 L382 258 L366 264Z"/>
+    </g>
+    <g stroke="#4A2366" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8">
+      <path d="M232 320 C226 360 228 400 236 440"/>
+      <path d="M280 320 C286 360 284 400 276 440"/>
+      <path d="M256 340 L256 420"/>
+    </g>
+    <!-- foreground ground -->
+    <path d="M0 448 Q130 426 256 444 T512 440 L512 512 L0 512Z" fill="#2B1240"/>
+    <g stroke="#2B1240" stroke-width="5" stroke-linecap="round" fill="none">
+      <path d="M80 446 l-8 -22 M88 446 l2 -26 M96 446 l10 -20"/>
+      <path d="M420 444 l-8 -22 M428 444 l2 -26 M436 444 l10 -20"/>
+    </g>
+    <!-- brain canopy: two hemispheres -->
+    <g stroke="#1F5E33" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M252 96 C214 80 164 92 150 128 C112 134 96 176 116 204 C98 230 118 266 152 266 C168 290 214 292 252 272Z" fill="url(#bvi-brain)"/>
+      <path d="M260 96 C298 80 348 92 362 128 C400 134 416 176 396 204 C414 230 394 266 360 266 C344 290 298 292 260 272Z" fill="url(#bvi-brain)"/>
+    </g>
+    <!-- brain folds -->
+    <g stroke="#2E8A48" stroke-width="6" fill="none" stroke-linecap="round">
+      <path d="M156 152 C180 140 196 158 216 146"/>
+      <path d="M132 204 C158 196 166 222 196 212 C214 206 222 220 238 214"/>
+      <path d="M170 248 C190 236 206 252 226 240"/>
+      <path d="M206 118 C214 132 232 128 238 142"/>
+      <path d="M356 152 C332 140 316 158 296 146"/>
+      <path d="M380 204 C354 196 346 222 316 212 C298 206 290 220 274 214"/>
+      <path d="M342 248 C322 236 306 252 286 240"/>
+      <path d="M306 118 C298 132 280 128 274 142"/>
+    </g>
+    <!-- shine -->
+    <path d="M170 120 C186 106 208 102 226 106" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".6"/>
+    <!-- knowledge sparkle -->
+    <path d="M404 166 L414 196 L444 206 L414 216 L404 246 L394 216 L364 206 L394 196Z" fill="#FFF6C2"/>
+    <path d="M404 182 L409 201 L428 206 L409 211 L404 230 L399 211 L380 206 L399 201Z" fill="#FFD35A"/>
+    <path d="M110 84 L115 98 L129 103 L115 108 L110 122 L105 108 L91 103 L105 98Z" fill="#FFF6C2" opacity=".9"/>
+  </g>
+</svg>
