@@ -705,6 +705,12 @@ main > *{min-width:0}
 #scene{overflow:hidden; max-width:100vw}
 html, body{overflow-x:clip}
 @media (max-width:560px){ .stats{flex-wrap:wrap; row-gap:6px; justify-content:flex-start} }
+.viz .fill-viz{fill:var(--surface-2)} .viz .fill-sun{fill:var(--sun)}
+.pvc.comma{background:none; align-content:end} .pvc.comma b{font-size:2rem}
+.colm .note1{color:var(--c-sci); font-weight:700} .colm .note2{color:var(--c-eng); font-weight:700}
+.colm.ld .top{border-top:3px solid var(--ink)} .colm.ld .ul{text-decoration:underline; text-underline-offset:5px}
+.legend{list-style:none; margin:0; padding:0; display:grid; gap:4px; font-size:.9rem}
+.legend i{display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-1px}
 
 .logo-icon{width:40px; height:40px; border-radius:11px; display:block; box-shadow:0 4px 10px -4px rgba(0,0,0,.45)}
 .pick-icon{width:96px; height:96px; border-radius:24px; margin:0 auto; box-shadow:0 12px 24px -10px rgba(0,0,0,.45)}
@@ -4903,11 +4909,11 @@ const BVZ = (() => {
     let g = ln(x0, 50, x1, 50);
     const n = Math.round((b - a) / st);
     for (let k = 0; k <= n; k++) { const v = a + k * st, end = k === 0 || k === n; g += ln(X(v), end ? 40 : 44, X(v), end ? 60 : 56); }
-    g += tx(X(a), 32, sp(a), 'tb') + tx(X(b), 32, sp(b), 'tb');
-    if (o.mid !== false) { const m = (a + b) / 2; g += ln(X(m), 36, X(m), 64, 'st-dash') + tx(X(m), 16, 'halfway ' + sp(m), 'tm', 'middle', 11); }
+    g += tx(X(a), 32, nf(a), 'tb') + tx(X(b), 32, nf(b), 'tb');
+    if (o.mid !== false) { const m = (a + b) / 2; g += ln(X(m), 36, X(m), 64, 'st-dash') + tx(X(m), 16, 'halfway ' + nf(m), 'tm', 'middle', 11); }
     if (o.p != null) { const p = o.p, near = (p - a) >= (b - p) ? b : a;
       g += '<path d="M' + r1(X(p)) + ' 60 Q' + r1((X(p) + X(near)) / 2) + ' 100 ' + r1(X(near)) + ' 64" class="st-brand" fill="none" marker-end="url(#bvh)"/>';
-      g += '<circle cx="' + r1(X(p)) + '" cy="50" r="7" class="fill-brand"/>' + tx(X(p), 32, sp(p), 'th'); }
+      g += '<circle cx="' + r1(X(p)) + '" cy="50" r="7" class="fill-brand"/>' + tx(X(p), 32, nf(p), 'th'); }
     return svg(W, 104, g, 'number line'); };
 
   /* comparing two numbers digit by digit */
@@ -4942,7 +4948,7 @@ const BVZ = (() => {
     return svg(o.c * s + 20, o.r * s + 10, g, o.r + ' rows of ' + o.c); };
 
   /* equal groups for division and fractions of a number */
-  V.grp = o => { const n = o.n, gN = o.g, per = Math.floor(n / gN), rem = n - per * gN, cols = Math.max(1, Math.ceil(Math.sqrt(per))), rows = Math.max(1, Math.ceil(per / cols)), s = 16, gw = cols * s + 18, gh = rows * s + 18;
+  V.grp = o => { const n = o.n, gN = o.per ? Math.floor(n / o.per) : o.g, per = o.per || Math.floor(n / gN), rem = n - per * gN, cols = Math.max(1, Math.ceil(Math.sqrt(per))), rows = Math.max(1, Math.ceil(per / cols)), s = 16, gw = cols * s + 18, gh = rows * s + 18;
     let x = 6, g = '';
     for (let i = 0; i < gN; i++) { g += rect(x, 6, gw, gh, (o.hl && i < o.hl) ? 'fill-soft st-brand' : 'fill-s2 st-line', 12);
       for (let k = 0; k < per; k++) g += '<circle cx="' + r1(x + 9 + (k % cols) * s + s / 2) + '" cy="' + r1(15 + Math.floor(k / cols) * s + s / 2) + '" r="5.5" style="fill:' + PAL[i % PAL.length] + '"/>';
@@ -4966,7 +4972,7 @@ const BVZ = (() => {
     for (let v = 0; v <= top; v += st) { const y = y0 - v / top * hh; g += ln(x0, y, W - 4, y, 'st-line') + tx(x0 - 6, y + 4, v, 'tm', 'end', 11); }
     d.forEach(([lab, v], i) => { const h = v / top * hh, x = x0 + i * bw + bw * 0.18, top1 = o.mode && v === mx;
       g += '<rect x="' + r1(x) + '" y="' + r1(y0 - h) + '" width="' + r1(bw * 0.64) + '" height="' + r1(h) + '" rx="4" style="fill:' + (o.mode ? (top1 ? 'var(--brand)' : 'var(--c-ss)') : PAL[i % 5]) + (o.mode && !top1 ? ';opacity:.55' : '') + '"/>' +
-        tx(x + bw * 0.32, y0 - h - 6, v, 'tb', 'middle', 12) + tx(x + bw * 0.32, y0 + 17, lab, top1 ? 'th' : '', 'middle', 11); });
+        tx(x + bw * 0.32, y0 - h - 6, nf(v), 'tb', 'middle', 12) + tx(x + bw * 0.32, y0 + 17, lab, top1 ? 'th' : '', 'middle', 11); });
     g += ln(x0, y0, W - 4, y0) + ln(x0, y0, x0, y0 - hh - 6);
     return svg(W, y0 + 26, g, 'bar graph'); };
 
@@ -5150,6 +5156,103 @@ const BVZ = (() => {
   V.village = () => { let g = '<circle cx="130" cy="100" r="42" style="fill:#C8E6C9;stroke:#7A5A3A;stroke-width:3;stroke-dasharray:5 4"/>' + tx(130, 104, '🐄🐄', '', 'middle', 22) + tx(130, 124, 'kraal', 'dk', 'middle', 12);
     for (let k = 0; k < 7; k++) { const p = pt(130, 100, 82, k * 51 + 20); g += tx(p[0], p[1] + 10, '🛖', '', 'middle', 28); }
     return svg(260, 200, g, 'village'); };
+
+  /* ---------- types added for Grade 6 ---------- */
+  /* decimal place value */
+  V.dpv = o => { const [w, d] = String(o.n).split(','), DN = ['Tenths', 'Hundredths', 'Thousandths'], hi = [].concat(o.hi == null ? [] : o.hi);
+    const cells = w.split('').map((x, i) => { const p = w.length - 1 - i; return [PLACES[p], x, x === '0' ? '0' : sp(x + '0'.repeat(p))]; }).concat([[' ', ',', ' ']]).concat((d || '').split('').map((x, i) => [DN[i], x, x === '0' ? '0' : '0,' + '0'.repeat(i) + x]));
+    return '<div class="pv" style="--n:' + cells.length + '">' + cells.map((c, i) => c[1] === ',' ? '<div class="pvc comma"><b>,</b></div>' : '<div class="pvc' + (hi.includes(i) ? ' on' : '') + '"><span class="pvn">' + c[0] + '</span><b>' + c[1] + '</b><span class="pvv">' + c[2] + '</span></div>').join('') + '</div>'; };
+
+  /* hundred square for percentages */
+  V.hgrid = o => { const s = 18; let g = ''; for (let k = 0; k < 100; k++) g += rect(2 + (k % 10) * s, 2 + Math.floor(k / 10) * s, s - 2, s - 2, k < o.n ? 'fill-brand' : 'fill-s2 st-line', 2);
+    return svg(10 * s + 4, 10 * s + 4, g, o.n + ' out of 100'); };
+
+  /* kinds of angles */
+  V.angles = o => '<div class="xfrow">' + (o.a || [50, 90, 130, 180, 240]).map(a => { const C = [50, 52], R = 42, r = 14, rad = d => d * Math.PI / 180, end = [C[0] + R * Math.cos(rad(a)), C[1] - R * Math.sin(rad(a))];
+    let g = ln(C[0], C[1], C[0] + R, C[1], 'st-ink3') + ln(C[0], C[1], end[0], end[1], 'st-ink3');
+    if (a === 90) g += '<path d="M' + (C[0] + 12) + ' ' + C[1] + ' L' + (C[0] + 12) + ' ' + (C[1] - 12) + ' L' + C[0] + ' ' + (C[1] - 12) + '" class="st-brand" fill="none"/>';
+    else g += '<path d="M' + (C[0] + r) + ' ' + C[1] + ' A' + r + ' ' + r + ' 0 ' + (a > 180 ? 1 : 0) + ' 0 ' + r1(C[0] + r * Math.cos(rad(a))) + ' ' + r1(C[1] - r * Math.sin(rad(a))) + '" class="st-brand" fill="none"/>';
+    const name = a < 90 ? 'Acute' : a === 90 ? 'Right' : a < 180 ? 'Obtuse' : a === 180 ? 'Straight' : 'Reflex', rule = a < 90 ? 'less than 90°' : a === 90 ? 'exactly 90°' : a < 180 ? '90° to 180°' : a === 180 ? 'exactly 180°' : 'more than 180°';
+    return '<div class="xfp">' + svg(100, 96, g, name + ' angle') + '<b>' + name + '</b><small>' + rule + '</small></div>'; }).join('') + '</div>';
+
+  /* parts of a circle */
+  V.circle = () => { let g = '<circle cx="110" cy="100" r="72" class="fill-soft st-ink2"/>' + ln(38, 100, 182, 100, 'st-bdash') + ln(110, 100, 161, 49, 'st-brand3') + '<circle cx="110" cy="100" r="4" class="fill-ink"/>';
+    g += tx(104, 92, 'centre', 'tb', 'end', 12) + tx(66, 118, 'diameter', 'th', 'middle', 12) + tx(129, 64, 'radius', 'th', 'end', 12) + tx(208, 24, 'circumference', 'tb', 'end', 12) + '<path d="M196 30 Q186 40 172 50" class="st-ink2" fill="none" marker-end="url(#bvh)"/>';
+    return svg(220, 180, g, 'parts of a circle'); };
+
+  /* quadrilaterals */
+  const QUADS = { square: [[15, 15], [75, 15], [75, 75], [15, 75]], rectangle: [[5, 25], [85, 25], [85, 70], [5, 70]], parallelogram: [[22, 22], [88, 22], [68, 72], [2, 72]], rhombus: [[45, 6], [80, 45], [45, 84], [10, 45]], trapezium: [[25, 22], [65, 22], [88, 72], [2, 72]], kite: [[45, 6], [76, 34], [45, 86], [14, 34]] };
+  V.quads = o => '<div class="xfrow">' + (o.s || Object.keys(QUADS)).map((k, i) => '<div class="xfp">' + svg(90, 90, poly(QUADS[k], 'st-ink2', ' style="fill:' + PAL[i % 6] + ';fill-opacity:.55"'), k) + '<b>' + k[0].toUpperCase() + k.slice(1) + '</b></div>').join('') + '</div>';
+
+  /* nets */
+  V.net = o => { const s = 34; let g = '', cells, tri = '';
+    if (o.k === 'prism') { cells = [[1, 1], [2, 1], [3, 1]]; tri = poly([[2 + 2 * s, 2 + s], [2 + 3 * s, 2 + s], [2 + 2.5 * s, 2 + 0.15 * s]], 'fill-brand st-ink2') + poly([[2 + 2 * s, 2 + 2 * s], [2 + 3 * s, 2 + 2 * s], [2 + 2.5 * s, 2 + 2.85 * s]], 'fill-brand st-ink2'); }
+    else cells = [[1, 0], [0, 1], [1, 1], [2, 1], [3, 1], [1, 2]];
+    cells.forEach(([x, y], i) => g += rect(2 + x * s, 2 + y * s, s, s, 'fill-soft st-ink2') + tx(2 + x * s + s / 2, 2 + y * s + s / 2 + 5, i + 1, 'tb', 'middle', 13));
+    return svg(4 * s + 4, 3 * s + 4, g + tri, 'net'); };
+
+  /* electric circuits */
+  V.circuit = o => { const m = o.m || 'simple', BG = 'fill-viz'; let g = rect(30, 30, 200, 100, 'fill-none st-ink3', 0);
+    const bulb = (x, y, on) => '<circle cx="' + x + '" cy="' + y + '" r="13" class="' + (on ? 'fill-sun' : 'fill-s2') + ' st-ink2"/>' + ln(x - 8, y - 8, x + 8, y + 8, 'st-ink2') + ln(x + 8, y - 8, x - 8, y + 8, 'st-ink2');
+    const on = !o.open && !o.broken;
+    g += rect(22, 70, 16, 22, BG, 0) + ln(18, 74, 42, 74, 'st-ink3') + ln(24, 86, 36, 86, 'st-ink5') + tx(10, 84, 'cell', 'tm', 'end', 11);
+    g += rect(110, 122, 44, 16, BG, 0) + '<circle cx="112" cy="130" r="3" class="fill-ink"/><circle cx="152" cy="130" r="3" class="fill-ink"/>' + (o.open ? ln(112, 130, 148, 112, 'st-ink3') : ln(112, 130, 152, 130, 'st-ink3')) + tx(132, 152, o.open ? 'switch open' : 'switch closed', 'tm', 'middle', 11);
+    if (m === 'series') { g += bulb(95, 30, on) + bulb(165, 30, on); if (o.broken) g += tx(165, 12, 'broken', 'th', 'middle', 11); }
+    else if (m === 'parallel') { g += ln(80, 30, 80, 80, 'st-ink3') + ln(80, 80, 180, 80, 'st-ink3') + ln(180, 80, 180, 30, 'st-ink3') + bulb(130, 30, !o.open && !o.broken) + bulb(130, 80, !o.open); if (o.broken) g += tx(130, 12, 'broken', 'th', 'middle', 11); }
+    else g += bulb(130, 30, on);
+    return svg(250, 160, g, m + ' circuit'); };
+
+  /* latitude and longitude on a globe */
+  V.globe = o => { const C = 110, R = 90, m = o.m || 'both'; let g = '<circle cx="110" cy="110" r="90" class="fill-soft st-ink2"/>';
+    if (m !== 'long') [-60, -30, 30, 60].forEach(l => { const y = C - R * Math.sin(l * Math.PI / 180), hw = R * Math.cos(l * Math.PI / 180); g += ln(C - hw, y, C + hw, y, 'st-dash') + (m === 'both' ? '' : tx(C + hw + 4, y + 4, Math.abs(l) + '°' + (l > 0 ? 'N' : 'S'), 'tm', 'start', 10)); });
+    if (m !== 'lat') [30, 60].forEach(l => { const rx = r1(R * Math.sin(l * Math.PI / 180)); g += '<ellipse cx="110" cy="110" rx="' + rx + '" ry="90" class="st-dash" fill="none"/>'; });
+    if (m !== 'long') g += ln(C - R, C, C + R, C, 'st-brand3') + tx(C + R + 4, C + 4, 'Equator 0°', 'th', 'start', 11);
+    if (m !== 'lat') g += ln(C, C - R, C, C + R, 'st-brand3') + tx(C, 12, 'Prime Meridian 0°', 'th', 'middle', 11);
+    if (o.p) { const [la, lo] = o.p, x = C + R * Math.cos(la * Math.PI / 180) * Math.sin(lo * Math.PI / 180), y = C - R * Math.sin(la * Math.PI / 180); g += '<circle cx="' + r1(x) + '" cy="' + r1(y) + '" r="6" class="fill-bad"/>' + tx(x + 9, y + 4, o.pl || '', 'tb', 'start', 11); }
+    return svg(290, 222, g, 'globe'); };
+
+  /* particles in solids, liquids and gases */
+  V.particles = () => { const box = (pts, t, d) => '<div class="xfp"><b>' + t + '</b>' + svg(100, 90, rect(2, 2, 96, 86, 'fill-none st-ink2', 6) + pts.map(p => '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="7" style="fill:var(--c-sci)"/>').join(''), t) + '<small>' + d + '</small></div>';
+    const solid = []; for (let j = 0; j < 4; j++) for (let i = 0; i < 5; i++) solid.push([20 + i * 15, 38 + j * 15]);
+    const liquid = [[16, 70], [31, 72], [46, 69], [61, 73], [76, 70], [88, 60], [22, 56], [38, 57], [54, 55], [70, 57], [14, 42], [30, 43], [62, 42], [80, 45]];
+    const gas = [[18, 18], [70, 14], [44, 40], [84, 52], [20, 72], [58, 76]];
+    return '<div class="xfrow">' + box(solid, 'Solid', 'packed tight, vibrate') + box(liquid, 'Liquid', 'close, slide past') + box(gas, 'Gas', 'far apart, move fast') + '</div>'; };
+
+  /* perspective */
+  V.persp = () => { let g = rect(0, 0, 300, 70, 'fill-soft', 0) + ln(0, 70, 300, 70, 'st-ink2') + poly([[150, 70], [40, 170], [260, 170]], 'fill-s2') + ln(150, 70, 40, 170, 'st-ink2') + ln(150, 70, 260, 170, 'st-ink2') + '<circle cx="150" cy="70" r="5" class="fill-bad"/>' + tx(150, 60, 'vanishing point', 'th', 'middle', 11) + tx(296, 64, 'horizon', 'tm', 'end', 11);
+    [[20, 150, 40], [62, 112, 22], [92, 90, 12], [112, 79, 6]].forEach(([x, y, h]) => g += poly([[x, y - h], [x - h / 3, y], [x + h / 3, y]], '', ' style="fill:var(--c-sci)"') + poly([[300 - x, y - h], [300 - x - h / 3, y], [300 - x + h / 3, y]], '', ' style="fill:var(--c-sci)"'));
+    return svg(300, 170, g, 'perspective'); };
+
+  /* enlargement */
+  V.enlarge = o => { const s = 18, f = o.f || 2, a = [[0, 2], [2, 2], [0, 0]]; let g = '';
+    for (let i = 0; i <= 12; i++) g += ln(2 + i * s, 2, 2 + i * s, 2 + 7 * s, 'st-line'); for (let j = 0; j <= 7; j++) g += ln(2, 2 + j * s, 2 + 12 * s, 2 + j * s, 'st-line');
+    const tri = (ox, oy, k, c) => poly(a.map(([x, y]) => [2 + (ox + x * k) * s, 2 + (oy + (2 - y) * k) * s]).map(([x, y]) => [x, y]), c);
+    g += tri(1, 3, 1, 'fill-soft st-brand') + tri(5, 1, f, 'fill-brand-o st-brand') + tx(2 + 2 * s, 2 + 6.6 * s, '2 by 2', 'tb', 'middle', 11) + tx(2 + 7.5 * s, 2 + 6.6 * s, (2 * f) + ' by ' + (2 * f), 'tb', 'middle', 11);
+    return svg(12 * s + 4, 7 * s + 6, g, 'enlargement'); };
+
+  /* pie chart */
+  V.pie = o => { const tot = o.d.reduce((s, x) => s + x[1], 0); let a0 = 0, g = '';
+    o.d.forEach(([lab, v], i) => { const a1 = a0 + v / tot * 360, p0 = pt(80, 80, 72, a0), p1 = pt(80, 80, 72, a1); g += '<path d="M80 80 L' + r1(p0[0]) + ' ' + r1(p0[1]) + ' A72 72 0 ' + (a1 - a0 > 180 ? 1 : 0) + ' 1 ' + r1(p1[0]) + ' ' + r1(p1[1]) + 'Z" style="fill:' + PAL[i % 6] + ';stroke:var(--surface);stroke-width:2"/>'; a0 = a1; });
+    return '<div class="xfrow" style="align-items:center">' + svg(160, 160, g, 'pie chart') + '<ul class="legend">' + o.d.map(([lab, v], i) => '<li><i style="background:' + PAL[i % 6] + '"></i>' + f(lab) + ' <b>' + Math.round(v / tot * 100) + '%</b></li>').join('') + '</ul></div>'; };
+
+  /* long multiplication */
+  V.lmul = o => { const a = o.a, b = o.b, bd = String(b).split('').reverse().map(Number), parts = bd.map((d, i) => a * d * Math.pow(10, i)), r = a * b, W = String(r).length + 1;
+    const row = (s, k, sign) => { const cs = String(s).padStart(W, ' ').split(''); if (sign) cs[W - String(s).length - 1] = sign; return cs.map(x => '<span' + (k ? ' class="' + k + '"' : '') + '>' + (x === ' ' ? '' : x) + '</span>').join(''); };
+    return '<div class="colm" style="--n:' + W + '">' + row(a) + row(b, '', '×') + '<i class="rule"></i>' + parts.map((p, i) => row(p, i ? 'note2' : 'note1', i === parts.length - 1 && parts.length > 1 ? '+' : '')).join('') + '<i class="rule"></i>' + row(r, 'res') + '</div>'; };
+
+  /* long division */
+  V.ldiv = o => { const D = String(o.n).split('').map(Number), dv = o.d, L = D.length, q = Array(L).fill(''), steps = []; let cur = 0, started = false;
+    D.forEach((d, i) => { cur = cur * 10 + d; const qd = Math.floor(cur / dv); if (qd > 0 || started) { started = true; q[i] = qd; steps.push({ i, cur, sub: qd * dv, rem: cur - qd * dv }); cur = cur - qd * dv; } });
+    const lead = String(dv).length + 1, W = lead + L, line = (num, end, cls, sign) => { const cs = Array(W).fill(''); const s = String(num); for (let k = 0; k < s.length; k++) cs[lead + end - s.length + 1 + k] = s[k]; if (sign) cs[lead + end - s.length] = sign; return cs.map((x, k) => '<span class="' + (cls && k >= lead + end - s.length + 1 && k <= lead + end ? cls : '') + '">' + x + '</span>').join(''); };
+    let h = '<div class="colm ld" style="--n:' + W + '">' + Array.from({ length: W }, (_, k) => '<span class="res">' + (k >= lead ? q[k - lead] : '') + '</span>').join('');
+    h += Array.from({ length: W }, (_, k) => k < lead - 1 ? '<span>' + String(dv)[k] + '</span>' : k === lead - 1 ? '<span class="op">)</span>' : '<span class="top">' + D[k - lead] + '</span>').join('');
+    steps.forEach((s, n) => { if (n > 0) h += line(s.cur, s.i, '', ''); h += line(s.sub, s.i, 'ul', '−'); });
+    const last = steps[steps.length - 1]; h += line(last.rem, last.i, 'note', '') + '</div>';
+    return h; };
+
+  /* music notes */
+  V.notes = () => { const mk = (fill, stem, flag) => '<ellipse cx="34" cy="62" rx="11" ry="8" transform="rotate(-20 34 62)" class="' + (fill ? 'fill-ink' : 'fill-none') + ' st-ink3"/>' + (stem ? ln(44, 59, 44, 16, 'st-ink3') : '') + (flag ? '<path d="M44 16 Q58 26 56 42" class="st-ink3" fill="none"/>' : '');
+    return '<div class="xfrow">' + [['Semibreve', '4 beats', mk(0, 0, 0)], ['Minim', '2 beats', mk(0, 1, 0)], ['Crotchet', '1 beat', mk(1, 1, 0)], ['Quaver', '½ beat', mk(1, 1, 1)]].map(([n, b, s]) => '<div class="xfp">' + svg(70, 80, s, n) + '<b>' + n + '</b><small>' + b + '</small></div>').join('') + '</div>'; };
 
   const render = o => { try { return (V[o.t] ? V[o.t](o) : '') + (o.cap ? '<figcaption>' + f(o.cap) + '</figcaption>' : ''); } catch (err) { return ''; } };
   return { render: spec => [].concat(spec).filter(Boolean).map(render).join('') };
@@ -5359,6 +5462,512 @@ l5h:[{t:'cols', d:[['Beat 💓',['Steady, like a heartbeat','tap, tap, tap, tap'
 l5i:[null,
      {t:'flow', d:['🔥 Warm up','⚽ Exercise','🧘 Cool down']},
      null]
+});
+Object.keys(VIS).forEach(k => { if (typeof DEEP !== 'undefined' && DEEP[k]) DEEP[k].v = VIS[k]; });
+
+;
+/* Grade 6 full beginner lessons: Mathematics and English */
+Object.assign(DEEP, {
+/* ===== Grade 6 Mathematics ===== */
+m6a:{ k:'factors multiples prime numbers', why:'Numbers can be broken into smaller building blocks, a bit like Lego. **Factors**, **multiples** and **prime numbers** describe how numbers fit together. They make fractions, sharing and times tables much easier.',
+ more:['Big numbers are read in groups of three digits, starting from the right: units, thousands, millions. We leave a small **space** between the groups so they are easy to read: 4 250 000 is four million, two hundred and fifty thousand. Each place is still worth 10 times the place to its right.',
+       'A **factor** is a number that divides into another number exactly, with nothing left over. The factors of 12 are 1, 2, 3, 4, 6 and 12, because they all go into 12. A **multiple** is what you get when you multiply a number by 1, 2, 3 and so on: the multiples of 4 are 4, 8, 12, 16... Factors are few; multiples go on forever.',
+       'A **prime number** has exactly **two** factors: 1 and itself. 2, 3, 5, 7, 11 and 13 are prime. A number with more than two factors, like 6 (1, 2, 3, 6), is **composite**. The number 1 is neither, because it has only one factor. 2 is the only even prime.'],
+ words:[['Factor','A number that divides exactly into another number.'],['Multiple','The answer when you multiply a number by a whole number.'],['Prime number','A number with exactly two factors: 1 and itself.'],['Composite number','A number with more than two factors.']] },
+m6b:{ k:'simplifying fractions adding fractions different denominators mixed numbers', why:'In Grade 6 you do more with fractions: make them simpler, add ones with different bottom numbers, and work with **mixed numbers** like 2½. These skills are used in recipes, measuring and sharing.',
+ more:['To **simplify** a fraction, divide the top and bottom by the **same** number until you cannot go any further. 6/8: both can be divided by 2, giving 3/4. The fraction looks smaller but shows exactly the same amount. Using the biggest number that divides both (the highest common factor) gets you there in one step.',
+       'You can only add or subtract fractions when the pieces are the **same size**, so the denominators must match. If they do not, change one or both into equivalent fractions with the same denominator. 1/2 + 1/4: change 1/2 into 2/4, then 2/4 + 1/4 = 3/4. Add the tops, but keep the bottom the same.',
+       'A **mixed number** has a whole number and a fraction, like 2¾. An **improper fraction** has a top bigger than its bottom, like 11/4. To change 2¾ into quarters: 2 wholes = 8 quarters, plus 3 quarters = 11/4. To go back, divide: 11 ÷ 4 = 2 remainder 3, so 2¾.'],
+ words:[['Simplify','Write a fraction using the smallest possible numbers.'],['Common denominator','The same bottom number for two fractions.'],['Mixed number','A whole number and a fraction together, like 2¾.'],['Improper fraction','A fraction whose top is bigger than its bottom.']] },
+m6c:{ k:'decimals and percentages for kids', why:'**Decimals** and **percentages** are other ways of writing parts of a whole. You see them on price tags (R12,50), in sports results and on sale signs (20% off). They all link back to fractions.',
+ more:['In South Africa we write decimals with a **comma**: 3,5. The comma separates whole numbers (left) from parts (right). The first place after the comma is **tenths**, the next is **hundredths**. So 3,25 means 3 wholes, 2 tenths and 5 hundredths. R12,50 is 12 rand and 50 cents.',
+       'To compare decimals, first compare the whole numbers. If they are the same, compare the tenths, then the hundredths. It helps to give them the same number of digits by adding zeros: 0,5 and 0,45 become 0,50 and 0,45. Now it is clear that 0,50 is bigger. A longer decimal is **not** always bigger.',
+       '**Per cent** means "out of 100" and is written %. 25% means 25 out of 100, which is 25/100 = 1/4 = 0,25. Some to remember: 50% = half, 25% = a quarter, 10% = one tenth, 100% = the whole thing. To find 10% of an amount, divide it by 10.'],
+ words:[['Decimal comma','The comma that separates wholes from parts, like 3,5.'],['Tenths','The first place after the decimal comma.'],['Hundredths','The second place after the decimal comma.'],['Percentage','A number out of 100, written with %.']] },
+m6d:{ k:'types of angles acute obtuse right perimeter area', why:'**Angles** describe how much something turns or how wide a corner opens. **Perimeter** and **area** measure the outside and inside of shapes. Builders, designers and sports coaches use them all the time.',
+ more:['An angle is formed where two lines meet, and it is measured in **degrees** (°). A **right angle** is exactly 90°, like the corner of a page (shown with a small square). An **acute** angle is smaller than 90°. An **obtuse** angle is between 90° and 180°. A **straight** angle is 180°, and a **reflex** angle is more than 180°.',
+       '**Perimeter** is the total distance around the outside of a shape. Add the lengths of all the sides. For a rectangle you can use a shortcut: (length + breadth) × 2. Perimeter is measured in units of length, such as cm or m.',
+       '**Area** is the space inside a flat shape, measured in **square** units like cm². For a rectangle: area = length × breadth. **Volume** is the space inside a 3D object, measured in **cubic** units like cm³. For a rectangular box: volume = length × breadth × height.'],
+ words:[['Degree (°)','The unit used to measure angles.'],['Right angle','An angle of exactly 90°.'],['Acute and obtuse','Smaller than 90°, and between 90° and 180°.'],['Area and volume','Space inside a flat shape (cm²) and inside a solid (cm³).']] },
+m6e:{ k:'mode median data handling graphs', why:'Data handling helps us make sense of information, like test marks or the number of cars passing the school. In Grade 6 you also learn to find the **middle** and **most common** values to describe data in one number.',
+ more:['First decide what question you want to answer. Then collect data, for example with a **questionnaire** (a list of questions) or by counting and keeping a tally. Write the data neatly in a table so you can sort it and work with it.',
+       'The **mode** is the value that appears **most often**. The **median** is the **middle** value once all the values are written in order from smallest to biggest. If there is an even number of values, the median is halfway between the two middle ones. Always put the numbers in order first.',
+       'Different graphs suit different data. A **bar graph** compares groups. A **pictograph** uses small pictures, where each picture stands for a number of things (check the key). A **pie chart** shows how a whole is split into parts. Every graph needs a title and labels.'],
+ words:[['Mode','The value that appears most often.'],['Median','The middle value when data is in order.'],['Questionnaire','A list of questions used to collect data.'],['Pie chart','A circle graph that shows parts of a whole.']] },
+m6f:{ k:'adding subtracting large numbers estimating inverse operations', why:'In Grade 6 you add and subtract numbers in the hundreds of thousands. The column method still works. **Estimating** and **checking** help you catch mistakes before they cost you.',
+ more:['Line up the digits by place value, starting from the units on the right. Work from right to left, carrying when a column adds to 10 or more, and borrowing when the top digit is too small. It works the same way no matter how many columns there are.',
+       'Before working it out exactly, **estimate**: round each number and do a quick sum in your head. 49 812 + 30 104 is about 50 000 + 30 000 = 80 000. If your exact answer is very far from your estimate, you probably made a mistake.',
+       'Adding and subtracting are **inverse** (opposite) operations: one undoes the other. To check a subtraction, add your answer to the number you took away; you should get the number you started with. To check an addition, subtract one of the numbers from the answer.'],
+ words:[['Estimate','A quick, rounded answer to check your work.'],['Inverse operation','An operation that undoes another one.'],['Place value','The value of a digit based on its position.'],['Check','Use the inverse to see if your answer is right.']] },
+m6g:{ k:'long multiplication long division for kids', why:'**Long multiplication** and **long division** are step-by-step methods for big numbers that are too hard to work out in your head. Once you know the steps, you can tackle any size of number.',
+ more:['To multiply by a 2-digit number, like 34 × 26, split the 26 into 20 and 6. Work out 34 × 6 = 204, then 34 × 20 = 680, and add them: 204 + 680 = 884. When you multiply by the tens digit, you are really multiplying by tens, so the answer ends in a 0.',
+       'Long division follows a repeating pattern: **divide**, **multiply**, **subtract**, **bring down**. For 672 ÷ 4: how many 4s in 6? One, remainder 2. Bring down the 7 to make 27. How many 4s in 27? Six, remainder 3. Bring down 2 to make 32. 32 ÷ 4 = 8. Answer: 168.',
+       'When something does not divide exactly, think about what the **remainder** means in real life. 50 learners in taxis that seat 15: 50 ÷ 15 = 3 remainder 5. Those 5 learners still need a ride, so you need **4** taxis. Sometimes you round up, sometimes you ignore the remainder.'],
+ words:[['Long multiplication','A written method for multiplying bigger numbers.'],['Long division','A written method for dividing bigger numbers.'],['Divisor','The number you are dividing by.'],['Remainder','What is left over after dividing.']] },
+m6h:{ k:'number patterns rules flow diagrams', why:'A **pattern** is a sequence that follows a rule. If you can find the rule, you can predict what comes next, even far down the line. Patterns lead into algebra in later grades.',
+ more:['Each number in a pattern is called a **term**. To find the rule, look at how you get from one term to the next: is it adding, subtracting, multiplying? 5, 10, 15, 20 adds 5 each time. 2, 4, 8, 16 multiplies by 2 each time. Check your rule on every term, not just the first two.',
+       'A **geometric pattern** is made from shapes or matchsticks that grow. Draw or count each stage: 1 square needs 4 matches, 2 squares in a row need 7, 3 squares need 10. Each new square adds 3 matches. Turning the shape counts into a number pattern helps you find the rule.',
+       'A **flow diagram** shows a rule as a machine: an input goes in, the rule acts on it, and an output comes out. "× 3 then + 1": input 4 gives 4 × 3 + 1 = 13. A **table** lists inputs and outputs side by side so you can spot the rule and fill in gaps.'],
+ words:[['Term','One number or picture in a pattern.'],['Rule','What you do to get from one term to the next.'],['Input and output','What goes into a rule, and what comes out.'],['Flow diagram','A diagram that shows a rule step by step.']] },
+m6i:{ k:'polygons quadrilaterals parts of a circle', why:'Shapes have names and properties that help us describe them exactly. In Grade 6 you sort **polygons** by their sides and angles, and learn the parts of a **circle**.',
+ more:['A **polygon** is a closed, flat shape with only straight sides. It is named by its number of sides: triangle (3), quadrilateral (4), pentagon (5), hexagon (6), heptagon (7), octagon (8). A **regular** polygon has all sides and all angles equal.',
+       'A **quadrilateral** has 4 sides. A **square** has 4 equal sides and 4 right angles. A **rectangle** has opposite sides equal and 4 right angles. A **parallelogram** has opposite sides equal and parallel. A **rhombus** has 4 equal sides. A **trapezium** has exactly one pair of parallel sides. A **kite** has two pairs of equal sides next to each other.',
+       'A **circle** is a curved shape where every point on the edge is the same distance from the centre. The **radius** goes from the centre to the edge. The **diameter** goes right across through the centre, so it is twice the radius. The distance around the edge is the **circumference**.'],
+ words:[['Polygon','A closed flat shape with straight sides.'],['Parallel','Lines that stay the same distance apart and never meet.'],['Radius','The distance from the centre of a circle to its edge.'],['Diameter','The distance across a circle through the centre (2 × radius).']] },
+m6j:{ k:'3d shapes nets prisms pyramids', why:'Boxes, tents, tins and dice are 3D objects. Knowing their parts and how they unfold flat (their **nets**) helps with packaging, building and designing.',
+ more:['A **prism** has two identical ends (bases) joined by rectangles. It is named after its base: a triangular prism has triangle ends, a rectangular prism (like a box) has rectangle ends. A **pyramid** has one base and triangular sides that meet at a point called the apex.',
+       'Every 3D object with flat faces has **faces** (flat surfaces), **edges** (where two faces meet) and **vertices** (corners). A cube has 6 faces, 12 edges and 8 vertices. A square-based pyramid has 5 faces, 8 edges and 5 vertices. Count carefully, including the ones at the back.',
+       'A **net** is a flat shape that folds up to make a 3D object, like a cereal box opened out. A cube’s net is made of 6 squares joined edge to edge. Not every arrangement of 6 squares works: imagine folding it to check that no faces overlap and none are missing.'],
+ words:[['Prism','A 3D object with two identical ends joined by rectangles.'],['Pyramid','A 3D object with one base and triangles meeting at a point.'],['Apex','The point at the top of a pyramid or cone.'],['Net','A flat shape that folds into a 3D object.']] },
+m6k:{ k:'enlargement reduction similar shapes transformations', why:'Shapes can be moved, flipped, turned, or made bigger and smaller. Photocopiers, maps and phone zoom all use **enlargement** and **reduction**.',
+ more:['The three basic moves are **translation** (slide), **reflection** (flip) and **rotation** (turn). In all three the shape keeps exactly the same size and shape; only its position or direction changes.',
+       'An **enlargement** makes a shape bigger by multiplying every length by the same number, called the **scale factor**. A scale factor of 2 doubles every side. A **reduction** makes it smaller, for example halving every side. The angles stay exactly the same.',
+       '**Similar** shapes have the same shape but a different size: all the angles match, and all the sides have been multiplied by the same number. A photo and its enlargement are similar. If the sides grew by different amounts, the picture would look stretched, so it is not similar.'],
+ words:[['Enlargement','Making a shape bigger by the same amount on every side.'],['Reduction','Making a shape smaller by the same amount on every side.'],['Scale factor','The number each length is multiplied by.'],['Similar','Same shape and angles, different size.']] },
+m6l:{ k:'grid references directions map scale', why:'Maps help us find places and plan routes. To use them well you need **grid references**, **directions** and **scale**, the same skills used in GPS and phone maps.',
+ more:['A grid divides a map into squares. Columns have letters and rows have numbers, so a **grid reference** like D5 names one square: go across to column D, then to row 5. Always give the letter (across) first, then the number.',
+       'Directions can use compass points (north, south, east, west and the ones between, like north-east) or left and right turns. A **route** is a list of steps: "Walk 3 blocks north, turn right, walk 2 blocks east". Remember that left and right depend on which way you are facing; compass directions do not.',
+       'A map is much smaller than real life. The **scale** tells you by how much. If 1 cm on the map = 5 km, then a 4 cm distance on the map is 4 × 5 = 20 km in real life. Measure with a ruler, then multiply by the scale.'],
+ words:[['Grid reference','A letter and number naming one square on a map.'],['Route','The path you take to get somewhere.'],['Compass direction','North, south, east, west and the points between.'],['Scale','How map distance compares to real distance.']] },
+m6m:{ k:'time conversions 24 hour time intervals', why:'Time tells us when things happen and how long they take. You need it to read timetables, plan homework and catch the bus. Time is tricky because it does **not** count in tens.',
+ more:['Time units: 60 seconds = 1 minute, 60 minutes = 1 hour, 24 hours = 1 day, 7 days = 1 week, about 4 weeks = 1 month, 12 months = 1 year, 365 days = 1 year (366 in a leap year). A decade is 10 years and a century is 100 years.',
+       '**12-hour time** uses a.m. (midnight to noon) and p.m. (noon to midnight). **24-hour time** counts 00:00 to 23:59, so no a.m. or p.m. is needed. For p.m. times after 1 o’clock, add 12 to the hour: 4:15 p.m. = 16:15. Midnight is 00:00.',
+       'A **time interval** is how long something lasts. Count on in jumps: from 08:45 to 11:20, jump to 09:00 (15 min), then to 11:00 (2 h), then to 11:20 (20 min). Total: 2 h 35 min. Remember that 60 minutes make an hour, so 1:50 + 20 minutes is 2:10, not 1:70.'],
+ words:[['Time interval','How much time passes between two times.'],['a.m. and p.m.','Before noon and after noon.'],['24-hour time','Time counted from 00:00 to 23:59.'],['Leap year','A year with 366 days.']] },
+m6n:{ k:'converting units of measurement metric', why:'The same length, mass or amount can be written in different units: 1,5 m is the same as 150 cm. **Converting** lets you compare and add measurements that use different units.',
+ more:['Learn these facts. Length: 10 mm = 1 cm, 100 cm = 1 m, 1 000 m = 1 km. Mass: 1 000 g = 1 kg, 1 000 kg = 1 tonne (t). Capacity: 1 000 ml = 1 l. Notice that "kilo" always means 1 000, and "milli" means one thousandth.',
+       'Going from a **bigger** unit to a **smaller** unit, you need **more** of the small units, so you **multiply**. 4 kg = 4 × 1 000 = 4 000 g. 2,5 m = 2,5 × 100 = 250 cm. Multiplying by 10, 100 or 1 000 moves the digits that many places to the left.',
+       'Going from a **smaller** unit to a **bigger** unit, you need **fewer** of the big units, so you **divide**. 3 500 ml = 3 500 ÷ 1 000 = 3,5 l. 75 mm = 75 ÷ 10 = 7,5 cm. Always check that the answer makes sense: there should be fewer kilometres than metres.'],
+ words:[['Convert','Change from one unit to another.'],['Kilo-','Means 1 000, as in kilometre.'],['Milli-','Means one thousandth, as in millilitre.'],['Tonne','1 000 kg.']] },
+m6p:{ k:'probability outcomes experiments for kids', why:'**Probability** measures how likely something is. It helps us understand games, weather forecasts and fair choices. In Grade 6 you list outcomes and test chance with experiments.',
+ more:['An **outcome** is a possible result. Before an experiment, list every outcome. A coin has 2 (heads, tails). A dice has 6. A spinner with 4 equal colours has 4. If all outcomes are equally likely, each one has the same chance.',
+       'In an **experiment** you repeat something many times and record the results in a tally table. The number of times each outcome happens is its **frequency**. With more tries, the results usually get closer to what you would expect. A few tries can give surprising results.',
+       'You can compare chances. On a spinner that is half red and a quarter blue, red is **more likely** than blue. A bag with 3 red and 1 blue ball: red has 3 chances out of 4, blue has 1 out of 4. The bigger the share, the more likely it is.'],
+ words:[['Outcome','One possible result of an event.'],['Frequency','How many times an outcome happened.'],['Equally likely','Having the same chance.'],['Experiment','A test repeated to see what happens.']] },
+/* ===== Grade 6 English ===== */
+e6a:{ k:'figures of speech simile metaphor personification', why:'**Figures of speech** are ways of using words creatively, not literally, to paint pictures in the reader’s mind. They make writing and poems exciting and memorable.',
+ more:['A **simile** compares two different things using **like** or **as**: "Her smile was as bright as the sun." A **metaphor** compares by saying one thing **is** another: "Her smile was sunshine." Neither is literally true; they help us imagine.',
+       '**Personification** gives human qualities to something that is not human: "The wind whispered through the trees." Wind cannot really whisper, but the image helps us hear it softly. Look for objects or animals doing human actions or having human feelings.',
+       '**Sound devices** play with the sound of words. **Alliteration** repeats the first sound in nearby words: "Busy bees buzz". **Onomatopoeia** uses words that sound like their meaning: crash, sizzle, hiss. **Rhyme** repeats end sounds. They make writing fun to read aloud.'],
+ words:[['Simile','A comparison using like or as.'],['Metaphor','A comparison saying one thing is another.'],['Personification','Giving human qualities to non-human things.'],['Alliteration','Repeating the first sound in nearby words.']] },
+e6b:{ k:'direct and reported speech for kids', why:'When we write what someone said, we can quote their **exact words** (direct speech) or **report** what they said in our own sentence (reported speech). Stories, news and messages use both.',
+ more:['**Direct speech** gives the speaker’s exact words inside inverted commas (quotation marks): Lindiwe said, "I am hungry." The punctuation at the end of the spoken words goes **inside** the closing inverted commas. Start a new line each time a new person speaks.',
+       '**Reported speech** (indirect speech) tells what someone said without their exact words, so there are **no** inverted commas. Often we add "that": Lindiwe said that she was hungry. Notice "I" changed to "she" because we are no longer speaking as Lindiwe.',
+       'Several words change when going from direct to reported speech. Pronouns shift (I → he or she, we → they). The tense moves one step back (am → was, will → would, is → was). Time and place words change too: today → that day, tomorrow → the next day, here → there.'],
+ words:[['Direct speech','The exact words someone said, in inverted commas.'],['Reported speech','Retelling what someone said, without inverted commas.'],['Inverted commas','The marks " " around spoken words.'],['Backshift','Moving the tense one step back in reported speech.']] },
+e6c:{ k:'simple compound complex sentences for kids', why:'Sentences can be short and simple or longer with joined ideas. Using a **mix** of sentence types makes your writing interesting and clear. Knowing the types also helps with grammar tasks.',
+ more:['A **simple sentence** has one main idea: one subject (who or what) and one verb (the action). "The dog barked." It can still have extra describing words: "The big brown dog barked loudly." It is still one idea.',
+       'A **compound sentence** joins two simple sentences that are equally important, using a joining word like **and**, **but**, **or** or **so**, usually with a comma before it. "The dog barked, and the cat ran away." Each half could stand on its own as a sentence.',
+       'A **complex sentence** has a main idea and a less important part that cannot stand alone. The extra part begins with a word like **because**, **when**, **although**, **if** or **while**. "When the dog barked, the cat ran away." "When the dog barked" is not a full sentence by itself.'],
+ words:[['Subject','Who or what the sentence is about.'],['Simple sentence','One main idea with a subject and a verb.'],['Compound sentence','Two equal ideas joined by and, but, or, so.'],['Complex sentence','A main idea plus a part that cannot stand alone.']] },
+e6d:{ k:'how to write a friendly letter for kids', why:'A **friendly letter** is a personal letter to someone you know well, like a friend or a cousin. It has a set layout so the reader can see who it is from and when it was written.',
+ more:['The **layout** comes first. Write your address in the top right corner, with the date underneath. Start on the left with a greeting such as "Dear Thandi,". At the end, write a friendly closing like "Love," or "Your friend," and your name underneath.',
+       'Organise the body into **paragraphs**: one paragraph for each main topic. Start with a friendly opening paragraph (ask how they are), then share your news in the middle paragraphs, and end with a closing paragraph. Leave a line between paragraphs.',
+       'Use a **writing process**: plan your ideas, write a first draft, read it again to improve it, check spelling and punctuation (edit), and then write the final neat copy. The tone can be relaxed and chatty because you know the reader.'],
+ words:[['Layout','How a letter is set out on the page.'],['Greeting','The opening, like "Dear Sam,".'],['Paragraph','A group of sentences about one topic.'],['Draft','An early version you will improve.']] },
+e6e:{ k:'narrative and descriptive writing for kids', why:'**Narrative** writing tells a story. **Descriptive** writing paints a picture of a person, place or thing with words. Good stories use both, so the reader can see what is happening.',
+ more:['Before writing a story, plan the **plot**: the beginning introduces characters and setting, the middle builds up a problem to an exciting high point (the **climax**), and the end solves the problem. A simple plan saves you from getting stuck halfway.',
+       'Descriptive writing uses the **five senses**: what you see, hear, smell, taste and touch. Instead of "It was a nice market", write "The market buzzed with voices, and the smell of hot vetkoek drifted past colourful stalls." Strong adjectives and verbs help the reader imagine.',
+       'Use a new **paragraph** for each new idea, place, time or speaker. Mix short and long sentences: a short one adds drama ("Then the lights went out."). Vary how sentences start, instead of beginning every one with "Then" or "I".'],
+ words:[['Narrative','Writing that tells a story.'],['Descriptive writing','Writing that paints a picture with words.'],['Climax','The most exciting point of a story.'],['Senses','Sight, hearing, smell, taste and touch.']] },
+e6f:{ k:'story elements conflict theme point of view', why:'When you read a novel or short story, it helps to know how stories are built. Then you can talk and write about them, and you will enjoy them more.',
+ more:['The **story elements** are: **characters** (who), **setting** (where and when), **plot** (what happens), **conflict** (the problem) and **resolution** (how it is solved). The main character is called the **protagonist**; the character or force against them is the **antagonist**.',
+       'Conflict is the problem that drives the story. It can be **character against character** (two people clash), **character against nature** (surviving a flood), **character against society** (fighting an unfair rule) or **character against self** (battling fear or a hard choice).',
+       'The **theme** is the big message or life lesson, like "friendship matters more than winning". It is usually not stated directly; you work it out. **Point of view** is who tells the story. **First person** uses "I" (a character tells it). **Third person** uses "he", "she" and "they" (a narrator outside the story tells it).'],
+ words:[['Protagonist','The main character.'],['Conflict','The problem in a story.'],['Theme','The message or lesson of a story.'],['Point of view','Who is telling the story: first or third person.']] },
+e6g:{ k:'poetry imagery mood for kids', why:'Poems pack big feelings and pictures into a few words. In Grade 6 you look more closely at how poems are built, the images they create and the **mood** they make you feel.',
+ more:['A poem is built from **lines** grouped into **stanzas**. Some poems rhyme with a pattern (a **rhyme scheme**, like ABAB, where lines with the same letter rhyme). Free verse poems do not rhyme. Count the stanzas and lines, and notice repeated words.',
+       '**Imagery** is language that creates pictures in your mind using the senses. Poets use **figurative language**, such as similes, metaphors and personification, to make the images stronger. Ask: what can I see, hear or feel when I read this line?',
+       'The **mood** is the feeling a poem creates in the reader: happy, gloomy, peaceful, scary. The **message** (theme) is what the poet wants us to understand. Look at word choices: "darkness crept" feels very different from "sunlight danced".'],
+ words:[['Stanza','A group of lines in a poem.'],['Rhyme scheme','The pattern of rhymes at the ends of lines.'],['Imagery','Words that create pictures using the senses.'],['Mood','The feeling a poem creates.']] },
+e6h:{ k:'simple continuous perfect tenses for kids', why:'**Tenses** show when something happens and whether it is finished or still going on. In Grade 6 you learn more tenses so your writing can show time exactly.',
+ more:['The **simple** tenses describe an action plainly. Present: I **play**. Past: I **played**. Future: I **will play**. Use them for facts, habits and completed events.',
+       'The **continuous** (progressive) tenses show an action that is **ongoing**. They use a form of "to be" + a verb ending in **-ing**. Present: I **am playing** (right now). Past: I **was playing** (when the phone rang). Future: I **will be playing** (tomorrow at 3).',
+       'The **perfect** tenses show an action that is **completed** by a certain time. They use "have", "has" or "had" + the past participle. Present perfect: I **have finished** my homework (it is done now). Past perfect: I **had finished** before supper. Future perfect: I **will have finished** by 6 o’clock.'],
+ words:[['Simple tense','The plain form: play, played, will play.'],['Continuous tense','Shows an ongoing action: am playing.'],['Perfect tense','Shows a completed action: have played.'],['Past participle','The verb form used after have, like eaten or played.']] },
+e6i:{ k:'pronouns prepositions articles for kids', why:'Small words do big jobs. **Pronouns** replace nouns, **prepositions** show where or when, and **articles** introduce nouns. Using them correctly makes sentences smooth and clear.',
+ more:['A **pronoun** replaces a noun so we do not repeat it. **Personal** pronouns: I, you, he, she, it, we, they (and me, him, her, us, them). **Possessive** pronouns show ownership: mine, yours, his, hers, ours, theirs. Make sure it is clear which noun the pronoun replaces.',
+       'A **preposition** shows how a noun relates to something else, often its position or time: **in** the box, **on** the table, **under** the bed, **between** the trees, **after** school, **during** the break. A preposition is usually followed by a noun or pronoun.',
+       'The **articles** are "a", "an" and "the". Use **a** before words that start with a consonant **sound** (a dog) and **an** before a vowel **sound** (an elephant, an hour). Use **the** when you mean a specific thing that the reader knows about.'],
+ words:[['Pronoun','A word that replaces a noun.'],['Possessive pronoun','A pronoun that shows ownership, like mine.'],['Preposition','A word that shows position or time, like under or after.'],['Article','A, an or the.']] },
+e6j:{ k:'formal letter format email writing', why:'**Formal letters** and **emails** are used to communicate with people you do not know well, such as a principal, a company or a newspaper. They follow strict rules so they look professional.',
+ more:['Write formally when you are complaining, applying, requesting information or thanking an organisation. The reader is usually a stranger or someone in authority, so you must be polite and clear.',
+       'A formal letter has **two addresses**: yours (top right) and the receiver’s (on the left, below). Then the date, a greeting ("Dear Sir/Madam" or "Dear Mr Dlamini"), a **subject line** that says what the letter is about, the body in paragraphs, and a closing ("Yours faithfully" if you used Sir/Madam, "Yours sincerely" if you used their name).',
+       'Use a polite, serious **tone**: no slang, no short forms like "don’t", and full sentences. An email still needs a clear **subject**, a greeting, short paragraphs and a sign-off with your name. Check spelling before you press send.'],
+ words:[['Formal','Polite and serious, for people you do not know well.'],['Subject line','A short line saying what the letter is about.'],['Tone','The attitude or feel of your writing.'],['Yours faithfully','The closing used after "Dear Sir/Madam".']] },
+e6k:{ k:'how to write a news report for kids', why:'A **news report** tells readers about a real, recent event in a quick, clear and fair way. Newspapers, websites and TV news all use the same structure.',
+ more:['The purpose is to **inform**. The **headline** is a short, catchy title that grabs attention, often leaving out small words: "Local Learners Win Robot Contest". Under it is the **byline** (the reporter’s name).',
+       'The first paragraph (the **lead**) answers the **5 Ws and H**: Who? What? Where? When? Why? How? This lets a reader understand the main facts even if they read nothing else. Later paragraphs add more detail, from most important to least important.',
+       'News reports stick to **facts** and keep the writer’s opinions out. Opinions appear only as **quotes** from people involved: "We worked every afternoon," said team captain Neo Mokoena. They are written in the **past tense** and **third person**, with a serious tone.'],
+ words:[['Headline','The title of a news report.'],['Lead','The first paragraph, giving the main facts.'],['5 Ws and H','Who, what, where, when, why and how.'],['Quote','The exact words of a person in the story.']] },
+e6l:{ k:'dialogue play script interview for kids', why:'A **dialogue** is a conversation between characters, and an **interview** is a conversation where one person asks questions to learn about another. Both are written in a special layout.',
+ more:['In a **play script**, each speaker’s name is written on the left, followed by a colon, then their words. There are **no** inverted commas. Each new speaker starts on a new line. Example: MAMA: Where are your shoes?',
+       '**Stage directions** tell actors how to speak or move, and they are written in **brackets** (and often in italics): THABO: (yawning) I just woke up. They are not spoken aloud. They help the reader picture the scene.',
+       'An **interview** is planned. Write your questions first. **Open questions** (starting with how, why, what, tell me about) get longer, more interesting answers than **closed questions**, which can be answered with yes or no. Listen carefully and ask follow-up questions.'],
+ words:[['Dialogue','A conversation between characters.'],['Script','The written form of a play.'],['Stage directions','Instructions in brackets for actors.'],['Open question','A question that cannot be answered with just yes or no.']] },
+e6m:{ k:'how to summarise mind maps for kids', why:'A **summary** is a short version of a text, keeping only the main points. A **mind map** organises ideas as a picture. Both help you study and remember.',
+ more:['Read the text carefully at least twice. Then find the **main point** of each paragraph, usually in the first sentence (the topic sentence). Leave out examples, repetition, descriptions and extra details. Underline or list only the key facts.',
+       'Write the main points in **your own words**, as full sentences, in a short paragraph or numbered list. Do not copy sentences from the text. Stick to the word limit you are given. A summary is usually about a third of the original length or less.',
+       'A **mind map** puts the main topic in the centre, with branches for each main idea and smaller branches for details. Use key words, not full sentences, and add colours or little pictures. It shows how ideas connect at a glance.'],
+ words:[['Summary','A short version with only the main points.'],['Topic sentence','The sentence that gives a paragraph’s main idea.'],['Key word','An important word that carries meaning.'],['Mind map','A diagram with branches linking ideas to a main topic.']] },
+e6n:{ k:'idioms proverbs homonyms for kids', why:'Some expressions mean something different from what the words say. **Idioms** and **proverbs** are part of everyday speech, and **homonyms** can trick readers. Knowing them helps you understand people and texts.',
+ more:['An **idiom** is a phrase whose meaning is different from the meanings of its words. "It’s raining cats and dogs" means it is raining very hard. "Break a leg" means good luck. You learn idioms by hearing and using them, because you cannot work them out word by word.',
+       'A **proverb** is a short, well-known saying that gives advice or a truth about life. "Don’t count your chickens before they hatch" means do not rely on something before it happens. "Many hands make light work" means jobs are easier when people help.',
+       '**Homonyms** are words spelt and pronounced the same but with different meanings: a **bat** (animal) and a cricket **bat**. **Homophones** sound the same but are spelt differently: **their**, **there** and **they’re**. Use the rest of the sentence to choose the right meaning.'],
+ words:[['Idiom','A phrase with a meaning different from its words.'],['Proverb','A short saying that gives advice.'],['Homonym','Same spelling and sound, different meaning.'],['Homophone','Same sound, different spelling and meaning.']] }
+});
+
+;
+/* Grade 6 full beginner lessons: Natural Sciences & Technology, Social Sciences, Life Skills */
+Object.assign(DEEP, {
+/* ===== Grade 6 Natural Sciences & Technology ===== */
+n6a:{ k:'photosynthesis and food webs for kids', why:'Plants are the only living things that can make food from sunlight, and almost every other living thing depends on that food. **Photosynthesis** and **food webs** explain how energy flows through nature.',
+ more:['**Photosynthesis** is how green plants make food. Their leaves take in **sunlight**, **water** (from the roots) and **carbon dioxide** (a gas from the air). Using the green colouring in their leaves (**chlorophyll**), they turn these into **sugar** (food) and give off **oxygen**, the gas we breathe.',
+       'A food chain shows one path of energy, but most animals eat more than one thing. A **food web** joins many food chains together. A grasshopper may be eaten by a bird or a lizard; the bird may be eaten by a snake or an eagle. Arrows still point from the food to the eater.',
+       'Everything in a food web is connected, so a change to one living thing affects others. If farmers kill too many snakes, mice increase and eat more crops. **Decomposers** (like fungi and bacteria) break down dead plants and animals, returning nutrients to the soil for plants to use again.'],
+ words:[['Photosynthesis','How plants make food using sunlight, water and carbon dioxide.'],['Chlorophyll','The green colouring in leaves that traps sunlight.'],['Food web','Many food chains linked together.'],['Decomposer','A living thing that breaks down dead material.']] },
+n6b:{ k:'mixtures and solutions dissolving separating for kids', why:'Most things around us are **mixtures**: salads, sea water, air and soil. Knowing how substances mix and how to separate them is important in cooking, cleaning water and in factories.',
+ more:['A **mixture** is two or more substances put together without changing into something new. You can usually still see the different parts, like sand and stones, or a fruit salad. The parts can be separated again.',
+       'When a substance like sugar mixes into water and seems to disappear, it has **dissolved**. The sugar is the **solute**, the water is the **solvent**, and together they make a **solution**. The sugar is still there (you can taste it). Substances that dissolve are **soluble**; those that do not, like sand, are **insoluble**.',
+       'Things dissolve **faster** in warm water, when you stir, and when the pieces are smaller (castor sugar dissolves faster than a sugar cube). To **separate** mixtures: pick out big pieces by hand, use a **sieve** for different sizes, **filter** to remove sand from water, and **evaporate** the water to get salt back.'],
+ words:[['Mixture','Substances mixed together but not changed.'],['Dissolve','When a solid spreads through a liquid and seems to disappear.'],['Solute and solvent','What dissolves, and the liquid it dissolves in.'],['Filter','Separate a solid from a liquid by passing it through paper or cloth.']] },
+n6c:{ k:'simple electric circuits switches conductors insulators', why:'Every torch, toy and phone works because electricity flows in a **circuit**. Understanding circuits helps you use electricity safely and even build simple devices.',
+ more:['A **circuit** is a complete, unbroken path that electricity flows around. A simple circuit needs an **energy source** (a cell), **conductors** (wires) and something that uses the energy (a bulb). If there is any gap, the electricity stops and the bulb goes off. Scientists draw circuits with symbols.',
+       'A **switch** opens or closes a gap in the circuit, turning it off or on. **Conductors** let electricity pass through: most metals, like copper and iron. **Insulators** do not: plastic, rubber, wood and glass. Wires are copper inside a plastic coating so they work and are safe to touch.',
+       'Electricity from the wall plug (mains) is far stronger than a cell and can kill. Never put objects in plugs, never use appliances with damaged cords, keep electrical things away from water, and do not overload plugs with too many adaptors.'],
+ words:[['Circuit','A complete path for electricity to flow around.'],['Switch','A device that opens or closes a circuit.'],['Conductor','A material that lets electricity pass through.'],['Insulator','A material that does not let electricity pass through.']] },
+n6d:{ k:'solar system planets for kids', why:'Earth is one of eight planets travelling around the Sun. Together with moons, asteroids and comets they make up our **solar system**. Learning about it helps us understand days, years and our place in space.',
+ more:['The **Sun** is a star at the centre of the solar system. Eight **planets** orbit (travel around) it. In order from the Sun: **Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune**. A rhyme helps: "My Very Easy Method Just Speeds Up Naming". The first four are small and rocky; the last four are giant and made mostly of gas or ice.',
+       'Earth spins on its axis once every **24 hours**, which gives us day and night. It travels around the Sun once every **365¼ days**, which is one year. Earth’s axis is tilted, which is why we have seasons.',
+       'The **Moon** is Earth’s natural satellite: it orbits Earth about once a month. It does not make its own light; it reflects sunlight. At night we can also see stars (distant suns) and sometimes planets, which do not twinkle as much. Never look directly at the Sun.'],
+ words:[['Solar system','The Sun and everything that orbits it.'],['Planet','A large object that orbits a star.'],['Orbit','The path of one object around another.'],['Satellite','An object that orbits a planet, like the Moon.']] },
+n6e:{ k:'nutrients carbohydrates proteins fats vitamins test for starch', why:'Food contains **nutrients**: the substances your body needs to get energy, grow and stay healthy. Different foods give different nutrients, so knowing them helps you eat well.',
+ more:['The main nutrient groups are: **carbohydrates** (starch and sugar, for energy: pap, bread, rice), **proteins** (for growth and repair: meat, eggs, beans, fish), and **fats and oils** (stored energy and warmth: butter, oil, nuts). **Water** and **fibre** (from vegetables and whole grains) are also needed.',
+       '**Vitamins** and **minerals** are needed in small amounts but are very important. Vitamin C (oranges) helps fight illness. Vitamin A (carrots) helps eyesight. **Calcium** (milk) builds strong bones and teeth. **Iron** (spinach, red meat) keeps your blood healthy.',
+       'Scientists **test** food for nutrients. A few drops of **iodine** turn blue-black on food that contains **starch**, like a potato slice. Rubbing a food on brown paper leaves a see-through, greasy mark if it contains **fat**. Always do tests with an adult and never taste chemicals.'],
+ words:[['Nutrient','A substance in food the body needs.'],['Carbohydrate','A nutrient for energy, like starch and sugar.'],['Protein','A nutrient for growth and repair.'],['Iodine test','Turns blue-black when starch is present.']] },
+n6f:{ k:'balanced diet malnutrition for kids', why:'What you eat affects your energy, growth and health now and later in life. Eating too little, too much, or the wrong foods can cause illness.',
+ more:['A **balanced diet** contains all the nutrient groups in the right amounts: mostly vegetables, fruit and starchy foods, enough protein, a little fat and very little sugar and salt. Drinking enough clean water every day is also part of a healthy diet.',
+       'When people do not get enough food or the right nutrients, they suffer from **malnutrition**. Not enough protein can cause **kwashiorkor** (swollen tummy, weak body). Not enough food at all causes **marasmus** (very thin). Lack of vitamins and minerals causes other illnesses, like weak bones.',
+       'Eating too much, especially fatty, sugary and salty foods, can lead to **obesity** (being very overweight), **diabetes**, high blood pressure, heart disease and tooth decay. Choose water instead of fizzy drinks, eat fruit for snacks and stay active.'],
+ words:[['Balanced diet','Eating the right amounts of all nutrient groups.'],['Malnutrition','Poor health from wrong or too little food.'],['Kwashiorkor','An illness caused by too little protein.'],['Obesity','Being very overweight.']] },
+n6g:{ k:'food preservation methods for kids', why:'Fresh food goes off quickly because tiny germs grow on it. **Processing** food makes it last longer, safer and tastier. Biltong, jam and canned food are all processed foods.',
+ more:['Food is processed to stop it **spoiling**, to make it safe to eat by killing germs, to make it easier to store and transport, and to improve taste. Germs (bacteria and fungi) need **warmth**, **moisture** and **air** to grow, so most methods remove one of these.',
+       'Ways to **preserve** food: **drying** (biltong, dried fruit: removes water), **cooling and freezing** (fridge and freezer: too cold for germs), **salting** and **sugaring** (salted fish, jam), **pickling** in vinegar (atchar), **canning** (heat-sealed tins) and **pasteurising** (heating milk to kill germs).',
+       'Processing can also change food: grinding maize into mealie meal, cooking, adding flavour, or mixing ingredients. Always check the **expiry date** and storage instructions on packaging, and wash your hands before handling food.'],
+ words:[['Preserve','To keep food from going bad.'],['Spoil','When food goes bad because germs grow.'],['Pasteurise','Heat a food, like milk, to kill harmful germs.'],['Expiry date','The date after which food should not be eaten.']] },
+n6i:{ k:'solids liquids gases particles changing state', why:'Everything around you is made of matter, and matter comes in three main **states**: solid, liquid and gas. Water can be all three: ice, water and steam. This explains melting, boiling and evaporation.',
+ more:['All matter is made of tiny **particles**, far too small to see. The particles are always moving. How close together they are and how freely they move decides whether something is a solid, a liquid or a gas.',
+       'In a **solid**, particles are packed tightly and only vibrate, so it keeps its shape (a brick). In a **liquid**, particles are close but can slide past each other, so it flows and takes the shape of its container (juice). In a **gas**, particles are far apart and move quickly in all directions, so a gas spreads to fill any space (air).',
+       'Heating gives particles more energy. **Melting**: solid to liquid. **Evaporation/boiling**: liquid to gas. Cooling takes energy away. **Condensation**: gas to liquid (drops on a cold glass). **Freezing** (solidifying): liquid to solid. These changes can be reversed.'],
+ words:[['Particle','A tiny piece that matter is made of.'],['State of matter','Solid, liquid or gas.'],['Evaporation','When a liquid changes into a gas.'],['Condensation','When a gas cools and changes into a liquid.']] },
+n6j:{ k:'clean water purification pollution for kids', why:'South Africa is a dry country, and clean water is precious. Everyone needs safe water to drink, cook and wash. Dirty water spreads diseases, so we must keep water clean and use it wisely.',
+ more:['Only a tiny part of Earth’s water is fresh water we can use; most is salty sea water or frozen ice. South Africa gets less rain than many countries, and droughts happen. We get water from rivers, dams and underground (boreholes).',
+       '**Water pollution** happens when harmful things get into water: sewage, litter, chemicals from factories and mines, and fertiliser from farms. Polluted water can spread diseases like **cholera** and harm fish and plants.',
+       'To make water safer: let dirt **settle**, **filter** it through cloth or sand, **boil** it for at least a minute to kill germs, or add a small, correct amount of **bleach** (an adult must measure it). Water works use similar steps on a big scale. Save water: close taps, fix leaks, take short showers.'],
+ words:[['Fresh water','Water that is not salty.'],['Pollution','Harmful substances added to the environment.'],['Purify','Make water clean and safe.'],['Cholera','A serious illness spread by dirty water.']] },
+n6k:{ k:'how electricity is generated renewable energy', why:'Electricity does not just appear in the plug. It is **generated** in power stations from different energy sources. Some sources run out and pollute; others can be used forever.',
+ more:['Most of South Africa’s electricity comes from **coal-fired power stations**. Coal is burnt to heat water into steam, the steam spins a **turbine**, and the turbine turns a **generator** that makes electricity. The electricity travels along power lines (the national **grid**) to homes.',
+       '**Non-renewable** sources, like coal, will run out one day, and burning them pollutes the air. **Renewable** sources will not run out: **solar** (sunlight), **wind**, **hydro** (moving water) and others. South Africa has lots of sun and wind, so renewable energy is growing.',
+       'Electricity costs money. It is measured in **kilowatt-hours** (units). Save electricity by switching off lights and appliances, using energy-saving bulbs and not leaving the fridge open. Stay safe: never touch fallen power lines or steal cables, which is dangerous and illegal.'],
+ words:[['Generator','A machine that turns movement into electricity.'],['Turbine','A wheel with blades that is spun by steam, wind or water.'],['Renewable','An energy source that will not run out.'],['Non-renewable','An energy source that will run out, like coal.']] },
+n6l:{ k:'series and parallel circuits for kids', why:'Engineers design **circuits** to solve real problems: alarms, torches, traffic lights. Knowing how to connect parts in different ways lets you build useful systems.',
+ more:['A circuit is a **system**: parts working together to do a job. It has an **input** (switch or sensor), a **process** (electricity flowing) and an **output** (light, sound or movement). Thinking in systems helps you design solutions.',
+       'In a **series** circuit, parts are connected one after another in a single loop. If one bulb breaks, the loop is broken and all the bulbs go off. Adding more bulbs makes each one dimmer. In a **parallel** circuit, each bulb has its own path back to the cell. If one bulb breaks, the others stay on, and each stays bright.',
+       'Engineers follow a **design process**: identify the problem, investigate, design ideas with drawings, make the product, then evaluate (test it and improve it). For example, a burglar alarm could use a pressure switch under a mat to complete a circuit to a buzzer.'],
+ words:[['System','Parts that work together: input, process, output.'],['Series circuit','Parts connected in one single loop.'],['Parallel circuit','Parts connected on separate paths.'],['Design process','Investigate, design, make and evaluate.']] },
+n6m:{ k:'phases of the moon tides for kids', why:'The **Moon** is our nearest neighbour in space. It seems to change shape during the month, and it pulls on Earth’s oceans to make **tides**. People have used it to measure time for thousands of years.',
+ more:['The Moon is Earth’s natural **satellite**. It is a rocky ball about a quarter the width of Earth, with no air or liquid water. Its surface is covered in **craters** made by space rocks crashing into it. It takes about **27 days** to orbit Earth, and it always shows us the same side.',
+       'The Moon does not make light; one half is always lit by the Sun. As it orbits Earth, we see different amounts of the lit half. These shapes are the **phases**: new moon (dark), waxing crescent, first quarter (half), waxing gibbous, **full moon**, then waning back again. One full cycle takes about **29½ days**.',
+       'The Moon’s **gravity** pulls on Earth’s oceans, causing **tides**: the sea level rises (high tide) and falls (low tide) about twice a day. Fishermen and surfers check tide tables. The Moon also lights up the night and has been used to plan calendars and harvests.'],
+ words:[['Satellite','An object that orbits a planet.'],['Crater','A bowl-shaped hole made by an impact.'],['Phases','The changing shapes of the lit part of the Moon we see.'],['Tide','The daily rise and fall of the sea level.']] },
+n6n:{ k:'telescopes rockets space exploration for kids', why:'People have always wondered about space. Today we explore it with **telescopes**, **rockets**, satellites and robots. South Africa helps too, with big telescopes like SALT and MeerKAT.',
+ more:['A **telescope** collects light (or radio waves) to make distant objects look bigger and clearer. Galileo used one about 400 years ago to see Jupiter’s moons. South Africa has **SALT** in Sutherland, one of the largest optical telescopes, and **MeerKAT**, a radio telescope in the Karoo.',
+       'A **rocket** pushes hot gases out of its back very fast, and this pushes the rocket forward and up (every action has an equal and opposite reaction). Rockets launch **satellites**, which help with weather forecasts, GPS, phones and TV, and carry astronauts into space.',
+       'Astronauts first walked on the **Moon** in 1969. Robot **rovers** have driven across **Mars**, studying rocks and searching for signs of water and past life. Space probes have flown past every planet in our solar system and sent back photos.'],
+ words:[['Telescope','An instrument that makes distant objects look closer.'],['Rocket','A vehicle that pushes out gas to travel into space.'],['Astronaut','A person trained to travel in space.'],['Rover','A robot vehicle that explores another planet.']] },
+/* ===== Grade 6 Social Sciences ===== */
+s6a:{ k:'latitude and longitude for kids', why:'To find any place on Earth exactly, mapmakers drew imaginary lines around the globe. **Latitude** and **longitude** work like a giant grid reference for the whole planet. GPS uses them too.',
+ more:['Lines of **latitude** run **across** the globe from east to west, like rungs of a ladder. They measure how far north or south a place is from the **Equator** (0°), which runs around the middle of Earth. The North Pole is 90° N and the South Pole is 90° S. South Africa is south of the Equator.',
+       'Lines of **longitude** (meridians) run from the North Pole to the South Pole. They measure how far east or west a place is from the **Prime Meridian** (0°), which passes through Greenwich in London. They go up to 180° east and 180° west.',
+       'To give a position, give **latitude first**, then longitude, with the direction letters. Johannesburg is about **26° S, 28° E**: 26 degrees south of the Equator and 28 degrees east of the Prime Meridian. The point where the two lines cross is the place.'],
+ words:[['Latitude','Lines across the globe measuring distance north or south of the Equator.'],['Longitude','Lines from pole to pole measuring distance east or west.'],['Equator','The 0° line of latitude around the middle of Earth.'],['Prime Meridian','The 0° line of longitude through Greenwich, London.']] },
+s6b:{ k:'trade primary secondary tertiary economic activities', why:'**Trade** is buying and selling goods and services. It links farmers, factories and shops, and connects countries around the world. Everything you buy has travelled through a trade chain.',
+ more:['**Goods** are things you can touch, like bread or shoes. **Services** are work done for you, like a haircut or a taxi ride. **Trade** is exchanging goods or services, usually for money. Long ago people **bartered**, swapping goods directly without money.',
+       'Work is grouped into three kinds. **Primary** activities take things from nature: farming, fishing, mining. **Secondary** activities make or process things: factories turn wheat into bread. **Tertiary** activities provide services: shops, transport, banks, teachers.',
+       'South Africa **exports** (sells to other countries) goods like gold, platinum, coal, fruit and cars, and **imports** (buys) goods like oil, electronics and machines. Goods travel by ship through ports like Durban, by road, rail and air. **Fair trade** means farmers and workers get a fair price.'],
+ words:[['Trade','Buying and selling goods and services.'],['Barter','Swapping goods without using money.'],['Export and import','Selling to and buying from other countries.'],['Primary, secondary, tertiary','Taking from nature, making things, and services.']] },
+s6c:{ k:'mapungubwe kingdom history for kids', why:'**Mapungubwe** was the first known kingdom in southern Africa, about 800 years ago. Its people traded across the Indian Ocean and made the famous **golden rhino**. It is now a World Heritage Site.',
+ more:['Mapungubwe was in the **Limpopo valley**, where South Africa, Botswana and Zimbabwe meet today. It was at its strongest from about **1220 to 1290**. People farmed, kept cattle and lived near the rivers, which flooded and made the soil fertile.',
+       'Mapungubwe was one of the first **class societies** in southern Africa: people were not all equal. The **king** and the rich lived on top of **Mapungubwe Hill**, apart from ordinary people who lived below. This showed their power and importance.',
+       'People at Mapungubwe traded **gold**, **ivory** and animal skins with traders from Arabia, India and as far as China, in exchange for glass beads, cloth and porcelain. Gold objects, including the small **golden rhinoceros**, were found buried with royalty on the hill.'],
+ words:[['Kingdom','A land ruled by a king or queen.'],['Class society','A society where some people have more wealth and power.'],['Ivory','Material from elephant tusks.'],['Golden rhino','A famous gold object found at Mapungubwe.']] },
+s6d:{ k:'democracy south africa government constitution for kids', why:'South Africa is a **democracy**: the people choose who governs them. Understanding how this works helps you become an active citizen who knows your rights and how to have a say.',
+ more:['**Democracy** means "rule by the people". Citizens aged 18 and older **vote** in elections to choose leaders. Since **27 April 1994** (Freedom Day), all South Africans can vote. Before that, under apartheid, most people were not allowed to.',
+       'Government has three parts. **Parliament** (the legislature) makes laws. The **President** and Cabinet ministers (the executive) carry out laws and run the country. The **courts** (the judiciary) decide whether laws have been broken. There are three levels: national, provincial and local (municipal) government.',
+       'The **Constitution** is the highest law in the country: all other laws must follow it. It includes the **Bill of Rights**, which protects everyone’s rights, like equality, dignity and education. Being a good citizen means respecting others’ rights, obeying laws and taking part.'],
+ words:[['Democracy','Government chosen by the people.'],['Election','When citizens vote to choose leaders.'],['Parliament','The part of government that makes laws.'],['Bill of Rights','The part of the Constitution that protects everyone’s rights.']] },
+s6e:{ k:'continents and oceans atlas skills for kids', why:'A world map shows all the land and water on Earth. Knowing the **continents** and **oceans**, and how to use an **atlas**, helps you understand news, history and travel.',
+ more:['There are **seven continents**: Africa, Europe, Asia, North America, South America, Australia (Oceania) and Antarctica. Asia is the largest. There are **five oceans**: Pacific (the biggest), Atlantic, Indian, Southern and Arctic. South Africa lies between the Atlantic and Indian Oceans.',
+       'An **atlas** is a book of maps. Use the **contents** page to find a region, or the **index** at the back to find a specific place: it gives the page number and a grid reference or latitude and longitude. Each map has a key, a scale and a north arrow.',
+       'The **scale** shows how much the real world was shrunk. A small-scale map (like a world map) shows a large area with little detail. A large-scale map (like a town map) shows a small area with lots of detail. Use a ruler and the scale line to work out distances.'],
+ words:[['Continent','One of seven very large areas of land.'],['Ocean','A huge area of salt water.'],['Atlas','A book of maps.'],['Index','An alphabetical list of places with page numbers.']] },
+s6f:{ k:'bartolomeu dias vasco da gama explorers for kids', why:'About 500 years ago, sailors from Europe set out to find a sea route to the riches of Asia. Their voyages around the southern tip of Africa changed the history of South Africa forever.',
+ more:['In the 1400s, Europeans wanted **spices** (like pepper and cinnamon), silk and gold from Asia. Land routes were long and controlled by other traders, so **Portugal** looked for a sea route around Africa. Explorers also wanted fame, wealth and to spread their religion.',
+       '**Bartolomeu Dias** was the first European to sail around the southern tip of Africa in **1488**, landing at Mossel Bay. He named it the Cape of Storms; the king renamed it the **Cape of Good Hope**. **Vasco da Gama** followed in **1497 to 1498**, sailing past Natal all the way to **India**, opening the sea route.',
+       'Sailors used **caravels** (small, fast ships with triangular sails that could sail into the wind). They found their way with a **compass**, an **astrolabe** (to work out latitude from the Sun and stars) and maps. Voyages were dangerous: storms, getting lost and the disease **scurvy** from lack of vitamin C.'],
+ words:[['Explorer','A person who travels to discover new places.'],['Spices','Plant products used to flavour food.'],['Caravel','A small, fast sailing ship.'],['Scurvy','A disease caused by lack of vitamin C.']] },
+s6g:{ k:'climate regions natural vegetation for kids', why:'Different parts of the world have different **climates**, and the plants that grow naturally there (**vegetation**) depend on that climate. This affects animals, farming and how people live.',
+ more:['**Climate** is the usual weather of a place over many years: how hot or cold, and how much rain. **Natural vegetation** is the plants that grow there without help from people. Hot and wet places grow thick forests; dry places grow small, tough plants.',
+       '**Hot regions**: near the Equator are **tropical rainforests** (hot and wet all year, tall trees). **Savanna** grassland with scattered trees has a wet and a dry season (like the Kruger Park). **Deserts** get very little rain, so plants like cacti and succulents store water.',
+       '**Cooler regions**: **Mediterranean** areas have hot dry summers and cool wet winters (like the Western Cape, with fynbos). **Temperate grasslands** have warm summers and cold winters (our Highveld). Far north are **coniferous forests** and frozen **tundra**, and the poles are covered in ice.'],
+ words:[['Climate','The usual weather of a place over many years.'],['Vegetation','The plants that grow in an area.'],['Savanna','Grassland with scattered trees.'],['Fynbos','The natural shrubland of the Western Cape.']] },
+s6h:{ k:'population distribution density for kids', why:'People are not spread evenly across the world or South Africa. Some areas are crowded and others nearly empty. Understanding why helps governments plan schools, hospitals and transport.',
+ more:['**Population distribution** describes where people live. Areas with many people are **densely populated** (like Gauteng). Areas with few people are **sparsely populated** (like the Northern Cape). **Population density** is the number of people per square kilometre.',
+       'People settle where life is easier: where there is **water**, **fertile soil**, a mild **climate**, flat land, **jobs** and transport. Few people live in deserts, high mountains or very cold places. Mines, ports and cities attract people looking for work.',
+       'The world has over **8 billion** people, and the number keeps growing. Most live in Asia, especially China and India. More people need more food, water, homes and jobs, so it is important to plan and look after resources.'],
+ words:[['Population','The number of people living in a place.'],['Densely populated','Many people living close together.'],['Sparsely populated','Few people spread over a large area.'],['Population density','The number of people per square kilometre.']] },
+s6i:{ k:'south african national orders nobel peace prize winners', why:'South Africa honours people who have done outstanding things for the country through **national orders**. Some South Africans have also won the world-famous **Nobel Peace Prize**.',
+ more:['**National orders** are the highest awards South Africa gives. The President awards them to South Africans and people from other countries for excellent service, bravery or achievement in areas like democracy, sport, science, arts and human rights.',
+       'There are different orders. The **Order of Mapungubwe** is for excellent achievement (it is named after the old kingdom). The **Order of the Baobab** is for service to the community. The **Order of Ikhamanga** is for arts, culture, literature, music and sport. The **Order of Luthuli** is for contributing to democracy and peace.',
+       'South Africa has four winners of the **Nobel Peace Prize**: **Albert Luthuli** (1960), **Archbishop Desmond Tutu** (1984), and **Nelson Mandela** and **F.W. de Klerk** (1993, shared) for ending apartheid peacefully. They are examples of courage and working for peace.'],
+ words:[['National order','A top award given by the President.'],['Order of Ikhamanga','An award for arts, culture, literature and sport.'],['Nobel Peace Prize','A world award for work for peace.'],['Apartheid','The unfair system that separated people by race.']] },
+/* ===== Grade 6 Life Skills ===== */
+l6a:{ k:'peer pressure decision making saying no for kids', why:'As you grow older, friends become very important, and they can influence what you do. Learning to **make good decisions** and to **say no** keeps you safe and true to yourself.',
+ more:['**Peers** are people your age, like classmates and friends. **Peer pressure** is when peers try to get you to do something. It can be **positive** (encouraging you to study or join a team) or **negative** (pushing you to bully, steal, smoke or skip school).',
+       'A simple way to make a decision: **stop** and think, list your **options**, think about the **consequences** (what will happen) of each option, choose the best one, and then look back on how it went. Ask: Is it safe? Is it legal? Would my family be proud?',
+       'Saying no can be hard. Say it clearly and firmly ("No, thanks"), give a short reason if you want, suggest something else to do, or just walk away. Real friends respect your choices. If you are worried or unsafe, talk to a trusted adult.'],
+ words:[['Peer','Someone of your own age group.'],['Peer pressure','When peers try to influence what you do.'],['Consequence','What happens as a result of a choice.'],['Assertive','Standing up for yourself calmly and respectfully.']] },
+l6b:{ k:'puberty changes for kids hygiene', why:'**Puberty** is when your body starts changing from a child’s body into an adult’s body. Everyone goes through it, at slightly different times. Knowing what to expect makes it less confusing.',
+ more:['Puberty usually starts between about **9 and 14** years old. Special chemicals in the body called **hormones** cause the changes. Girls often start a little earlier than boys. Whether you start early or late is normal.',
+       'Common changes: growing taller quickly, hair growing under the arms and in private areas, more sweat and body odour, and pimples. Girls develop breasts and start **menstruation** (periods). Boys’ voices get deeper and their shoulders broaden. Feelings can also change quickly (mood swings).',
+       'Look after yourself: wash every day and use deodorant, wash your face to help with pimples, wear clean clothes, eat well and get enough sleep. It is normal to have questions; talk to a parent, a trusted adult, a school nurse or a teacher.'],
+ words:[['Puberty','The time when a child’s body changes into an adult’s.'],['Hormones','Chemicals in the body that cause changes.'],['Hygiene','Keeping your body clean to stay healthy.'],['Menstruation','A monthly period, part of puberty for girls.']] },
+l6c:{ k:'pollution reduce reuse recycle for kids', why:'The **environment** is everything around us: air, water, land, plants and animals. Pollution and waste damage it. Small daily actions by everyone can make a big difference.',
+ more:['**Pollution** is harmful waste in the environment. **Air pollution** comes from smoke, car fumes and factories. **Water pollution** comes from litter, sewage and chemicals. **Land pollution** comes from litter and illegal dumping. Plastic is especially harmful because it can last hundreds of years and hurts animals.',
+       'Use the **3 Rs**. **Reduce**: use less and buy less packaging. **Reuse**: use things again, like shopping bags and jars. **Recycle**: sort paper, glass, plastic and cans so they can be made into new products. Food scraps can go into **compost** to feed the garden.',
+       'Save water: close taps while brushing teeth, take short showers, fix leaks and collect rainwater. Save electricity: switch off lights and devices, use energy-saving bulbs. Saving water and electricity also saves money.'],
+ words:[['Environment','Everything around us: air, water, land and living things.'],['Pollution','Harmful substances in the environment.'],['Recycle','Make used materials into new products.'],['Compost','Rotted food and plant waste used to feed soil.']] },
+l6d:{ k:'substance abuse effects on the body for kids', why:'**Substances** like alcohol, cigarettes and drugs can harm your body and mind. Knowing the dangers and how to say no helps you protect your health and your future.',
+ more:['A **substance** here means something people take into their bodies that changes how they feel or act, such as alcohol, tobacco (cigarettes and vapes), dagga and other drugs. **Substance abuse** is using them in a harmful way. Medicine used wrongly can also be abused.',
+       'Substances harm the body: **smoking** damages the lungs and heart; **alcohol** harms the brain and liver and causes accidents; **drugs** can damage the brain, cause mental illness and lead to death. Many substances are **addictive**: the body starts to crave them, so it becomes very hard to stop.',
+       'You have the right to say no. Use the refusal skills you know: be firm, walk away, and stay with friends who make healthy choices. If you or someone you know needs help, speak to a trusted adult, a teacher or a counsellor, or contact a helpline such as Childline (116).'],
+ words:[['Substance','Something taken into the body that changes how you feel.'],['Addiction','When the body craves a substance and cannot stop.'],['Refusal skills','Ways to say no firmly.'],['Childline','A free helpline for children: 116.']] },
+l6e:{ k:'self esteem setting goals for kids', why:'How you see yourself affects how you act and how you treat others. Building a **positive self-concept** and setting **goals** helps you grow and achieve what you want.',
+ more:['Your **self-concept** is how you see yourself: your strengths, weaknesses, looks and personality. **Self-esteem** is how much you value yourself. It is shaped by your own thoughts and by what others say. Focus on your strengths and treat mistakes as chances to learn.',
+       'An **achievement** is something you did well through effort, like learning to swim or improving a mark. Celebrate your achievements, big and small, and those of others. Achievement comes from practice and not giving up, not from being perfect.',
+       'A **goal** is something you want to achieve. Make it **SMART**: Specific (clear), Measurable (you can check it), Achievable (possible), Realistic and Time-bound (has a deadline). "I will read one book a week this term" is a SMART goal. Break big goals into small steps.'],
+ words:[['Self-concept','How you see yourself.'],['Self-esteem','How much you value yourself.'],['Goal','Something you plan to achieve.'],['SMART goal','A goal that is Specific, Measurable, Achievable, Realistic and Time-bound.']] },
+l6f:{ k:'proportion perspective pattern design for kids art', why:'Artists and designers use rules to make pictures look real and designs look good. In Grade 6 you learn about **proportion**, **perspective**, **pattern** and designing with a purpose.',
+ more:['**Proportion** is the size of parts compared to each other. In a face, the eyes are about halfway down the head. **Perspective** makes a flat drawing look 3D: things far away are drawn **smaller** and higher up the page, and lines like railway tracks seem to meet at a **vanishing point** on the horizon.',
+       'A **pattern** is a repeated design: shapes, lines or colours repeated in order, like in Ndebele house painting or beadwork. **Rhythm** in art is the feeling of movement created by repeating elements, guiding your eye across the artwork.',
+       '**Design** is art with a job to do: a poster to advertise, a logo to show a brand, a book cover to attract readers. A good design is clear, eye-catching and suits its **purpose** and **audience**. Plan with sketches first, then choose colours, lettering and layout.'],
+ words:[['Proportion','The size of parts compared to each other.'],['Perspective','Drawing that makes things look 3D and far away.'],['Vanishing point','The point where lines seem to meet in the distance.'],['Pattern','A design that repeats.']] },
+l6g:{ k:'note values music south african music genres', why:'Music has its own language for writing down how long sounds last. South Africa also has a rich mix of music styles. Performing together teaches teamwork and confidence.',
+ more:['Music is written in **notes**, and each note shape tells you how long to hold the sound, counted in **beats**. A **semibreve** (whole note) lasts 4 beats, a **minim** (half note) 2 beats, a **crotchet** (quarter note) 1 beat and a **quaver** (eighth note) half a beat. A **rest** means silence for that length.',
+       'South African music styles include **kwaito**, **amapiano**, **maskandi**, **mbaqanga**, **isicathamiya** (made famous by Ladysmith Black Mambazo), **marabi**, jazz, gospel and **boeremusiek**. Many mix traditional African sounds with modern styles. Each tells something about the people and history behind it.',
+       'When **performing together**, follow the leader or conductor, listen to the others so you stay in time, and keep the same **tempo** (speed) and **dynamics** (loudness). Practise, warm up your voice or body, face the audience and keep going even if you make a small mistake.'],
+ words:[['Beat','The steady pulse in music.'],['Crotchet','A note that lasts one beat.'],['Rest','A symbol for silence in music.'],['Genre','A style or type of music.']] },
+l6h:{ k:'team games sportsmanship fitness components', why:'**Physical education** keeps your body fit and teaches you to work with others. Team games build skills, and fair play makes sport enjoyable for everyone.',
+ more:['In **team games** like soccer, netball, rugby and cricket, players work together towards a goal. Skills include passing, catching, kicking, dribbling and moving into space. **Communication** (calling for the ball) and knowing your position help the team.',
+       'Every game has **rules** to keep it fair and safe. **Sportsmanship** means playing fairly, accepting the referee’s decisions, encouraging teammates, shaking hands with the other team, and being gracious when you win and lose.',
+       'Fitness has several **components**: **strength** (power of muscles), **endurance** (lasting a long time without tiring), **speed**, **flexibility** (bending and stretching easily), **agility** (changing direction quickly), **balance** and **coordination**. Different activities train different components.'],
+ words:[['Sportsmanship','Playing fairly and respecting others.'],['Endurance','Being able to keep going for a long time.'],['Flexibility','How easily your body bends and stretches.'],['Agility','Changing direction quickly.']] }
+});
+
+;
+/* Grade 6 visual aids, one slot per idea card (null = no picture). Then attach to DEEP. */
+Object.assign(VIS, {
+/* ===== Mathematics ===== */
+m6a:[{t:'pv', n:'4250000', hi:0, cap:'4 250 000: read it in groups of three from the right. **Four million, two hundred and fifty thousand.**'},
+     [{t:'table', h:['Factor pairs of 12','Check'], rows:[['1 × 12','= 12 ✓'],['2 × 6','= 12 ✓'],['3 × 4','= 12 ✓']], cap:'So the factors of 12 are **1, 2, 3, 4, 6 and 12**: only six of them.'},
+      {t:'flow', d:['4','8','12','16','20','...'], lab:'+ 4', cap:'Multiples of 4 never stop. 12 is both a **multiple** of 4 and has 4 as a **factor**.'}],
+     {t:'cols', d:[['Prime: exactly 2 factors',['2 (1, 2)','7 (1, 7)','13 (1, 13)']],['Composite: more than 2',['6 (1, 2, 3, 6)','9 (1, 3, 9)','15 (1, 3, 5, 15)']],['Neither',['1 (only one factor)']]]}],
+m6b:[{t:'frac', f:[[6,8],[3,4]], cap:'6/8 ÷ 2 on top and bottom = **3/4**. Fewer, bigger pieces, but the same amount shaded.'},
+     {t:'frac', f:[[1,2],[2,4],[1,4],[3,4]], cap:'1/2 + 1/4: make the pieces the same size first. 1/2 = **2/4**, then 2/4 + 1/4 = **3/4**.'},
+     {t:'frac', f:[[4,4],[4,4],[3,4]], cap:'2¾ is 2 full bars and 3 quarters. Count all the quarters: 4 + 4 + 3 = 11, so **2¾ = 11/4**.'}],
+m6c:[{t:'dpv', n:'3,25', hi:[2,3], cap:'3,25 = 3 wholes + 2 tenths + 5 hundredths. Like R3,25: three rand and 25 cents.'},
+     {t:'table', h:['Number','Same length','Compare'], rows:[['0,5','0,5**0**','50 hundredths'],['0,45','0,45','45 hundredths']], cap:'Add a zero so they have the same number of digits: **0,5 is bigger** than 0,45, even though 0,45 looks longer.'},
+     [{t:'hgrid', n:25, cap:'25 squares out of 100 are shaded: **25% = 25/100 = 1/4 = 0,25**.'},
+      {t:'table', h:['Percentage','Fraction','Decimal'], rows:[['100%','1 whole','1'],['50%','1/2','0,5'],['25%','1/4','0,25'],['10%','1/10','0,1']]}]],
+m6d:[{t:'angles', cap:'The orange arc shows the size of the turn between the two arms. A small square means a right angle.'},
+     {t:'area', w:6, h:3, m:'p', u:'m', cap:'Rectangle shortcut: (6 + 3) × 2 = **18 m**.'},
+     [{t:'area', w:6, h:3, m:'a', cap:'Area = length × breadth = 6 × 3 = **18 m²**. Same rectangle, different question.'},
+      {t:'vol', w:3, d:2, h:3, cap:'Volume = 3 × 2 × 3 = **18 cubic units**.'}]],
+m6e:[{t:'flow', d:['❓ Question','📝 Questionnaire or tally','📋 Table','📊 Graph','💬 Answer the question']},
+     {t:'table', h:['Step','Marks: 7, 3, 9, 7, 5'], rows:[['Put in order','3, 5, **7**, 7, 9'],['Mode (most often)','**7** (appears twice)'],['Median (middle)','**7** (the 3rd of 5 values)']], cap:'With 6 values, the median is halfway between the two middle ones.'},
+     {t:'pie', d:[['Walk',12],['Taxi',8],['Car',6],['Bus',4]], cap:'How 30 learners get to school. The whole circle is all 30 learners.'}],
+m6f:[{t:'col', op:'+', a:248536, b:173489, cap:'Same method, more columns. Carries are shown in red.'},
+     {t:'table', h:['','Exact','Rounded'], rows:[['First number','49 812','50 000'],['Second number','30 104','30 000'],['Total','?','**80 000**']], cap:'The exact answer must be close to 80 000. If you get 800 000, something went wrong.'},
+     {t:'flow', d:['85 000 − 27 350 = **57 650**','Check: 57 650 + 27 350','= 85 000 ✓'], cap:'Adding undoes subtracting, so it checks the answer.'}],
+m6g:[{t:'lmul', a:34, b:26, cap:'34 × 6 = **204** (green). 34 × 20 = **680** (purple). Add them: **884**.'},
+     {t:'ldiv', n:672, d:4, cap:'Divide, multiply, subtract, bring down, then repeat. 672 ÷ 4 = **168**, nothing left over.'},
+     {t:'grp', n:50, per:15, cap:'50 learners, taxis of 15: 3 full taxis and **5 left over**. Those 5 still need a ride, so you need **4 taxis**.'}],
+m6h:[{t:'cols', d:[['Add each time',['5, 10, 15, 20','Rule: + 5']],['Multiply each time',['2, 4, 8, 16','Rule: × 2']]], cap:'Test your rule on **every** term, not just the first two.'},
+     {t:'table', h:['Squares in a row','1','2','3','4'], rows:[['Matchsticks','4','7','10','**13**']], cap:'Each new square adds **3** matches.'},
+     [{t:'flow', d:['Input **4**','× 3','+ 1','Output **13**']},
+      {t:'table', h:['Input','1','2','3','4','10'], rows:[['Output (× 3 + 1)','4','7','10','13','**31**']]}]],
+m6i:[{t:'shapes', s:[3,4,5,6,8], cap:'**Regular** polygons: all sides and angles equal.'},
+     {t:'quads', cap:'All six have 4 sides, but different side lengths, angles and parallel sides.'},
+     {t:'circle', cap:'The diameter is always **twice** the radius.'}],
+m6j:[{t:'cols', d:[['Prism',['Two matching ends','Joined by rectangles','📦 box, 🍫 Toblerone shape']],['Pyramid',['One base','Triangles meet at the apex','⛺ tent shape']]]},
+     {t:'table', h:['Object','Faces','Edges','Vertices'], rows:[['Cube','6','12','8'],['Square-based pyramid','5','8','5'],['Triangular prism','5','9','6']]},
+     [{t:'net', cap:'This cross of 6 squares folds into a **cube**. Square 3 is the bottom.'},
+      {t:'net', k:'prism', cap:'3 rectangles and 2 triangles fold into a **triangular prism**.'}]],
+m6k:[{t:'xf', m:['slide','flip','turn'], cap:'Moving, flipping or turning never changes the size.'},
+     {t:'enlarge', f:2, cap:'Scale factor 2: every side is doubled. The angles stay the same.'},
+     {t:'cols', d:[['Similar ✓',['Every side × 2','Same angles','Looks the same, just bigger']],['Not similar ✗',['Width × 2, height × 3','Looks stretched']]]}],
+m6l:[{t:'grid', c:6, r:5, hit:'D5', items:{D5:'⛽',B2:'🏥',F1:'🏫'}, cap:'D5: letter (across) first, then number. The fuel station is in D5.'},
+     {t:'compass', cap:'Compass directions never change. Left and right depend on which way you face.'},
+     {t:'table', h:['Map distance','× scale (1 cm = 5 km)','Real distance'], rows:[['1 cm','1 × 5','5 km'],['4 cm','4 × 5','**20 km**'],['7,5 cm','7,5 × 5','37,5 km']]}],
+m6m:[{t:'table', h:['Unit','Equals'], rows:[['1 minute','60 seconds'],['1 hour','60 minutes'],['1 day','24 hours'],['1 week','7 days'],['1 year','12 months or 365 days'],['1 decade','10 years'],['1 century','100 years']]},
+     {t:'clock', h:16, m:15, cap:'4:15 p.m. = **16:15**. Add 12 to the hour after noon.'},
+     {t:'flow', d:['08:45','09:00','11:00','11:20'], lab:'jump', cap:'15 min + 2 h + 20 min = **2 h 35 min**. Jump to whole hours first.'}],
+m6n:[{t:'table', h:['Measure','Conversion facts'], rows:[['Length','10 mm = 1 cm, 100 cm = 1 m, 1 000 m = 1 km'],['Mass','1 000 g = 1 kg, 1 000 kg = 1 t'],['Capacity','1 000 ml = 1 l']]},
+     {t:'table', h:['Bigger ➜ smaller','Multiply'], rows:[['4 kg ➜ g','4 × 1 000 = **4 000 g**'],['2,5 m ➜ cm','2,5 × 100 = **250 cm**'],['3 l ➜ ml','3 × 1 000 = **3 000 ml**']], cap:'Small units: you need **more** of them.'},
+     {t:'table', h:['Smaller ➜ bigger','Divide'], rows:[['3 500 ml ➜ l','3 500 ÷ 1 000 = **3,5 l**'],['75 mm ➜ cm','75 ÷ 10 = **7,5 cm**'],['2 400 m ➜ km','2 400 ÷ 1 000 = **2,4 km**']], cap:'Big units: you need **fewer** of them.'}],
+m6p:[{t:'cols', d:[['🪙 Coin',['2 outcomes']],['🎲 Dice',['6 outcomes']],['🎡 4-colour spinner',['4 outcomes']]]},
+     {t:'tally', h:'Dice roll', d:[['1',3],['2',5],['3',4],['4',2],['5',4],['6',6]], cap:'24 rolls. Each number should come up about 4 times; some more, some fewer.'},
+     {t:'pie', d:[['Red',3],['Blue',1]], cap:'A bag with 3 red balls and 1 blue: red has **3 chances out of 4**, so it is more likely.'}],
+/* ===== English ===== */
+e6a:[{t:'cols', d:[['Simile (like / as)',['Her smile was **as bright as** the sun.']],['Metaphor (is)',['Her smile **was** sunshine.']]]},
+     {t:'chips', d:[['The'],['wind','not human'],['whispered','human action'],['through'],['the'],['trees.']], cap:'Wind cannot really whisper: that is **personification**.'},
+     {t:'table', h:['Device','Example'], rows:[['Alliteration','**B**usy **b**ees **b**uzz'],['Onomatopoeia','crash, sizzle, hiss'],['Rhyme','The **cat** sat on the **mat**']]}],
+e6b:[{t:'chips', d:[['Lindiwe'],['said,'],['"I','inverted commas'],['am'],['hungry."','inverted commas']], cap:'The full stop sits **inside** the closing inverted commas.'},
+     {t:'flow', d:['"I am hungry," said Lindiwe.','Lindiwe said **that she was** hungry.'], lab:'report it', cap:'No inverted commas, "I" becomes "she", "am" becomes "was".'},
+     {t:'table', h:['Direct','Reported'], rows:[['I, we','he/she, they'],['am, is','was'],['will','would'],['today','that day'],['tomorrow','the next day'],['here','there']]}],
+e6c:[{t:'chips', d:[['The dog','subject'],['barked.','verb']], cap:'One subject, one verb, one idea.'},
+     {t:'chips', d:[['The dog barked,','can stand alone'],['and','joining word'],['the cat ran away.','can stand alone']]},
+     {t:'chips', d:[['When the dog barked,','cannot stand alone'],['the cat ran away.','main idea']], cap:'"When the dog barked" is not a full sentence on its own.'}],
+e6d:[{t:'note', d:['(top right) 12 Acacia Street, Polokwane','(under it) 3 May 2026','Dear Thandi,','(body in paragraphs)','Your friend,','Sipho']},
+     {t:'stack', d:[['¶1 Friendly opening: how are you?','#F6E3BF'],['¶2 My news: the school trip','#EBCB97'],['¶3 More news: our new puppy','#DDB07A'],['¶4 Closing: write back soon','#C9935F']]},
+     {t:'flow', d:['💡 Plan','✏️ Draft','🔍 Revise','✅ Edit','📄 Final copy']}],
+e6e:[{t:'arc', d:[['Beginning','characters, setting'],['Rising action','problem builds'],['Climax','most exciting'],['Falling action','things settle'],['Resolution','problem solved']]},
+     {t:'table', h:['Sense','Example'], rows:[['👀 See','colourful stalls'],['👂 Hear','voices buzzing'],['👃 Smell','hot vetkoek'],['👅 Taste','sweet, sticky syrup'],['✋ Touch','rough wooden tables']]},
+     {t:'cols', d:[['Same starts ✗',['Then I walked. Then I saw. Then I ran.']],['Varied ✓',['I walked to the gate. Suddenly, I saw it. Then the lights went out.']]]}],
+e6f:[{t:'table', h:['Element','Question'], rows:[['Characters','Who?'],['Setting','Where and when?'],['Plot','What happens?'],['Conflict','What is the problem?'],['Resolution','How is it solved?']]},
+     {t:'cols', d:[['vs character 🧑‍🤝‍🧑',['Two friends fall out']],['vs nature 🌊',['Surviving a flood']],['vs society 🏛️',['Fighting an unfair rule']],['vs self 💭',['Overcoming fear']]]},
+     {t:'cols', d:[['First person',['**I** opened the door.','A character tells it']],['Third person',['**She** opened the door.','A narrator tells it']]]}],
+e6g:[{t:'chips', rows:[[['The sun is high,','A'],['The birds go by,','A'],['The rain is near,','B'],['The clouds appear.','B']]], cap:'Lines with the same letter rhyme: this rhyme scheme is **AABB**.'},
+     {t:'table', h:['Line','What you imagine'], rows:[['"The moon, a silver coin"','👀 a round, shiny moon (metaphor)'],['"Thunder grumbled like a giant"','👂 a deep, angry sound (simile)']]},
+     {t:'cols', d:[['Gloomy mood',['darkness **crept**','cold, silent, alone']],['Joyful mood',['sunlight **danced**','bright, laughing, warm']]], cap:'Word choice creates the mood.'}],
+e6h:[{t:'table', h:['Simple','Example'], rows:[['Present','I **play**'],['Past','I **played**'],['Future','I **will play**']]},
+     {t:'table', h:['Continuous (ongoing)','Example'], rows:[['Present','I **am playing**'],['Past','I **was playing**'],['Future','I **will be playing**']], cap:'A form of "to be" + verb ending in **-ing**.'},
+     {t:'table', h:['Perfect (completed)','Example'], rows:[['Present','I **have finished**'],['Past','I **had finished**'],['Future','I **will have finished**']], cap:'"have / has / had" + past participle.'}],
+e6i:[{t:'chips', d:[['Ayanda'],['lost'],['her','possessive'],['bag,'],['so'],['we','personal'],['helped'],['her.','personal']]},
+     {t:'table', h:['Preposition','Where is the ball? ⚽'], rows:[['in','in the box 📦'],['on','on the table'],['under','under the bed'],['between','between the trees 🌳⚽🌳'],['after','after school (time)']]},
+     {t:'table', h:['Article','Use before','Example'], rows:[['a','a consonant **sound**','a dog, a uniform'],['an','a vowel **sound**','an elephant, an hour'],['the','a specific thing','the dog next door']], cap:'"An hour": the h is silent, so it starts with a vowel sound.'}],
+e6j:[{t:'cols', d:[['Formal',['The principal','A company','A newspaper']],['Informal',['A friend','A cousin','Gogo']]]},
+     {t:'note', d:['(top right) Your address and the date','The Manager','Receiver’s address','Dear Sir/Madam','**RE: Broken swings in the park**','(body in paragraphs)','Yours faithfully','N. Dlamini']},
+     {t:'table', h:['Informal ✗','Formal ✓'], rows:[['Hey!','Dear Mr Dlamini'],['don’t','do not'],['It’s super cool','It is excellent'],['Cheers','Yours sincerely']]}],
+e6k:[{t:'note', d:['**LOCAL LEARNERS WIN ROBOT CONTEST**','By Neo Mokoena','(the lead paragraph answers the 5 Ws and H)'], cap:'A short, catchy headline, then the reporter’s name.'},
+     {t:'table', h:['Question','Answer'], rows:[['Who?','Grade 6 learners from Soweto'],['What?','Won a robot contest'],['Where?','Johannesburg'],['When?','Last Saturday'],['Why?','Their robot sorted recycling fastest'],['How?','By practising every afternoon']]},
+     {t:'cols', d:[['Fact ✓',['The team scored 95 points.']],['Opinion only as a quote',['"We worked so hard," said captain Neo.']]]}],
+e6l:[{t:'note', d:['MAMA: Where are your shoes?','THABO: (yawning) I just woke up.','MAMA: (sighing) The bus leaves in five minutes!'], cap:'Name, colon, words. Stage directions in brackets. No inverted commas.'},
+     null,
+     {t:'cols', d:[['Closed ✗',['Do you like soccer?','Answer: yes or no']],['Open ✓',['**Why** do you love soccer?','**How** did you start playing?']]]}],
+e6m:[{t:'cols', d:[['Keep ✓',['Main points','Topic sentences']],['Leave out ✗',['Examples','Repetition','Long descriptions']]]},
+     {t:'flow', d:['Read twice','Underline main points','Write in your own words','Check the word limit']},
+     {t:'flow', d:['🌍 **Water**','💧 Uses','🌧️ Sources','⚠️ Pollution','💡 Saving it'], lab:'branch', cap:'Main topic in the centre, branches for each idea, key words only.'}],
+e6n:[{t:'table', h:['Idiom','Means'], rows:[['It’s raining cats and dogs','It is raining very hard'],['Break a leg','Good luck'],['A piece of cake','Very easy']]},
+     {t:'table', h:['Proverb','Advice'], rows:[['Don’t count your chickens before they hatch','Don’t rely on something before it happens'],['Many hands make light work','Jobs are easier with help']]},
+     {t:'cols', d:[['Homonyms (same spelling)',['bat 🦇 / bat 🏏','bark 🐕 / bark 🌳']],['Homophones (same sound)',['their / there / they’re','right / write']]]}],
+
+/* ===== Natural Sciences & Technology ===== */
+n6a:[{t:'flow', d:['☀️ Sunlight','💧 Water','💨 Carbon dioxide'], lab:'+', cap:'Inside the green leaf these make 🍬 **sugar** (food) and 🫧 **oxygen**.'},
+     {t:'table', h:['Food','Eaten by'], rows:[['🌾 Grass','🦗 grasshopper, 🐇 rabbit'],['🦗 Grasshopper','🐦 bird, 🦎 lizard'],['🐇 Rabbit','🐍 snake, 🦅 eagle'],['🐦 Bird','🐍 snake, 🦅 eagle']], cap:'Each food has more than one eater, so the chains link into a **web**.'},
+     {t:'flow', d:['🐍 Too few snakes','🐭 More mice','🌽 More crops eaten'], cap:'One change ripples through the whole web.'}],
+n6b:[{t:'cols', d:[['Mixture: parts can be seen',['Sand and stones','Fruit salad']],['Solution: solid dissolved',['Sugar in water','Salt in water']]]},
+     {t:'flow', d:['🍬 Sugar (solute)','💧 Water (solvent)','🥤 Sugar water (solution)'], lab:'+'},
+     {t:'table', h:['To separate','Use'], rows:[['Big pieces','✋ Pick out by hand'],['Different sizes','🥣 Sieve'],['Sand from water','☕ Filter paper or cloth'],['Salt from water','☀️ Evaporate the water']]}],
+n6c:[[{t:'circuit', m:'simple', cap:'A complete loop: the bulb lights.'},
+      {t:'circuit', m:'simple', open:true, cap:'A gap in the loop: no electricity flows.'}],
+     {t:'cols', d:[['Conductors ⚡',['Copper','Iron','Aluminium foil']],['Insulators 🚫',['Plastic','Rubber','Wood','Glass']]]},
+     {t:'cols', d:[['Never ✗',['Push objects into plugs','Use cracked cords','Touch plugs with wet hands','Overload adaptors']]]}],
+n6d:[{t:'flow', d:['☀️','Mercury','Venus','🌍 Earth','Mars','Jupiter','Saturn','Uranus','Neptune'], cap:'**M**y **V**ery **E**asy **M**ethod **J**ust **S**peeds **U**p **N**aming. Rocky planets first, then the giants.'},
+     {t:'table', h:['Earth’s movement','Time','Gives us'], rows:[['Spins on its axis','24 hours','Day and night'],['Orbits the Sun','365¼ days','A year']]},
+     {t:'cols', d:[['Stars ✨',['Make their own light','Twinkle']],['Moon and planets 🌕',['Reflect sunlight','Twinkle less']]]}],
+n6e:[{t:'table', h:['Nutrient','Job','Found in'], rows:[['Carbohydrates','Energy','pap, bread, rice'],['Proteins','Growth and repair','meat, eggs, beans'],['Fats and oils','Stored energy','butter, oil, nuts'],['Fibre','Healthy digestion','vegetables, whole grains']]},
+     {t:'table', h:['Vitamin or mineral','Helps','Found in'], rows:[['Vitamin C','Fight illness','🍊 oranges'],['Vitamin A','Eyesight','🥕 carrots'],['Calcium','Bones and teeth','🥛 milk'],['Iron','Healthy blood','🥬 spinach']]},
+     {t:'cols', d:[['Iodine test',['Drops on a potato slice','Turns **blue-black**','= starch ✓']],['Brown paper test',['Rub food on paper','Greasy see-through mark','= fat ✓']]]}],
+n6f:[{t:'plate', cap:'Mostly vegetables, fruit and starch, enough protein, and very little sugar and salt.'},
+     {t:'cols', d:[['Kwashiorkor',['Too little **protein**','Swollen tummy, weak body']],['Marasmus',['Too little **food** overall','Very thin']]]},
+     {t:'flow', d:['🍟🥤 Too much fat and sugar','⚖️ Obesity','🩺 Diabetes, heart disease']}],
+n6g:[{t:'tri3', d:['Warmth','Moisture','Air'], mid:'🦠 Germs grow', cap:'Most preserving methods take away one of these.'},
+     {t:'table', h:['Method','Example','How it stops germs'], rows:[['Drying','🥩 biltong','removes water'],['Freezing','🧊 frozen peas','too cold'],['Salting / sugaring','🍓 jam','draws out water'],['Pickling','🥒 atchar','vinegar'],['Canning','🥫 tinned beans','heated and sealed'],['Pasteurising','🥛 milk','heat kills germs']]},
+     {t:'flow', d:['🌽 Maize','⚙️ Ground in a mill','🍚 Mealie meal','🍲 Pap']}],
+n6i:[null,
+     {t:'particles'},
+     {t:'cols', d:[['Heating 🔥',['Melting: solid ➜ liquid','Evaporating: liquid ➜ gas']],['Cooling ❄️',['Condensing: gas ➜ liquid','Freezing: liquid ➜ solid']]], cap:'Ice ➜ water ➜ steam, and back again.'}],
+n6j:[{t:'cols', d:[['Salty sea water 🌊',['Almost all of Earth’s water']],['Frozen ice 🧊',['Most of the fresh water']],['Usable fresh water 🚰',['A tiny amount']]]},
+     {t:'cols', d:[['Pollution sources',['🚽 Sewage','🥤 Litter','🏭 Factory and mine chemicals','🌾 Farm fertiliser']]]},
+     {t:'flow', d:['⏳ Let dirt settle','☕ Filter through cloth','🔥 Boil 1 minute','🚰 Safe to drink']}],
+n6k:[{t:'flow', d:['⚫ Coal burns','♨️ Water ➜ steam','🌀 Steam spins turbine','⚙️ Generator','⚡ Grid','🏠 Home']},
+     {t:'cols', d:[['Non-renewable',['⚫ Coal','🛢️ Oil','Will run out, pollutes']],['Renewable',['☀️ Solar','🌬️ Wind','💧 Hydro','Will not run out']]]},
+     {t:'cols', d:[['Save electricity 💡',['Switch off lights','Energy-saving bulbs','Close the fridge']]]}],
+n6l:[{t:'flow', d:['**Input**: press switch','**Process**: electricity flows','**Output**: buzzer sounds 🔔']},
+     [{t:'circuit', m:'series', broken:true, cap:'**Series**: one loop. One broken bulb and both go out.'},
+      {t:'circuit', m:'parallel', broken:true, cap:'**Parallel**: separate paths. One bulb breaks, the other stays on.'}],
+     {t:'flow', d:['🔎 Investigate','✏️ Design','🔨 Make','🧪 Evaluate'], cyc:'improve it'}],
+n6m:[{t:'cols', d:[['The Moon 🌕',['Rocky, no air','Covered in craters','Orbits Earth in about 27 days','Shows us the same side']]]},
+     {t:'flow', d:['🌑 New','🌒 Crescent','🌓 First quarter','🌔 Gibbous','🌕 Full','🌗 Last quarter'], cyc:'about 29½ days'},
+     {t:'cols', d:[['High tide 🌊',['Sea comes far up the beach']],['Low tide 🏖️',['Sea pulls back']]], cap:'Caused by the Moon’s gravity, about twice a day.'}],
+n6n:[{t:'cols', d:[['SALT 🔭',['Sutherland, Northern Cape','Collects light']],['MeerKAT 📡',['Karoo','Collects radio waves']]]},
+     {t:'flow', d:['🔥 Hot gas pushed down','🚀 Rocket pushed up'], lab:'reaction'},
+     {t:'flow', d:['1969: 👨‍🚀 People walk on the Moon','Rovers 🤖 explore Mars','Probes visit every planet']}],
+/* ===== Social Sciences ===== */
+s6a:[{t:'globe', m:'lat', cap:'Latitude lines run **across**, measuring north or south of the Equator.'},
+     {t:'globe', m:'long', cap:'Longitude lines run **pole to pole**, measuring east or west of the Prime Meridian.'},
+     {t:'globe', m:'both', p:[-26, 28], pl:'Johannesburg', cap:'Johannesburg: about **26° S, 28° E**. Latitude first.'}],
+s6b:[{t:'cols', d:[['Goods (touch them) 📦',['Bread','Shoes','Phones']],['Services (work done) 🛠️',['Haircut','Taxi ride','Teaching']]]},
+     {t:'flow', d:['**Primary**: 🌾 farmer grows wheat','**Secondary**: 🏭 bakery makes bread','**Tertiary**: 🛒 shop sells it']},
+     {t:'cols', d:[['SA exports ➜',['💛 Gold, platinum','⚫ Coal','🍊 Fruit','🚗 Cars']],['SA imports ⬅',['🛢️ Oil','💻 Electronics','⚙️ Machines']]]}],
+s6c:[{t:'table', h:['Fact','Mapungubwe'], rows:[['Where','Limpopo valley, where SA, Botswana and Zimbabwe meet'],['When','About 1220 to 1290'],['Today','A national park and World Heritage Site']]},
+     {t:'stack', d:[['⛰️ On the hill: king and royal family','#F6E3BF'],['Rich and important people','#EBCB97'],['🛖 In the valley: ordinary people','#C9935F']], cap:'Living high up showed power.'},
+     {t:'cols', d:[['Sent out ➜',['💛 Gold','🐘 Ivory','Animal skins']],['Received ⬅',['📿 Glass beads','🧵 Cloth','🏺 Chinese porcelain']]]}],
+s6d:[{t:'flow', d:['🗳️ Citizens 18+ vote','🏛️ Leaders are chosen','📅 Elections every 5 years'], cap:'Freedom Day, 27 April 1994: the first election where everyone could vote.'},
+     {t:'cols', d:[['Legislature',['Parliament','Makes laws']],['Executive',['President and Cabinet','Carries out laws']],['Judiciary',['Courts','Judges the law']]]},
+     {t:'stack', d:[['📜 The Constitution (highest law)','#F6E3BF'],['Bill of Rights inside it','#EBCB97'],['All other laws must follow it','#DDB07A']]}],
+s6e:[{t:'cols', d:[['7 continents',['Africa','Europe','Asia (largest)','North America','South America','Australia (Oceania)','Antarctica']],['5 oceans',['Pacific (largest)','Atlantic','Indian','Southern','Arctic']]]},
+     {t:'flow', d:['📖 Index: "Durban ... page 42, D3"','Turn to page 42','Find square D3']},
+     {t:'cols', d:[['Small scale 🌍',['Big area, little detail','World map']],['Large scale 🏘️',['Small area, lots of detail','Town map']]]}],
+s6f:[{t:'flow', d:['🌶️ Europe wants spices from Asia','🐪 Land routes long and controlled','⛵ Find a sea route around Africa']},
+     {t:'flow', d:['1488: Dias rounds the Cape','Cape of Good Hope','1497 to 1498: da Gama reaches 🇮🇳 India']},
+     {t:'table', h:['Tool','Used for'], rows:[['⛵ Caravel','Fast ship that could sail into the wind'],['🧭 Compass','Direction'],['Astrolabe','Latitude from the Sun and stars'],['🗺️ Maps','Planning the route']]}],
+s6g:[{t:'flow', d:['🌧️☀️ Climate','🌳 Vegetation','🦁 Animals and 🧑‍🌾 farming']},
+     {t:'table', h:['Hot region','Climate','Plants'], rows:[['Tropical rainforest','Hot and wet all year','Tall, thick trees'],['Savanna','Wet and dry seasons','Grass and scattered trees'],['Desert','Very little rain','Cacti, succulents']]},
+     {t:'table', h:['Cooler region','Climate','Plants'], rows:[['Mediterranean','Hot dry summers, wet winters','Fynbos (W Cape)'],['Temperate grassland','Warm summers, cold winters','Grass (Highveld)'],['Tundra','Freezing','Moss, tiny plants']]}],
+s6h:[{t:'cols', d:[['Densely populated 🏙️',['Gauteng','Many people close together']],['Sparsely populated 🏜️',['Northern Cape','Few people, lots of space']]]},
+     {t:'cols', d:[['Attract people ✓',['💧 Water','🌱 Fertile soil','💼 Jobs','🚉 Transport']],['Push people away ✗',['🏜️ Desert','🏔️ High mountains','🥶 Extreme cold']]]},
+     {t:'bar', d:[['Asia',4.8],['Africa',1.5],['Europe',0.75],['Americas',1.05],['Oceania',0.05]], step:1, cap:'Roughly how many **billion** people live on each continent. Over 8 billion in total.'}],
+s6i:[null,
+     {t:'table', h:['Order','Awarded for'], rows:[['Mapungubwe','Excellent achievement'],['Baobab','Service to the community'],['Ikhamanga','Arts, culture, literature, music, sport'],['Luthuli','Democracy and peace']]},
+     {t:'table', h:['Year','Nobel Peace Prize'], rows:[['1960','Albert Luthuli'],['1984','Archbishop Desmond Tutu'],['1993','Nelson Mandela and F.W. de Klerk']]}],
+/* ===== Life Skills ===== */
+l6a:[{t:'cols', d:[['Positive pressure ✓',['Join the choir with us!','Let’s study together']],['Negative pressure ✗',['Just try one smoke','Let’s bunk class']]]},
+     {t:'flow', d:['🛑 Stop and think','📝 List options','⚖️ Think of consequences','✅ Choose','🔁 Look back']},
+     {t:'table', h:['Way to say no','Example'], rows:[['Be clear','"No, thanks."'],['Give a reason','"I don’t want to get hurt."'],['Suggest something else','"Let’s play soccer instead."'],['Walk away','🚶']]}],
+l6b:[{t:'cols', d:[['When?',['About 9 to 14 years old','Different for everyone']],['Why?',['Hormones cause the changes']]]},
+     {t:'cols', d:[['Everyone',['Growth spurt','Body hair','Sweat, pimples','Mood swings']],['Girls',['Breasts develop','Periods start']],['Boys',['Voice deepens','Shoulders broaden']]]},
+     {t:'cols', d:[['Daily care ✓',['🚿 Wash every day','🧴 Deodorant','🧼 Wash your face','😴 Sleep enough']]]}],
+l6c:[{t:'cols', d:[['Air 💨',['Smoke, car fumes']],['Water 💧',['Litter, sewage']],['Land 🗑️',['Litter, illegal dumping']]]},
+     {t:'flow', d:['**Reduce**: use less','**Reuse**: use again','**Recycle**: make new things'], cap:'Plastic can last hundreds of years, so start with **reduce**.'},
+     {t:'cols', d:[['Save water 💧',['Tap off while brushing','Short showers','Fix leaks']],['Save electricity ⚡',['Switch off lights','Unplug chargers','Energy-saving bulbs']]]}],
+l6d:[{t:'cols', d:[['Substances',['🍺 Alcohol','🚬 Cigarettes and vapes','🌿 Dagga','💊 Medicine used wrongly']]]},
+     {t:'table', h:['Substance','Harms'], rows:[['🚬 Smoking','Lungs and heart'],['🍺 Alcohol','Brain, liver, causes accidents'],['💊 Drugs','Brain, mental health, can kill']], cap:'Many are **addictive**: very hard to stop.'},
+     {t:'table', h:['Need help?','Contact'], rows:[['Childline','**116** (free)'],['At school','A teacher or counsellor'],['At home','A trusted adult']]}],
+l6e:[{t:'cols', d:[['Strengths 💪',['Kind to others','Good at drawing']],['Still growing 🌱',['Fractions','Speaking in public']]], cap:'Everyone has both. Mistakes are how we learn.'},
+     null,
+     {t:'table', h:['SMART','Example: "I will read one book a week this term"'], rows:[['**S**pecific','Read books'],['**M**easurable','One a week'],['**A**chievable','Short books are fine'],['**R**ealistic','I have time after school'],['**T**ime-bound','This term']]}],
+l6f:[{t:'persp', cap:'Things far away are drawn **smaller** and closer to the horizon. The road edges meet at the **vanishing point**.'},
+     {t:'flow', d:['🔺','🟦','🔺','🟦','🔺','🟦'], cap:'A repeated pattern creates **rhythm**, like Ndebele wall painting.'},
+     {t:'flow', d:['🎯 Purpose','👥 Audience','✏️ Sketch ideas','🎨 Colour, lettering, layout']}],
+l6g:[{t:'notes', cap:'Each note shape tells you how many beats to hold it.'},
+     {t:'cols', d:[['Modern',['Kwaito','Amapiano','Jazz','Gospel']],['Traditional roots',['Maskandi','Mbaqanga','Isicathamiya','Marabi']]]},
+     {t:'cols', d:[['Together ✓',['Watch the conductor','Keep the same tempo','Listen to others']]]}],
+l6h:[null,
+     {t:'cols', d:[['Good sport ✓',['Shake hands','Accept the ref’s call','Encourage teammates']],['Poor sport ✗',['Argue with the ref','Blame teammates','Gloat when winning']]]},
+     {t:'table', h:['Component','Means','Try'], rows:[['Strength','Muscle power','Push-ups'],['Endurance','Keep going','Long run'],['Speed','Move fast','Sprints'],['Flexibility','Bend and stretch','Toe touches'],['Agility','Change direction','Zigzag run'],['Balance','Stay steady','Stand on one leg']]}]
 });
 Object.keys(VIS).forEach(k => { if (typeof DEEP !== 'undefined' && DEEP[k]) DEEP[k].v = VIS[k]; });
 
