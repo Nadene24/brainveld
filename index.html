@@ -619,6 +619,31 @@ main > *{min-width:0}
   .bucket{min-height:84px}
   .quest-card h1{font-size:1.7rem}
 }
+/* ===== full lessons and resources ===== */
+.intro{display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px; align-items:center}
+.intro .av{width:72px; height:72px} .intro .av .char{width:100%; height:100%}
+.learn-list{background:var(--surface-2); border-radius:14px; padding:12px 16px}
+.learn-list ul{margin:6px 0 0; padding-left:20px; display:grid; gap:4px; font-weight:700}
+.inshort{border-left:5px solid var(--brand); background:var(--brand-soft); border-radius:0 14px 14px 0; padding:12px 14px; max-width:66ch}
+.inshort .eyebrow{color:var(--brand); margin-bottom:2px}
+.glossary{display:grid; gap:8px; margin:0}
+.glossary > div{display:grid; grid-template-columns:minmax(90px,28%) minmax(0,1fr); gap:12px; padding:10px 12px; border-radius:12px; background:var(--surface-2)}
+.glossary dt{font-family:var(--f-display); font-weight:600; color:var(--c, var(--brand))}
+.glossary dd{margin:0}
+.res-list{display:grid; gap:8px}
+.res{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:12px; align-items:center; padding:12px 14px; border-radius:14px; background:var(--surface-2); color:var(--ink); text-decoration:none; border:2px solid transparent}
+.res:hover, .res:focus-visible{border-color:var(--brand)}
+.res-ic{width:38px; height:38px; border-radius:12px; display:grid; place-items:center; background:var(--brand-soft); color:var(--brand)}
+.res b{display:block; font-family:var(--f-display); font-weight:600}
+.res small{display:block; color:var(--muted); font-weight:700}
+.res-go{color:var(--brand)}
+@media (max-width:560px){
+  .tabs{grid-template-columns:repeat(4,1fr)}
+  .tabs button{font-size:.8rem; padding:8px 2px}
+  .tabs button svg{display:none}
+  .glossary > div{grid-template-columns:1fr; gap:2px}
+  .intro{grid-template-columns:56px minmax(0,1fr)} .intro .av{width:56px; height:56px}
+}
 
 .logo-icon{width:40px; height:40px; border-radius:11px; display:block; box-shadow:0 4px 10px -4px rgba(0,0,0,.45)}
 .pick-icon{width:96px; height:96px; border-radius:24px; margin:0 auto; box-shadow:0 12px 24px -10px rgba(0,0,0,.45)}
@@ -4461,6 +4486,333 @@ G7_MORE.ls = [
        ["Squats and push-ups mainly build...",["strength","flexibility","speed only","coordination only"],"Muscles."]]}}
 ];
 
+;
+/* Full beginner lessons (assume no prior knowledge).
+   Per topic: k = search words for resources, why = what it is and why it matters,
+   more = a fuller explanation for each of the topic's three idea cards, words = key words. */
+const DEEP = {
+/* ===== Grade 5 Mathematics ===== */
+m5a:{ k:'place value', why:'Numbers are built from **digits**: 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9. The same digit can be worth a little or a lot, depending on **where** it sits in the number. Knowing this helps you read big numbers, like prices or the number of people in a stadium.',
+ more:['Think of each place in a number as a box. Starting from the right, the boxes are: units (ones), tens, hundreds, thousands, ten thousands and hundred thousands. Each box is worth **10 times** more than the box to its right. So a 3 in the units box is just 3, but a 3 in the hundred thousands box is 300 000.',
+       'Rounding means changing a number to a simpler, "round" number that is close to it. It helps when you only need a quick idea, like "about R50". To round, find the place you are rounding to, then look at the digit just to its **right**. That digit decides whether you go up or stay.',
+       'To compare two numbers, first count their digits: a number with more digits is bigger. If they have the same number of digits, compare them from the **left**, one place at a time, until two digits are different. The sign > means "is bigger than" and < means "is smaller than". The open side always faces the bigger number.'],
+ words:[['Digit','One of the ten symbols 0 to 9 used to write numbers.'],['Place value','How much a digit is worth because of its position.'],['Expanded notation','Writing a number as the sum of its parts, like 300 + 50 + 2.'],['Round off','Change a number to a nearby simpler number.']] },
+m5b:{ k:'multiplication and division', why:'**Multiplication** is a fast way of adding the same number many times. **Division** is sharing equally, or finding how many groups fit. You use them every day: working out the cost of 6 loaves of bread, or sharing sweets fairly among friends.',
+ more:['3 × 4 means "3 groups of 4", which is 4 + 4 + 4 = 12. The answer is called the **product**. Learning your times tables up to 10 × 10 saves you from adding every time. A handy trick: the order does not matter, so 3 × 4 is the same as 4 × 3.',
+       'Big multiplications are easier if you **break the number into parts** (place values), multiply each part, then add the answers together. For 243 × 6, do 200 × 6, then 40 × 6, then 3 × 6, and add them up. This works because of place value.',
+       '12 ÷ 3 asks "if I share 12 equally into 3 groups, how many are in each group?" The answer, 4, is called the **quotient**. Division undoes multiplication: 3 × 4 = 12, so 12 ÷ 3 = 4. If things do not share out exactly, what is left over is called the **remainder**.'],
+ words:[['Product','The answer to a multiplication.'],['Quotient','The answer to a division.'],['Remainder','What is left over when a number does not divide exactly.'],['Times table','The list of answers when you multiply by one number.']] },
+m5c:{ k:'fractions for kids', why:'A **fraction** describes part of something that has been cut into **equal** pieces. When you eat half a sandwich or share a pizza, you are using fractions. They are also used in recipes, money and measuring.',
+ more:['A fraction has two numbers. The bottom number (the **denominator**) tells you how many equal pieces the whole was cut into. The top number (the **numerator**) tells you how many of those pieces you are talking about. In 3/4, the whole is cut into 4 equal pieces and we have 3 of them.',
+       'Different fractions can show the **same amount**. Cut a cake in half: you have 1/2. Cut each half in two again and you have 2/4, the same amount of cake. These are called **equivalent fractions**. You make them by multiplying (or dividing) the top and bottom by the same number.',
+       'To find a fraction "of" a number, first share the number into the denominator’s number of groups, then take as many groups as the numerator says. 2/3 of 18: share 18 into 3 groups of 6, then take 2 groups = 12. When adding fractions with the same bottom number, the pieces are the same size, so you just add the tops.'],
+ words:[['Numerator','The top number: how many parts you have.'],['Denominator','The bottom number: how many equal parts make the whole.'],['Equivalent fractions','Fractions that look different but are the same amount.'],['Whole','The full thing before it is cut into parts.']] },
+m5d:{ k:'measurement units length mass capacity', why:'**Measuring** tells us how long, how heavy or how much something is. We use units like centimetres, kilograms and litres so everyone means the same thing. You measure when you cook, build, buy food or read a bus timetable.',
+ more:['**Length** is how long something is (mm, cm, m, km). **Mass** is how heavy something is (g, kg). **Capacity** is how much liquid a container holds (ml, l). Small units measure small things: a pencil in cm, a road in km. The prefix "kilo" means 1 000.',
+       'When you change from a **big unit to a small unit**, you need more of the small units, so you multiply. When you change from a **small unit to a big unit**, you need fewer, so you divide. Check that your answer makes sense: 3 m must be more than 3 cm.',
+       'A day has 24 hours. In **12-hour time** we use a.m. (midnight to noon) and p.m. (noon to midnight). **24-hour time** counts all 24 hours, so no a.m. or p.m. is needed: after 12 noon you keep counting, 13:00, 14:00 and so on. Remember: 60 minutes make 1 hour, not 100.'],
+ words:[['Length','How long something is.'],['Mass','How heavy something is.'],['Capacity','How much a container can hold.'],['24-hour time','Time counted from 00:00 to 23:59, without a.m. or p.m.']] },
+m5e:{ k:'2D shapes and 3D objects', why:'Shapes are everywhere: windows, wheels, boxes and balls. **2D shapes** are flat, like drawings on paper. **3D objects** are solid and take up space. Patterns and data help us spot what comes next and understand information.',
+ more:['A 2D shape is flat: it has length and width but no thickness. Shapes with straight sides are named by how many sides they have. "Tri" means 3, "quad" means 4, "pent" means 5, "hex" means 6 and "oct" means 8. A circle is a special 2D shape with one curved edge.',
+       'A 3D object has length, width **and** height, so you can hold it. Its flat surfaces are called **faces**, the lines where two faces meet are **edges**, and the corners are **vertices** (one corner is a vertex). A box, a can and a ball are all 3D objects.',
+       'A **pattern** is something that repeats or changes by a rule. To find the rule, look at how you get from one number to the next. **Data** is information we collect, like everyone’s favourite fruit. Tally marks are a quick way to count: four lines and a fifth line across make a group of 5.'],
+ words:[['2D shape','A flat shape, like a square or circle.'],['3D object','A solid object, like a cube or ball.'],['Face, edge, vertex','A flat surface, a line where faces meet, and a corner.'],['Pattern rule','What you do to get from one term to the next.']] },
+m5f:{ k:'column addition and subtraction carrying borrowing', why:'**Adding** joins amounts together and **subtracting** takes one amount away from another or finds the difference. With big numbers, the **column method** keeps every digit in its correct place so you do not get lost.',
+ more:['Write the numbers one under the other so the **units** line up, the **tens** line up, and so on. This matters because you can only add units to units and tens to tens. Always start working from the right-hand column (the units) and move left.',
+       'Each column can only hold one digit (0 to 9). If a column adds up to 10 or more, you write the units digit and **carry** the extra ten into the next column to the left, as a small 1 at the top. That 1 is worth one ten (or one hundred, and so on) in the new column.',
+       'When subtracting, if the top digit in a column is smaller than the bottom digit, you **borrow** (also called exchanging): take 1 from the column to the left, and it becomes 10 in your column. Then subtract. Check your answer by adding it to the number you took away: you should get the top number.'],
+ words:[['Sum','The answer to an addition.'],['Difference','The answer to a subtraction.'],['Carry','Move a ten to the next column when adding.'],['Borrow (exchange)','Take a ten from the next column when subtracting.']] },
+m5g:{ k:'number sentences missing number', why:'A **number sentence** is like a sentence in maths. Instead of words it uses numbers and signs, like 5 + 3 = 8. Number sentences help you turn everyday problems into maths you can solve.',
+ more:['The **equals sign** (=) means "has the same value as". Whatever is on the left must be worth exactly the same as what is on the right, like the two sides of a balanced scale. Operation signs tell you what to do: + add, − subtract, × multiply, ÷ divide.',
+       'Sometimes a number is missing and shown as a box: □ + 15 = 40. To find it, use the **opposite** operation. Adding and subtracting undo each other, and so do multiplying and dividing. So □ = 40 − 15 = 25. Always check by putting your answer back in the box.',
+       'To turn a story into a number sentence, ask: what do I know, what am I trying to find, and what is happening? "Gets more" usually means add. "Gives away" or "how many left" means subtract. "Equal groups" means multiply. "Share equally" means divide.'],
+ words:[['Number sentence','A maths statement using numbers and signs, like 4 × 5 = 20.'],['Equals sign','Shows that two sides have the same value.'],['Operation','Add, subtract, multiply or divide.'],['Inverse operation','The opposite operation that undoes another.']] },
+m5h:{ k:'data handling tally bar graph mode', why:'**Data** is information, like how many learners like soccer or what the weather was each day. We collect data to answer questions, then organise it in tables and graphs so it is easy to understand at a glance.',
+ more:['Data handling follows steps called the **data cycle**: ask a question, collect data (for example by asking people), sort it, show it in a table or graph, and then explain what it tells you. Starting with a clear question keeps you focused.',
+       'A **tally** is a quick way to count while collecting. Draw one line for each answer, and every fifth line goes across the other four to make a bundle of five. A **frequency table** then lists each answer and how many times it appeared (its frequency).',
+       'A **bar graph** shows data as bars. The longer or taller the bar, the more there is. It has a title, a label on each axis and a number scale. The **mode** is the answer that appears most often, so it matches the tallest bar.'],
+ words:[['Data','Information we collect.'],['Tally','A count made with marks grouped in fives.'],['Frequency','How many times something happens.'],['Mode','The value that appears most often.']] },
+m5j:{ k:'lines of symmetry', why:'Something is **symmetrical** when one half is a mirror image of the other half. Butterflies, faces and many flags are symmetrical. Spotting symmetry helps in art, design and building.',
+ more:['Imagine folding a picture along a line. If the two halves land exactly on top of each other, the picture is symmetrical, and the fold line is called the **line of symmetry**. Each half is a reflection of the other, like what you see in a mirror.',
+       'Some shapes can be folded in more than one way and still match. Each matching fold is another line of symmetry. A square has 4 (up, across and both corner-to-corner diagonals). A rectangle has only 2. A circle has endless lines because every line through the centre works.',
+       'Look around: many letters, logos, leaves and buildings are symmetrical. You can test anything with a mirror: stand it on the line you think is a line of symmetry. If the shape looks complete in the mirror, you found one.'],
+ words:[['Symmetry','When one half is the mirror image of the other half.'],['Line of symmetry','The fold line that splits a shape into matching halves.'],['Reflection','A mirror image.'],['Diagonal','A line from one corner to the opposite corner.']] },
+m5k:{ k:'measuring tools reading scales', why:'To measure accurately you need the **right tool** and you need to **read its scale** correctly. Getting this right matters when baking, building, or giving the right amount of medicine.',
+ more:['Each kind of measurement has its own tool. Rulers and tape measures measure length. Scales measure mass. Measuring jugs and cylinders measure capacity. Thermometers measure temperature. Choose a tool that suits the size of the thing you are measuring.',
+       'A **scale** is the row of marks and numbers on a tool. Not every mark has a number, so first work out what **each small mark is worth**: find two labelled numbers, work out the difference, and divide by the number of spaces between them.',
+       'An **estimate** is a sensible guess. Use things you know as a guide (benchmarks): a door is about 2 m high, a litre of water has a mass of about 1 kg. Estimate first, then measure. If your measurement is very different from your estimate, check again.'],
+ words:[['Scale','The marked lines and numbers on a measuring tool.'],['Estimate','A sensible guess before measuring.'],['Benchmark','A known size you compare with.'],['Accurate','Exact and correct.']] },
+m5m:{ k:'perimeter area volume', why:'**Perimeter** is the distance around a shape. **Area** is the flat space inside it. **Volume** is how much space a 3D object takes up. You use these when fencing a garden, tiling a floor or packing a box.',
+ more:['To find the perimeter, walk around the outside of the shape in your mind and add up the length of every side. It is measured in units of length, like cm or m. A fence or a picture frame is about perimeter.',
+       'Area tells you how much surface a shape covers. One way to measure it is to count how many squares of the same size fit inside the shape. If each square is 1 cm by 1 cm, the area is measured in **square centimetres** (cm²).',
+       'Volume tells you how much space an object takes up. We can count how many small cubes fill a box. Count the cubes in one layer, then multiply by the number of layers. Volume is measured in **cubic** units, like cm³.'],
+ words:[['Perimeter','The total distance around the edge of a shape.'],['Area','The amount of flat surface inside a shape.'],['Volume','The space a 3D object takes up.'],['Square unit','A square used to measure area, like 1 cm².']] },
+m5n:{ k:'position and views grid references', why:'This topic is about **where** things are and **how they look** from different sides. It helps you read maps, give directions and draw objects properly.',
+ more:['The same object looks different depending on where you stand. The **top view** is what a bird would see looking down. The **front view** is what you see standing in front. The **side view** is what you see from the side. A can looks like a circle from the top but a rectangle from the front.',
+       '**Position words** describe where something is compared to something else: above, below, next to, between, in front of, behind, left and right. Be careful: left and right depend on which way the person is facing.',
+       'A **grid** is a set of squares made by rows and columns. Columns are usually labelled with letters and rows with numbers. A **grid reference** like C3 means column C and row 3, so it names one square. Directions on a grid can use north, south, east and west and a number of blocks.'],
+ words:[['View','How an object looks from one side.'],['Grid','A pattern of squares in rows and columns.'],['Grid reference','A letter and number that name one square, like C3.'],['Compass direction','North, south, east or west.']] },
+m5o:{ k:'translation reflection rotation for kids', why:'A **transformation** moves a shape to a new position. There are three main kinds: slide, flip and turn. You see them in floor tiles, fabric patterns and when you move puzzle pieces.',
+ more:['A **translation** (slide) moves a shape in a straight line: left, right, up or down. The shape does not turn or flip, and it stays exactly the same size. Think of pushing a book across a table.',
+       'A **reflection** (flip) makes a mirror image of a shape over a line. A **rotation** (turn) spins a shape around a point, like the hands of a clock. A quarter turn is 90°, a half turn is 180° and a full turn is 360°, which brings it back to the start.',
+       'A **tessellation** is a pattern of shapes that fit together like tiles with **no gaps** and **no overlaps**. Squares, triangles and hexagons tessellate on their own. Circles do not, because gaps are always left between them.'],
+ words:[['Transformation','Moving a shape by sliding, flipping or turning.'],['Translation','A slide in a straight line.'],['Reflection','A flip that makes a mirror image.'],['Rotation','A turn around a point.']] },
+m5p:{ k:'temperature thermometer degrees celsius', why:'**Temperature** tells us how hot or cold something is. We check it to decide what to wear, to see if someone has a fever, or to cook food safely.',
+ more:['We measure temperature with a **thermometer**. In South Africa we use **degrees Celsius**, written °C. A higher number means hotter and a lower number means colder.',
+       'Some temperatures are useful to remember. Water freezes into ice at 0 °C and boils at 100 °C. A healthy person’s body is about 37 °C. A comfortable room is about 20 °C. These help you check if a reading makes sense.',
+       'Many thermometers have a line of liquid that rises as it gets hotter. Read the number at the **top of the liquid**, looking straight across at eye level. First work out what each small mark is worth, just like reading any scale.'],
+ words:[['Temperature','How hot or cold something is.'],['Thermometer','A tool for measuring temperature.'],['Degrees Celsius (°C)','The unit we use for temperature.'],['Freezing point','The temperature at which water turns to ice: 0 °C.']] },
+m5q:{ k:'probability for kids likely unlikely', why:'**Probability** is about chance: how likely something is to happen. Will it rain? Will a coin land on heads? We use probability to make good guesses and fair games.',
+ more:['We describe chance with words. **Impossible** means it can never happen. **Unlikely** means it probably will not happen. **Even chance** means it is just as likely to happen as not. **Likely** means it probably will. **Certain** means it will definitely happen.',
+       'An **outcome** is one possible result. When you flip a coin there are 2 outcomes: heads or tails. When you roll a normal dice there are 6 outcomes: 1, 2, 3, 4, 5 or 6. Listing every outcome helps you see how likely each one is.',
+       'You can test chance with an **experiment**: flip a coin many times and keep a tally of the results. With only a few tries the results can surprise you, but the more times you try, the closer the results get to what you expect.'],
+ words:[['Probability','How likely something is to happen.'],['Outcome','One possible result.'],['Even chance','Equally likely to happen or not happen.'],['Experiment','A test you repeat and record.']] },
+/* ===== Grade 5 English ===== */
+e5a:{ k:'parts of speech nouns verbs adjectives', why:'Words have different **jobs** in a sentence. Some name things, some show actions and some describe. These jobs are called **parts of speech**. Knowing them helps you write clear sentences and understand grammar.',
+ more:['A **noun** is a naming word. It names a person (teacher), a place (Durban), a thing (ball) or an idea (happiness). A **proper noun** is the special name of one person, place or thing, like Thabo or Table Mountain, and it always starts with a capital letter.',
+       'A **verb** is a doing or being word: run, eat, think, is. Every sentence needs one. An **adjective** describes a noun: it tells you what kind, how many or which one. In "the tall giraffe", tall is the adjective describing giraffe.',
+       'An **adverb** describes a verb. It tells you how (slowly), when (yesterday) or where (outside) something happens. Many adverbs end in -ly. A **pronoun** takes the place of a noun so we do not repeat it: he, she, it, we, they.'],
+ words:[['Noun','A naming word for a person, place, thing or idea.'],['Verb','A doing or being word.'],['Adjective','A word that describes a noun.'],['Adverb','A word that describes a verb.']] },
+e5b:{ k:'punctuation capital letters full stops commas apostrophes', why:'**Punctuation** marks are the small signs that help us read sentences correctly: where to stop, pause or ask. Without them, writing would be confusing, like a road without signs.',
+ more:['Every sentence starts with a **capital letter** and ends with a full stop (.), a question mark (?) or an exclamation mark (!). Names of people, places, days and months also need capital letters, and so does the word "I".',
+       'A **comma** (,) tells the reader to pause briefly. Use commas to separate items in a list: apples, bananas and pears. A **question mark** goes at the end of a question, and an **exclamation mark** shows strong feeling, like surprise.',
+       'An **apostrophe** (’) has two jobs. It shows that something belongs to someone (Sipho’s bag), or it shows that letters are missing in a short form (don’t = do not). **Inverted commas** (" ") go around the exact words someone says.'],
+ words:[['Punctuation','Marks that help us read writing correctly.'],['Comma','A mark for a short pause or to separate list items.'],['Apostrophe','Shows ownership or missing letters.'],['Inverted commas','Marks around the exact words someone said.']] },
+e5c:{ k:'past present future tense', why:'**Tense** tells us **when** something happens: now, in the past, or in the future. Using the right tense helps your reader follow your story without getting confused about time.',
+ more:['The **present tense** is for things happening now, or things that happen often. "I walk to school." "She plays netball every Friday." With he, she or it, we usually add -s to the verb.',
+       'The **past tense** is for things that already happened. Most verbs add -ed: walk becomes walked. But some are **irregular** and change in their own way: go becomes went, eat becomes ate, see becomes saw. These must be learnt.',
+       'The **future tense** is for things that have not happened yet. Put "will" before the verb (I will walk) or use "going to" (I am going to walk). Clue words like tomorrow and next week often show the future.'],
+ words:[['Tense','The form of a verb that shows when something happens.'],['Present tense','Now, or things that happen often.'],['Past tense','Already happened.'],['Irregular verb','A verb that does not just add -ed in the past.']] },
+e5d:{ k:'reading comprehension main idea fact and opinion', why:'Reading is more than saying the words. **Comprehension** means understanding what you read: what it is mostly about, which parts are facts, and what words mean. These skills help in every subject.',
+ more:['The **main idea** is what a whole text or paragraph is mostly about. Ask yourself: "If I had to say what this is about in one sentence, what would I say?" The other sentences are **supporting details**: they add extra information.',
+       'A **fact** is something that can be checked and proven true, for example by measuring or looking in a reliable book. An **opinion** is what someone thinks or feels, and other people may disagree. Words like best, worst, nicest and boring usually signal opinions.',
+       '**Sequence** means the order things happen in. Signal words help: first, then, next, after that, finally. When you meet a word you do not know, use **context clues**: read the words and sentences around it to work out what it probably means.'],
+ words:[['Main idea','What a text is mostly about.'],['Fact','Something that can be proven true.'],['Opinion','What someone thinks or feels.'],['Context clues','Hints from nearby words that help explain a word.']] },
+e5e:{ k:'how to write a story for kids', why:'A **story** (narrative) takes the reader on a journey with characters and a problem to solve. Learning how stories are built helps you write your own and enjoy the ones you read.',
+ more:['Every story needs **characters** (who the story is about), a **setting** (where and when it happens) and a **plot** (what happens). Decide these before you start writing, even with just a few words each.',
+       'Stories have a **beginning** that introduces the characters and setting, a **middle** where a problem (also called the conflict) happens and things get exciting, and an **end** where the problem is solved. Without a problem, a story is usually boring.',
+       'Make your story come alive with strong verbs (raced instead of went), describing words, and dialogue (characters talking). Describe what characters see, hear and feel, so the reader can picture it.'],
+ words:[['Character','A person or animal in a story.'],['Setting','Where and when a story happens.'],['Plot','What happens in the story.'],['Conflict','The problem the characters face.']] },
+e5f:{ k:'folktales myths and legends for kids', why:'Long before books, people shared stories by telling them aloud. **Folktales, myths and legends** are these traditional stories. They entertain us and teach lessons about how to live.',
+ more:['A **folktale** is a traditional story passed down by word of mouth from older people to younger people. Many have talking animals, like clever Hare or sly Jackal, and end with a **moral**: a lesson for life.',
+       'A **myth** is a traditional story that explains how something in nature began, such as why the sun rises or why the zebra has stripes. A **legend** tells of a hero and their brave deeds, and may be partly based on real events.',
+       'Look out for common features: a simple setting, clear good and bad characters, things happening in threes, and openings like "Long, long ago". To find the moral, ask what the characters did right or wrong, and what we should learn.'],
+ words:[['Folktale','A traditional story passed down by telling.'],['Moral','The lesson a story teaches.'],['Myth','A story explaining how something in nature began.'],['Legend','A story about a hero, possibly partly true.']] },
+e5g:{ k:'poetry for kids rhyme rhythm stanza', why:'A **poem** uses carefully chosen words, sounds and rhythm to share feelings or pictures in a short space. Poems are fun to read aloud, and they help you notice how words sound.',
+ more:['Poems are written in **lines** rather than paragraphs. A group of lines is called a **stanza** (or verse). Poems do not always use full sentences, and the way lines are broken up is part of their meaning.',
+       'Words **rhyme** when their ending sounds match, like cat and hat. **Rhythm** is the beat you hear when you read a poem aloud, like a heartbeat or a drum. Clapping as you read helps you feel the rhythm.',
+       'Poets use special tools to make poems vivid. A **simile** compares using like or as. **Alliteration** repeats the same starting sound. **Onomatopoeia** is a word that sounds like what it means, such as buzz or splash.'],
+ words:[['Stanza','A group of lines in a poem.'],['Rhyme','Words with matching end sounds.'],['Rhythm','The beat of a poem.'],['Onomatopoeia','A word that sounds like its meaning.']] },
+e5h:{ k:'writing instructions procedure for kids', why:'**Instructions** tell someone how to make or do something, step by step. Recipes, game rules and how to use a new phone are all instructions. Good instructions are clear and easy to follow.',
+ more:['Start with a **title** that says what the reader will make or do, like "How to Make Vetkoek". This tells the reader straight away whether these are the instructions they need.',
+       'First, list **what you need** (ingredients or materials) so the reader can collect everything before starting. Then write **numbered steps** in the exact order they must be done. Each step should do one thing.',
+       'Start each step with a **command verb** (also called an imperative verb), such as mix, pour, cut or fold. Keep steps short and include exact amounts and times, like "Stir for 2 minutes".'],
+ words:[['Instructions','Steps that tell you how to do something.'],['Materials','The things you need before you start.'],['Command verb','A doing word that tells someone what to do.'],['Sequence','The correct order of steps.']] },
+e5i:{ k:'recount writing diary entry for kids', why:'A **recount** retells something that really happened, in the order it happened. A **diary** is a personal recount of your day and feelings. Writing recounts helps you remember and share experiences.',
+ more:['A recount tells about real events that **already happened**, so it is written in the **past tense**. It follows the order of events from first to last, and answers who, what, where, when and why.',
+       'A **diary entry** is private and personal. Start with the date and "Dear Diary". Write in the **first person**, using I, me and we, and include how you felt about what happened.',
+       '**Time connectives** are words that show the order of events and link your sentences: first, then, after that, later, the next morning, finally. They help your reader follow along.'],
+ words:[['Recount','A retelling of real events in order.'],['First person','Writing with I, me and we.'],['Time connective','A word that shows when, like next or finally.'],['Past tense','Verbs that show something already happened.']] },
+e5j:{ k:'synonyms antonyms prefixes suffixes homophones', why:'Having lots of words to choose from makes your writing more interesting and your reading easier. This topic gives you tools to work out word meanings and choose better words.',
+ more:['**Synonyms** are words with similar meanings, like big and large. Use them to avoid repeating the same word. **Antonyms** are words with opposite meanings, like hot and cold.',
+       'A **prefix** is a small part added to the **front** of a word that changes its meaning: un + happy = unhappy (not happy). A **suffix** is added to the **end**: hope + ful = hopeful. Knowing them helps you work out new words.',
+       '**Homophones** are words that sound the same but are spelt differently and mean different things: sea (the ocean) and see (with your eyes), or two, too and to. Read the whole sentence to choose the right one.'],
+ words:[['Synonym','A word with a similar meaning.'],['Antonym','A word with the opposite meaning.'],['Prefix and suffix','Word parts added to the start or end of a word.'],['Homophone','Words that sound the same but differ in spelling and meaning.']] },
+e5k:{ k:'comparative superlative adjectives conjunctions', why:'We often compare things: "the cheetah is faster than the lion". This topic shows how describing words change when we compare, and how **joining words** link ideas into longer sentences.',
+ more:['Adjectives have three forms. The **positive** describes one thing (tall). The **comparative** compares two things and usually adds -er (taller). The **superlative** compares three or more and usually adds -est (tallest).',
+       'Long adjectives use **more** and **most** instead: beautiful, more beautiful, most beautiful. Some adjectives are **irregular** and change completely: good, better, best; bad, worse, worst. Never use both, like "more taller".',
+       '**Conjunctions** are joining words. They link words or ideas: and (adds), but (shows a difference), or (gives a choice), so (shows a result), because (gives a reason).'],
+ words:[['Comparative','The form used to compare two things.'],['Superlative','The form used to compare three or more things.'],['Irregular adjective','An adjective that changes its own way, like good, better, best.'],['Conjunction','A word that joins ideas.']] },
+e5l:{ k:'advertising techniques for kids', why:'Adverts, posters and comics mix **pictures and words** to give a message. Adverts try to make you want something. Learning how they work helps you think carefully instead of believing everything you see.',
+ more:['A **visual text** uses images, colour, layout and words together. Posters, adverts, comics and cartoons are visual texts. The picture is often the first thing you notice.',
+       'Adverts **persuade**, which means they try to convince you. They use catchy slogans, exciting describing words, bright colours, famous people and promises like "the best ever". Their main aim is to sell.',
+       'Think critically by asking: What is being sold? Who is it aimed at? Which claims can be checked (facts) and which are just exciting words (opinions)? What information is missing or very small, like the price?'],
+ words:[['Visual text','A text that uses pictures and words together.'],['Persuade','To try to convince someone.'],['Slogan','A short, catchy phrase in an advert.'],['Target audience','The group an advert is aimed at.']] },
+e5m:{ k:'how to give a speech for kids listening skills', why:'Listening and speaking are everyday skills. Good listeners understand and remember more, and confident speakers can share their ideas clearly in class and later at work.',
+ more:['Being a **good listener** means looking at the speaker, staying quiet while they talk, and thinking about their message. When they finish, you can ask a question to learn more. Interrupting makes it hard for everyone.',
+       'A **prepared talk** is planned before you give it. Plan an introduction (what your talk is about), two or three main points, and a conclusion. Write key words on small **cue cards** to remind you, instead of reading every word.',
+       'Use your voice well: speak clearly, loudly enough for everyone to hear, and not too fast. Look up at your audience (eye contact) and use your voice to show feeling. A short pause before an important point makes people listen.'],
+ words:[['Audience','The people listening.'],['Cue card','A small card with key words to remind you.'],['Eye contact','Looking at your audience while you speak.'],['Conclusion','The ending that sums up your talk.']] },
+e5n:{ k:'dictionary skills alphabetical order guide words plurals', why:'A **dictionary** tells you what words mean and how to spell them. Knowing how to find words quickly, and how to spell plurals, makes you a more independent reader and writer.',
+ more:['Dictionaries list words in **alphabetical order** (a, b, c...). If two words start with the same letter, look at the second letter, then the third, and so on, until the letters are different.',
+       'At the top of each dictionary page are two **guide words**: the first and last words on that page. Your word will be on that page only if it comes between the guide words in alphabetical order. They save you lots of page flipping.',
+       'A **plural** means more than one. Most nouns just add -s (cats). Words ending in s, x, ch or sh add -es (boxes). Words ending in a consonant + y change the y to i and add -es (babies). Some are irregular, like child and children.'],
+ words:[['Alphabetical order','Arranged in the order of the alphabet.'],['Guide words','The first and last words shown at the top of a dictionary page.'],['Plural','More than one.'],['Consonant','Any letter that is not a vowel (a, e, i, o, u).']] }
+};
+
+;
+/* Grade 5 Natural Sciences & Technology, Social Sciences, Life Skills: full beginner lessons */
+Object.assign(DEEP, {
+/* ===== Grade 5 Natural Sciences & Technology ===== */
+n5a:{ k:'food chains', why:'Every living thing needs **energy** to move, grow and stay alive. A **food chain** shows how that energy passes from one living thing to the next when something gets eaten. It helps us see how plants and animals depend on each other.',
+ more:['Almost all energy on Earth starts with the **Sun**. Green plants are special: they use sunlight, water and air to make their own food inside their leaves. Because they make (produce) food, plants are called **producers**. Every food chain starts with a plant.',
+       'Animals cannot make their own food, so they must eat (consume) other living things. That is why they are called **consumers**. A **herbivore** eats only plants (like a zebra). A **carnivore** eats only animals (like a lion). An **omnivore** eats both (like a baboon or a person).',
+       'In a food chain the arrows show the **direction energy moves**, so an arrow points from the thing being eaten to the thing that eats it: grass → zebra → lion. Read the arrow as "is eaten by". If one living thing in the chain disappears, everything after it is affected.'],
+ words:[['Producer','A living thing, usually a plant, that makes its own food.'],['Consumer','A living thing that eats other living things for food.'],['Herbivore, carnivore, omnivore','Plant eater, meat eater, and eater of both.'],['Food chain','A diagram showing who eats whom, with arrows for energy.']] },
+n5b:{ k:'animal skeletons vertebrates invertebrates', why:'A **skeleton** is the framework that holds an animal’s body up. Without one, you would flop like a jellyfish. Skeletons also protect soft organs and help animals move.',
+ more:['A skeleton has three main jobs. It **supports** the body and gives it shape. It **protects** soft parts: your skull protects your brain and your ribs protect your heart and lungs. It helps with **movement**, because muscles are attached to bones and pull on them.',
+       'Animals with a **backbone** (a spine made of small bones called vertebrae) are called **vertebrates**: fish, frogs, reptiles, birds and mammals, including us. Animals without a backbone are called **invertebrates**, like worms, snails, insects and spiders. Most animals on Earth are invertebrates.',
+       'Some animals have their skeleton on the **outside**, like a hard suit of armour. This is called an **exoskeleton**. Insects, spiders, crabs and scorpions have one. Because it cannot stretch, the animal must shed (moult) its old exoskeleton to grow bigger.'],
+ words:[['Skeleton','The frame that supports and protects a body.'],['Vertebrate','An animal with a backbone.'],['Invertebrate','An animal without a backbone.'],['Exoskeleton','A hard skeleton on the outside of the body.']] },
+n5c:{ k:'metals and non metals properties', why:'Everything around us is made of **materials**. Some are **metals**, like iron and copper, and others are **non-metals**, like wood, plastic and glass. Knowing how they behave helps us choose the right material for each job.',
+ more:['Metals share special **properties** (features). They are usually shiny, hard and strong. They let heat and electricity pass through them easily, so we say they are good **conductors**. Many can be bent or hammered into shape without breaking. Some, like iron, are attracted to magnets.',
+       'Non-metals include wood, plastic, rubber, glass, cloth and paper. Most are **not shiny** and do not let heat or electricity pass through well, so they are called **insulators**. That is why the handle of a pot is often plastic or wood: it does not get as hot.',
+       'Engineers choose materials by matching their properties to the job. A pot needs to conduct heat, so it is made of metal. An electrical wire is copper (a conductor) covered in plastic (an insulator) so it is safe to touch. Always ask: what does this object need to do?'],
+ words:[['Material','What an object is made of.'],['Property','A feature of a material, like hard or shiny.'],['Conductor','A material that lets heat or electricity pass through easily.'],['Insulator','A material that does not let heat or electricity pass through easily.']] },
+n5d:{ k:'earth layers rocks fossils', why:'The Earth beneath your feet is made of layers and many kinds of **rock**. Rocks can even hold **fossils**: clues about plants and animals that lived millions of years ago. South Africa has some of the most famous fossils in the world.',
+ more:['Earth is like a giant peach. The thin outer layer we live on is the **crust**. Under it is the very thick, hot **mantle**, which is made of rock so hot it can slowly move. At the centre is the **core**, the hottest part, made mostly of metal.',
+       'Wind and water break rocks into tiny bits called **sediment** (sand, mud and pebbles). Rivers carry the sediment and drop it in layers, often at the bottom of lakes or the sea. Over a very long time the layers are pressed and stuck together into **sedimentary rock**, like sandstone.',
+       'A **fossil** is the remains or print of a living thing from long ago, preserved in rock. When a plant or animal died and was quickly covered in sediment, its shape could be kept as the sediment turned to rock. Scientists who study fossils are called **palaeontologists**.'],
+ words:[['Crust, mantle, core','The three main layers of the Earth, from outside to inside.'],['Sediment','Small pieces of rock, sand and mud carried by water or wind.'],['Sedimentary rock','Rock formed from layers of sediment pressed together.'],['Fossil','Remains or traces of a living thing preserved in rock.']] },
+n5e:{ k:'habitats and interdependence for kids', why:'Earth is home to millions of kinds of plants and animals. Each lives in a place that suits it, called its **habitat**, and they all depend on each other to survive. Looking after habitats keeps this web of life healthy.',
+ more:['Scientists sort living things into groups to make sense of them: plants and animals are the two biggest groups. There is huge **variety**: from tiny ants to elephants, and from moss to baobab trees. This variety of life is called **biodiversity**.',
+       'A **habitat** is the natural home of a plant or animal. It gives the living thing what it needs: **food, water, shelter** and a safe place to raise young. Deserts, forests, grasslands, rivers and oceans are all habitats. Animals have features (adaptations) that suit their habitat, like a camel’s wide feet for sand.',
+       '**Interdependence** means living things need each other. Animals need plants for food and oxygen. Plants need animals like bees to carry pollen, and birds to spread seeds. If one living thing disappears, others that depend on it struggle too.'],
+ words:[['Habitat','The natural home of a plant or animal.'],['Biodiversity','The variety of living things in a place.'],['Adaptation','A feature that helps a living thing survive in its habitat.'],['Interdependence','When living things depend on each other.']] },
+n5f:{ k:'life cycles of animals and plants', why:'Every living thing goes through stages from the start of its life until it can make new young of its own. This pattern of stages is a **life cycle**. Understanding life cycles helps farmers, gardeners and scientists.',
+ more:['A **life cycle** is the series of changes a living thing goes through: it begins life, grows, becomes an adult, **reproduces** (makes young), and eventually dies. Because the young grow up and have young of their own, the pattern repeats like a circle.',
+       'Some animals look like small versions of their parents when born, like puppies. Others change shape completely, which is called **metamorphosis**. A butterfly goes from egg to caterpillar (larva) to pupa (inside a chrysalis) to adult. A frog goes from egg to tadpole to froglet to adult frog.',
+       'Most plants start as a **seed**. With water, warmth and air the seed **germinates** (starts to grow) into a seedling, then grows into an adult plant. The plant makes flowers, and the flowers make new seeds, so the cycle starts again.'],
+ words:[['Life cycle','The stages a living thing goes through during its life.'],['Reproduce','To make young or new living things.'],['Metamorphosis','A big change in body shape during a life cycle.'],['Germinate','When a seed starts to grow.']] },
+n5g:{ k:'frame and shell structures for kids', why:'A **structure** is anything built to hold a shape and support weight: a bridge, a chair, a bird’s nest, even your skeleton. Engineers study structures so that what they build is strong and safe.',
+ more:['A structure is an object made of parts that work together to **support** something or **hold a shape**. Some are natural, like a skeleton, a tree or a spider’s web. Others are made by people, like houses, bridges and pylons.',
+       'A **frame structure** is made from a skeleton of joined parts, like a pylon, a bicycle or your own bones. A **shell structure** is a hollow shape with a strong outer covering, like an egg, a tortoise shell or a cooldrink can. A **solid structure** is filled in, like a brick wall.',
+       'You can make structures stronger. **Triangles** are the strongest shape for frames because they do not bend out of shape when pushed, so look for triangles in roofs and bridges. Folding paper, curving it into a tube, or adding supports (struts) also adds strength.'],
+ words:[['Structure','Something built to hold a shape or support weight.'],['Frame structure','A structure made of joined parts, like a skeleton.'],['Shell structure','A hollow structure with a strong outer covering.'],['Strut','A support piece that adds strength.']] },
+n5h:{ k:'uses of metals and rust prevention', why:'Metals are used to build cars, bridges, pots and wires. But some metals, especially iron, can slowly be eaten away by **rust**. Knowing what causes rust helps us protect metal objects.',
+ more:['We choose different metals for different jobs. **Iron and steel** are strong, so we use them for bridges, cars and nails. **Copper** conducts electricity well, so it is used for wires. **Aluminium** is light, so it is used for cooldrink cans and aeroplanes. **Gold** does not rust, so it is used in jewellery.',
+       '**Rust** is a flaky, orange-brown coating that forms on iron and steel. It forms when iron is in contact with both **water** and **air** (oxygen) for a while. Rust makes metal weak and crumbly. Salty water, like near the sea, makes rusting happen faster.',
+       'To stop rust, keep water and air away from the iron. You can **paint** it, cover it with **oil or grease**, coat it with plastic, or coat it with zinc (this is called galvanising, used on roofs). Keeping tools dry also helps.'],
+ words:[['Rust','An orange-brown layer that forms when iron meets water and air.'],['Steel','A strong metal made mostly from iron.'],['Galvanise','To coat iron with zinc to stop rust.'],['Corrode','To be slowly worn away, like by rust.']] },
+n5i:{ k:'raw and processed materials', why:'Many things we use started off as something from nature, like wool from a sheep or wood from a tree. People **process** these raw materials to make them more useful. This is the start of how factories and technology work.',
+ more:['A **raw material** comes straight from nature and has not been changed much: wool, cotton, wood, clay, sand and metal ore. A **processed material** has been changed by people to make it more useful: wool is spun into yarn, clay is baked into bricks, and sand is melted into glass.',
+       'There are many ways to process materials. You can **cut** or shape them, **mix** them with other materials, **heat** them (like baking clay or melting metal), **dry** them, or **weave and knit** threads into cloth.',
+       'Processing changes a material’s **properties** to suit a job. Soft clay becomes hard, waterproof bricks when it is baked. Loose wool fibres become strong, warm yarn when spun. Ask: what property did processing improve?'],
+ words:[['Raw material','A material taken straight from nature.'],['Processed material','A material that people have changed to make it more useful.'],['Process','To change a material by cutting, heating, mixing and so on.'],['Property','A feature of a material, like hardness or strength.']] },
+n5j:{ k:'fossil fuels stored energy for kids', why:'We burn **fuels** to cook food, heat homes, drive cars and make electricity. Fuels hold **stored energy** that is released when they burn. Knowing about fuels helps us use them safely and save them.',
+ more:['A **fuel** is a material that releases energy, usually as heat and light, when it burns. Wood, coal, paraffin, petrol, gas and candle wax are all fuels. Food is also a kind of fuel for our bodies.',
+       'The energy in most fuels came from the **Sun**. Plants store the Sun’s energy as they grow, which is why wood holds energy. **Coal, oil and gas** formed from plants and tiny sea creatures that lived millions of years ago, so they are called **fossil fuels**. They will run out one day.',
+       'A fire needs three things to burn: **fuel**, **heat** and **oxygen** (from the air). This is called the fire triangle. Take away any one and the fire goes out. That is why throwing sand on a fire works: it cuts off the oxygen.'],
+ words:[['Fuel','A material that releases energy when it burns.'],['Stored energy','Energy kept inside something until it is used.'],['Fossil fuel','Coal, oil or gas formed from ancient living things.'],['Fire triangle','Fuel, heat and oxygen: the three things a fire needs.']] },
+n5k:{ k:'electricity cells batteries safety for kids', why:'**Electricity** is a form of energy that powers lights, phones, fridges and TVs. It can come from small batteries or from the big power stations through the wall plug. It is very useful, but it can also be dangerous.',
+ more:['A **cell** is a small store of electrical energy, like a torch battery. Strictly, a **battery** is two or more cells joined together. Cells change stored chemical energy into electricity. They are portable, so they power things we carry, like remotes and torches.',
+       '**Mains electricity** is the electricity that comes through wires from a power station to the plugs in our homes. In South Africa most of it is made by burning coal. Mains electricity is much stronger than a battery, so it can power big appliances like stoves and geysers.',
+       'Mains electricity can kill. Never touch plugs with wet hands, never push objects into a plug point, and never climb pylons or touch fallen wires. Save electricity by switching off lights and appliances when you are not using them: this saves money and helps the environment.'],
+ words:[['Cell','A small store of electrical energy.'],['Battery','Two or more cells joined together.'],['Mains electricity','Electricity supplied from a power station to buildings.'],['Appliance','A machine that uses electricity, like a kettle.']] },
+n5l:{ k:'elastic energy stored in a spring for kids', why:'When you stretch a rubber band or squash a spring, you put energy into it. That energy is stored until you let go, and then it makes something move. This idea is used in toys, catapults and even trampolines.',
+ more:['When you stretch, twist or squash an **elastic** material (like a rubber band or spring), you use your energy to change its shape. The material stores this energy. When you let go, it springs back to its shape and the **stored energy** changes into **movement energy**.',
+       'The more you stretch or twist the elastic material, the more energy it stores, and the further or faster things move when it is released. If you pull a catapult back a little, the stone goes a short way. Pull it back further and it goes further. But stretch too far and it can snap.',
+       'Many toys and machines use stored energy. Wind-up toys store energy in a twisted spring. Bows store energy in a bent bow and stretched string. Clocks and some cars for kids use springs. The energy always changes from stored to movement.'],
+ words:[['Elastic','Able to stretch and spring back to its shape.'],['Stored (potential) energy','Energy waiting to be used.'],['Movement (kinetic) energy','The energy of something that is moving.'],['Release','To let go so the stored energy is used.']] },
+n5m:{ k:'wheels and axles friction for kids', why:'Moving heavy things is hard work. People invented **wheels and axles** to make it much easier. They are found on cars, wheelbarrows, bicycles and trolleys, and they work by reducing **friction**.',
+ more:['A **wheel** is a round disc. An **axle** is a rod that goes through the centre of the wheel. Together they let a load roll instead of being dragged along the ground, which takes much less effort. A wheelbarrow, a car and a skateboard all use wheels and axles.',
+       'With a **fixed axle**, the axle is attached to the wheels and they turn together, like on many toy cars and trains. With a **free axle**, the axle stays still and the wheels spin freely around it, like on a wheelbarrow or shopping trolley.',
+       '**Friction** is a force that slows things down when two surfaces rub together. Dragging a box causes a lot of friction. Wheels reduce friction because only a small part of the wheel touches the ground at a time. Oil and grease on axles reduce friction even more.'],
+ words:[['Wheel','A round disc that turns.'],['Axle','A rod through the centre of a wheel.'],['Friction','A force that slows things when surfaces rub.'],['Load','The object being moved.']] },
+n5n:{ k:'earth rotation revolution sun moon for kids', why:'The Earth is a planet that is always on the move. Its movements give us **day and night** and the **year**. The Sun and Moon also affect our lives every day. This topic helps you understand our place in space.',
+ more:['Earth is shaped like a ball (a **sphere**). From space it looks blue because about three quarters of its surface is covered in water. The rest is land, made up of seven continents. Earth is surrounded by a layer of air called the **atmosphere**, which we breathe.',
+       'Earth **spins** (rotates) on its axis, an imaginary line from the North Pole to the South Pole. One full spin takes **24 hours**, which gives us day and night: the side facing the Sun has day. Earth also **travels** (revolves) around the Sun. One full trip takes about **365 days**, which is one year.',
+       'The **Sun** is a star: a huge ball of burning gas that gives us light and heat. The **Moon** travels around the Earth, taking about a month for each trip. The Moon does not make its own light; it reflects the Sun’s light, and the part we see changes in shape (its phases).'],
+ words:[['Rotate','To spin around on an axis.'],['Revolve','To travel around another object.'],['Axis','An imaginary line around which Earth spins.'],['Atmosphere','The layer of air around the Earth.']] },
+n5o:{ k:'how soil is formed types of soil erosion', why:'**Soil** covers much of the land and is where plants grow, so all our food depends on it. It takes hundreds of years to form but can be washed away quickly. Understanding soil helps us farm and protect the land.',
+ more:['Soil starts as solid rock. Over a very long time, heat, cold, water, wind and plant roots crack the rock into smaller and smaller pieces. This breaking down is called **weathering**. Dead plants and animals rot and mix in, adding **humus**, which makes soil rich and dark.',
+       'There are three main kinds of soil. **Sandy soil** has big grains, feels gritty and lets water drain through fast. **Clay soil** has tiny grains, feels sticky and holds lots of water. **Loam** is a mix of sand, clay and humus, and it is the best soil for growing plants.',
+       '**Erosion** is when wind or water carries soil away. Soil with no plants on it is easily eroded, because plant roots hold soil together. Farmers prevent erosion by planting cover crops, building walls on slopes (terraces) and not letting animals overgraze.'],
+ words:[['Weathering','The breaking down of rock into smaller pieces.'],['Humus','Rotted plant and animal material in soil.'],['Loam','A rich mix of sand, clay and humus.'],['Erosion','When wind or water carries soil away.']] },
+/* ===== Grade 5 Social Sciences ===== */
+s5a:{ k:'map skills compass grid key scale for kids', why:'A **map** is a drawing of a place seen from above. Maps help us find our way, plan trips and understand where things are. To read a map you need a few simple tools: directions, grids, a key and a scale.',
+ more:['A **compass** shows directions. The four main (cardinal) directions are **north, east, south and west**. A helpful way to remember the order going clockwise: "Never Eat Sour Watermelons". Between them are NE, SE, SW and NW. On most maps, north is at the top.',
+       'A **grid** is a set of lines that divide a map into squares. Each column has a letter and each row has a number. A **grid reference** like B4 tells you exactly which square something is in: go across to column B, then up or down to row 4.',
+       'A **key** (or legend) explains what the symbols and colours on a map mean, for example blue lines for rivers. A **scale** tells you how distance on the map compares with real distance, such as 1 cm = 10 km. It helps you work out how far apart places are.'],
+ words:[['Map','A drawing of a place seen from above.'],['Compass direction','North, east, south or west.'],['Key (legend)','A box that explains the symbols on a map.'],['Scale','Shows how map distance compares with real distance.']] },
+s5b:{ k:'south africa landforms rivers climate', why:'South Africa has mountains, plateaus, coastlines, rivers and many kinds of weather. Learning about the land and weather helps us understand where people live, where food is farmed and why.',
+ more:['**Landforms** are natural shapes of the land. **Mountains** are very high land, like the Drakensberg. A **plateau** is high, flat land: most of the inside of South Africa is a high plateau. A **coastal plain** is low, flat land next to the sea. The **Great Escarpment** is the steep edge between the plateau and the coast.',
+       'A **river** is fresh water flowing across the land to the sea or a lake. Its starting point is the **source** and where it ends is the **mouth**. The Orange River is South Africa’s longest river. Rivers give us water for drinking, farming and factories.',
+       '**Weather** is what the air is like on one day: sunny, rainy, windy, hot or cold. **Climate** is the usual weather pattern of a place over many years. Most of South Africa gets summer rain, but the Western Cape gets mostly winter rain. The west is drier than the east.'],
+ words:[['Landform','A natural shape of the land, like a mountain.'],['Plateau','High, flat land.'],['Source and mouth','Where a river starts and where it ends.'],['Climate','The usual weather of a place over many years.']] },
+s5c:{ k:'san and khoikhoi history for kids', why:'The **San** and **Khoikhoi** were the first people of southern Africa. They lived here for thousands of years before anyone else arrived. Their way of life, art and knowledge are an important part of South African history.',
+ more:['The San were **hunter-gatherers**. They did not farm or keep animals. Men hunted animals using bows and poisoned arrows, and women gathered plants, roots, berries and insects. They moved from place to place with the seasons to find food and water, so they had few belongings.',
+       'The San painted and carved pictures on rocks and cave walls, called **rock art**. They show animals like the eland, hunting scenes and spiritual beliefs. Some are thousands of years old. Many can be seen in the Drakensberg and the Cederberg.',
+       'The **Khoikhoi** were **herders**. They kept herds of cattle and sheep, and moved to find good grazing land and water for their animals. Cattle were a sign of wealth. They lived in light, dome-shaped huts made of reed mats that could be packed up when they moved.'],
+ words:[['Hunter-gatherer','Someone who gets food by hunting animals and gathering plants.'],['Herder','Someone who keeps and looks after animals like cattle.'],['Rock art','Paintings and carvings made on rocks.'],['Nomadic','Moving from place to place instead of living in one spot.']] },
+s5d:{ k:'ancient egypt for kids nile pyramids hieroglyphics', why:'**Ancient Egypt** was one of the first great civilisations, in north-east Africa, about 5 000 years ago. Its people built pyramids, invented a kind of paper and created a writing system. Many of their ideas are still used today.',
+ more:['Egypt is mostly hot desert, but the long **Nile River** flows through it. Every year the Nile flooded and left rich, black mud on its banks, perfect for farming. Because of this, people said Egypt was the "gift of the Nile". Almost everyone lived close to the river.',
+       'Egypt was ruled by kings called **pharaohs**. People believed the pharaoh was a god on Earth. Huge **pyramids** were built as tombs for pharaohs, filled with treasures for the afterlife. Bodies were preserved as **mummies** so the soul could use them after death.',
+       'The Egyptians wrote using picture symbols called **hieroglyphics**. They wrote on **papyrus**, a paper made from reeds that grow along the Nile. They believed in many gods and in life after death, which is why tombs were so important.'],
+ words:[['Civilisation','A large, organised society with cities, rulers and writing.'],['Pharaoh','A king of ancient Egypt.'],['Hieroglyphics','Egyptian writing using picture symbols.'],['Papyrus','Paper made from reeds.']] },
+s5e:{ k:'nine provinces of south africa capitals', why:'South Africa is divided into nine **provinces**, a bit like a house divided into rooms. Each province has its own government and capital city. Knowing them helps you understand news, maps and where your family comes from.',
+ more:['A **province** is a part of a country with its own leaders, called a provincial government. South Africa has nine provinces: Gauteng, Limpopo, Mpumalanga, North West, Free State, KwaZulu-Natal, Eastern Cape, Western Cape and Northern Cape. Gauteng is the smallest but has the most people; the Northern Cape is the biggest.',
+       'Each province has a **capital city**, where its government works. Johannesburg (Gauteng), Polokwane (Limpopo), Mbombela (Mpumalanga), Mahikeng (North West), Bloemfontein (Free State), Pietermaritzburg (KwaZulu-Natal), Bhisho (Eastern Cape), Cape Town (Western Cape) and Kimberley (Northern Cape).',
+       'Countries that share a border with South Africa are our **neighbours**: Namibia, Botswana, Zimbabwe, Mozambique and Eswatini. **Lesotho** is special: it is completely surrounded by South Africa.'],
+ words:[['Province','A part of a country with its own government.'],['Capital city','The city where a government is based.'],['Border','The line where one country or province meets another.'],['Neighbour country','A country that shares a border with ours.']] },
+s5f:{ k:'first farmers southern africa iron age', why:'About 2 000 years ago, new groups of people arrived in southern Africa. They were **farmers** who grew crops, kept animals and knew how to make iron tools. They are the ancestors of many South Africans today.',
+ more:['The first farmers came from the north, slowly moving south over hundreds of years. They spoke Bantu languages. Unlike the hunter-gatherers, they **settled** in one place, because crops need to be planted and looked after. This meant they could build permanent homes.',
+       'The farmers knew how to dig up **iron ore** and heat it in a furnace to make iron. With iron they made hoes for farming, axes for clearing land, and spears. They grew crops like **sorghum** and millet, and kept cattle, sheep and goats. This period is called the **Iron Age**.',
+       'Farmers lived in **villages** of round huts made of mud, poles and grass. Cattle were kept in a **kraal** in the middle of the village. Cattle showed wealth and were used for lobola. Men usually looked after cattle while women farmed the fields and made pots.'],
+ words:[['Settle','To stay and live in one place.'],['Iron Age','The time when people made tools from iron.'],['Sorghum','A grain crop grown by early farmers.'],['Kraal','An enclosure for keeping cattle.']] },
+s5g:{ k:'weather instruments rain gauge thermometer wind vane', why:'Weather affects what we wear, what farmers grow and whether it is safe to travel. Weather forecasters use special **instruments** to measure weather so they can tell us what to expect.',
+ more:['Each part of weather has its own instrument. A **thermometer** measures temperature. A **rain gauge** collects and measures rainfall in millimetres. A **wind vane** shows which direction the wind is blowing **from**. An **anemometer** spins to measure wind speed.',
+       'A **weather report** (forecast) tells us what weather to expect. It uses symbols: a sun for clear weather, clouds, raindrops for rain and a lightning bolt for storms. It usually shows the highest and lowest temperature for the day. You can find reports on TV, radio and phones.',
+       'South Africa’s rainfall is not the same everywhere. The **east** (like KwaZulu-Natal) gets the most rain, mostly in summer thunderstorms. The **west** is much drier, and parts of the Northern Cape are semi-desert. The Western Cape gets most of its rain in **winter**.'],
+ words:[['Rain gauge','An instrument that measures rainfall.'],['Wind vane','An instrument that shows wind direction.'],['Anemometer','An instrument that measures wind speed.'],['Forecast','A prediction of the weather to come.']] },
+s5h:{ k:'minerals and mining south africa gold diamonds', why:'South Africa is one of the richest countries in the world in **minerals** like gold, platinum, coal and diamonds. Mining these minerals has created jobs and cities, but it also affects people and the environment.',
+ more:['A **mineral** is a natural, non-living substance found in the ground, such as gold, diamonds, coal, iron ore and platinum. Minerals are used to make jewellery, electricity, machines, phones and much more. South Africa has the world’s largest supply of platinum.',
+       '**Diamonds** were discovered near **Kimberley** in 1867, and **gold** was found on the Witwatersrand (where Johannesburg is) in 1886. These discoveries brought thousands of people looking for work and fortune, and Johannesburg grew into a huge city very quickly.',
+       '**Open-cast mines** are huge pits dug from the surface, like the Big Hole in Kimberley. **Underground (shaft) mines** have deep tunnels, and many gold mines go more than 3 km down. Mining creates jobs and money, but it can damage land, pollute water and be dangerous for miners.'],
+ words:[['Mineral','A natural substance from the ground, like gold.'],['Open-cast mine','A mine dug as a huge pit from the surface.'],['Shaft mine','An underground mine reached through deep tunnels.'],['Pollution','Harmful substances that damage the environment.']] },
+s5i:{ k:'heritage tangible intangible world heritage sites south africa', why:'**Heritage** is everything we inherit from the past that we value and want to pass on: places, objects, songs, stories and traditions. It tells us who we are and where we come from. South Africa celebrates Heritage Day on 24 September.',
+ more:['Heritage is what is **handed down** from earlier generations. It can belong to a family (like a grandmother’s recipe), a community, a country or the whole world. Looking after heritage helps us remember our history and respect each other.',
+       '**Tangible** heritage is heritage you can touch: buildings, monuments, tools, clothing and artwork. **Intangible** heritage cannot be touched: languages, songs, dances, stories, games, beliefs and celebrations. Both are equally important.',
+       '**World Heritage Sites** are special places chosen by UNESCO (part of the United Nations) as important for all people on Earth. South Africa has several, including Robben Island, the Cradle of Humankind, Mapungubwe and the iSimangaliso Wetland Park.'],
+ words:[['Heritage','Things from the past that we value and pass on.'],['Tangible','Something you can touch.'],['Intangible','Something you cannot touch, like a song or story.'],['World Heritage Site','A place chosen as important for all of humanity.']] },
+/* ===== Grade 5 Life Skills ===== */
+l5a:{ k:'healthy eating food groups balanced diet for kids', why:'Food gives your body the **energy** and building blocks it needs to grow, play, learn and fight illness. Eating a good mix of foods helps you feel strong and concentrate at school.',
+ more:['Foods are sorted into groups by what they do. **Starches** (like pap, bread and rice) give energy. **Proteins** (like beans, eggs, meat and fish) build and repair your body. **Fruit and vegetables** give vitamins that keep you healthy. **Dairy** (like milk and maas) builds strong bones and teeth. Fats and sugars should be eaten only a little.',
+       'A **balanced** diet means eating foods from all the groups each day, in the right amounts. A helpful picture: fill half your plate with vegetables and fruit, a quarter with starch and a quarter with protein. Eating many different colours of fruit and vegetables gives your body many different vitamins.',
+       'Drink plenty of **clean water** every day. Eat breakfast so you have energy for school. Choose fruit instead of sweets for snacks, and limit fizzy drinks and fried foods. Always wash your hands before eating.'],
+ words:[['Food group','Foods that do a similar job in the body.'],['Balanced diet','Eating the right mix of food groups.'],['Protein','Food that builds and repairs the body.'],['Vitamin','A nutrient that keeps the body healthy.']] },
+l5b:{ k:'childrens rights and responsibilities ubuntu', why:'In South Africa, every child has **rights**: things they are entitled to, protected by law. With rights come **responsibilities**: things we should do to respect others. Together they help everyone live safely and fairly.',
+ more:['A **right** is something every person should have, no matter who they are. Children have the right to a name, to education, to health care, to be safe from harm, to food and shelter, and to be heard. These rights are written in South Africa’s **Constitution** (the country’s highest law).',
+       'A **responsibility** is a duty: something you should do. If you have the right to learn, you have the responsibility to listen and let others learn too. If you have the right to be safe, you must not hurt others. Rights and responsibilities always go together.',
+       '**Ubuntu** is an African idea that means "I am because we are". It reminds us that we are all connected, so we should treat others with kindness, respect and care. Helping a classmate or sharing with someone in need is ubuntu in action.'],
+ words:[['Right','Something every person is entitled to.'],['Responsibility','A duty, something you should do.'],['Constitution','The highest law of a country.'],['Ubuntu','"I am because we are": caring for each other.']] },
+l5c:{ k:'feelings emotions calm down bullying for kids', why:'Everyone has **feelings**: happy, sad, angry, scared or excited. Understanding your feelings and how to handle strong ones helps you get along with others. Knowing what bullying is helps you stay safe and help others.',
+ more:['**Emotions** (feelings) are your body’s way of reacting to what happens. All feelings are normal, even anger and sadness. Feelings are not good or bad, but what we **do** with them can be helpful or hurtful. Naming a feeling ("I feel frustrated") is the first step to handling it.',
+       'When a feeling gets very strong, try a **calm-down tool**: take slow, deep breaths, count to ten, walk away for a moment, squeeze a stress ball, draw, or talk to someone you trust. These give your brain time to think before you act.',
+       '**Bullying** is when someone hurts or frightens another person **on purpose**, again and again. It can be hitting, name-calling, leaving people out or being unkind online (cyberbullying). It is never OK and never the victim’s fault. If it happens to you or someone else, tell a trusted adult.'],
+ words:[['Emotion','A feeling, like joy, anger or fear.'],['Calm-down tool','Something you do to settle strong feelings.'],['Bullying','Hurting someone on purpose, again and again.'],['Trusted adult','A grown-up you can safely ask for help.']] },
+l5d:{ k:'respecting diversity religions celebrations south africa', why:'South Africa is home to people of many cultures, languages and religions. This **diversity** makes our country interesting and strong. Learning about each other helps us respect and appreciate one another.',
+ more:['**Diversity** means difference. South Africans have different cultures, home languages (there are 12 official languages, including South African Sign Language), religions, foods and traditions. Archbishop Desmond Tutu called us a "rainbow nation", because many colours together make something beautiful.',
+       'Religions have their own special days. Christians celebrate **Christmas** and Easter. Muslims celebrate **Eid** at the end of Ramadan. Hindus celebrate **Diwali**, the festival of lights. Jewish people celebrate **Passover** and Hanukkah. Many people also honour their ancestors in African traditional religion.',
+       'Respecting diversity means treating people fairly even when they are different from you. Listen to learn, ask kind questions, never make fun of someone’s culture or beliefs, and stand up against unfair treatment (discrimination). This is ubuntu.'],
+ words:[['Diversity','Variety and difference among people.'],['Culture','A group’s way of life: language, food, beliefs and customs.'],['Religion','A set of beliefs and practices about God or the spiritual.'],['Discrimination','Treating someone unfairly because they are different.']] },
+l5e:{ k:'germs and diseases how germs spread for kids', why:'**Germs** are living things so tiny you cannot see them without a microscope. Some germs make us sick. Learning how germs spread and how to stop them is one of the easiest ways to stay healthy.',
+ more:['Germs are tiny living things. The main kinds are **bacteria**, **viruses** and **fungi**. Many are harmless or even helpful, but some cause diseases like flu, colds, TB and tummy bugs. A disease that can pass from one person to another is called **infectious**.',
+       'Germs spread in several ways: through **coughs and sneezes** (tiny droplets in the air), by **touching** dirty hands or surfaces and then your face, through **dirty water or food**, and through bites from insects such as mosquitoes (which spread malaria).',
+       'You can stop germs spreading. **Wash your hands** with soap and water for 20 seconds, especially after the toilet and before eating. Cough or sneeze into your elbow. Drink clean water, keep food covered and get your vaccinations. Stay home when you are sick.'],
+ words:[['Germ','A tiny living thing that can cause disease.'],['Bacteria and viruses','Two main kinds of germs.'],['Infectious disease','A disease that spreads from person to person.'],['Vaccination','A medicine that helps your body fight a disease.']] },
+l5f:{ k:'road safety home safety emergency numbers south africa', why:'Accidents can happen anywhere: on the road, at home or at school. Knowing a few simple safety rules, and who to call for help, can prevent injuries and even save lives.',
+ more:['Roads are dangerous because cars move fast and drivers cannot always stop quickly. Always cross at a **pedestrian crossing** or robot if there is one. Stop at the kerb, look right, left and right again, and listen. Walk, don’t run, across. Wear bright clothes at night, and always wear a seatbelt in a car.',
+       'Many accidents happen at home. Keep medicines and cleaning products away from small children. Never play with matches, candles or paraffin stoves. Keep pot handles turned in on the stove. Never touch electrical plugs with wet hands. Be careful near water: never swim without an adult.',
+       'In an emergency, stay calm and get help from an adult. South African emergency numbers: **10111** for the police, **10177** for an ambulance, and **112** from any cell phone. Learn your full address so you can tell the operator exactly where you are.'],
+ words:[['Pedestrian','A person walking.'],['Emergency','A sudden, dangerous situation that needs help fast.'],['10111','The South African police emergency number.'],['10177','The South African ambulance emergency number.']] },
+l5g:{ k:'elements of art colour wheel for kids', why:'**Visual art** is art you look at: drawings, paintings, sculptures and designs. Artists use a set of building blocks, called the **elements of art**, to create their work. Learning them helps you make and talk about art.',
+ more:['The **elements of art** are the basic parts of any artwork. **Line** is a mark from one point to another. **Shape** is a flat, closed area. **Colour** is what we see when light bounces off things. **Texture** is how something feels or looks like it would feel. **Space** is the area around and between things.',
+       'The **colour wheel** shows how colours relate. The **primary colours** are red, yellow and blue: you cannot make them by mixing. Mix two primary colours to get a **secondary colour**: red + yellow = orange, yellow + blue = green, blue + red = purple.',
+       '**Warm colours** (red, orange, yellow) remind us of fire and sun and feel energetic. **Cool colours** (blue, green, purple) remind us of water and grass and feel calm. Artists show **texture** by using different lines and marks, like dots for sand or zigzags for fur.'],
+ words:[['Elements of art','Line, shape, colour, texture and space.'],['Primary colours','Red, yellow and blue.'],['Secondary colours','Colours made by mixing two primaries.'],['Texture','How something feels or looks like it feels.']] },
+l5h:{ k:'beat rhythm tempo dynamics music for kids', why:'Music, dance and drama are **performing arts**: art that people perform for an audience. They help us express feelings, tell stories and work together. You can enjoy them even if you have never had lessons.',
+ more:['The **beat** is the steady pulse in music, like a heartbeat. You tap your foot to it. **Rhythm** is the pattern of long and short sounds on top of the beat, like the words of a song. Clap the beat steadily, then clap the rhythm of a song you know, and hear the difference.',
+       '**Tempo** is how fast or slow music is. A lullaby has a slow tempo; a party song has a fast tempo. **Dynamics** are how loud or soft music is. Musicians use the Italian words **forte** for loud and **piano** for soft.',
+       'Instruments are grouped by how they make sound: **percussion** (hit or shaken, like drums and shakers), **string** (plucked or bowed, like a guitar), **wind** (blown, like a flute) and **keyboard** (like a piano). When performing, face the audience, speak or sing clearly, and work as a team.'],
+ words:[['Beat','The steady pulse in music.'],['Rhythm','A pattern of long and short sounds.'],['Tempo','How fast or slow music is.'],['Dynamics','How loud or soft music is.']] },
+l5i:{ k:'benefits of exercise warm up cool down for kids', why:'Moving your body every day keeps your heart, lungs, muscles and bones strong. Exercise also helps you sleep well, feel happy and concentrate better. Physical education teaches you to play safely and fairly.',
+ more:['**Exercise** is any activity that gets your body moving and your heart beating faster: running, skipping, dancing, swimming, playing soccer or netball. Children should be active for about **an hour a day**. Exercise makes your heart and muscles stronger and lifts your mood.',
+       'Before exercise, **warm up** for a few minutes with gentle movements like jogging on the spot and stretching. This gets your muscles ready and helps prevent injuries. After exercise, **cool down** by walking slowly and stretching, so your heart rate slows gently.',
+       '**Fair play** means following the rules, being honest, respecting the referee and other players, and being a good sport whether you win or lose. Stay safe: drink water, wear the right shoes, use equipment properly, and tell a teacher if you get hurt.'],
+ words:[['Exercise','Activity that gets your body moving.'],['Warm-up','Gentle movement to prepare your body for exercise.'],['Cool-down','Slow movement to help your body recover after exercise.'],['Fair play','Playing honestly, by the rules, with respect.']] }
+});
+
 (function () {
 'use strict';
 const $ = (s, el) => (el || document).querySelector(s);
@@ -4501,12 +4853,14 @@ const SUBJ_COLOR = { math:'var(--c-math)', eng:'var(--c-eng)', sci:'var(--c-sci)
 const KEY = 'brainveld.v1';
 const fresh = () => ({ name:'', grade:5, xp:0, streak:{ last:'', count:0 }, done:{}, badges:[], daily:{}, sprint:{}, stats:{}, world:null, sound:true, updated:0 });
 [5,6,7].forEach(g => CONTENT[g].forEach(s => s.topics.forEach(t => { if (typeof EXTRA !== 'undefined' && EXTRA[t.id]) Object.assign(t, EXTRA[t.id]); })));
+const attachDeep = () => { if (typeof DEEP === 'undefined') return; [5,6,7].forEach(g => CONTENT[g].forEach(s => s.topics.forEach(t => { if (DEEP[t.id]) t.B = DEEP[t.id]; }))); };
 /* Full-year grades: add the extra topics, tag CAPS terms, sort by term */
 const FULL_YEAR = [
   [5, typeof G5_MORE !== 'undefined' ? G5_MORE : null, { m5a:1, m5c:1, m5d:1, m5b:2, m5e:2, n5a:1, n5b:1, n5c:2, n5d:4, s5a:1, s5c:1, s5b:2, s5d:3 }],
   [6, typeof G6_MORE !== 'undefined' ? G6_MORE : null, { m6a:1, m6b:1, m6e:1, m6c:2, m6d:3, n6a:1, n6b:2, n6c:3, n6d:4, s6a:1, s6c:1, s6b:2, s6d:3 }],
   [7, typeof G7_MORE !== 'undefined' ? G7_MORE : null, { m7b:1, m7d:1, m7e:1, m7c:3, m7a:4, n7a:1, n7b:2, n7c:2, n7d:3, s7a:1, s7c:2, s7b:3, s7d:3 }]
 ];
+attachDeep();
 FULL_YEAR.forEach(([g, more, terms]) => {
   if (!more) return;
   CONTENT[g].forEach(s => {
@@ -4515,6 +4869,7 @@ FULL_YEAR.forEach(([g, more, terms]) => {
     s.topics = s.topics.map((t, i) => [t, i]).sort((a, b) => ((a[0].T || 9) - (b[0].T || 9)) || a[1] - b[1]).map(x => x[0]);
   });
 });
+attachDeep();
 /* ---------- learner profiles: each saved on this device, and to the signed-in account when available ---------- */
 const PKEY = 'brainveld.profiles', SKEY = id => 'brainveld.p.' + id;
 const ls = {
@@ -5061,9 +5416,9 @@ function drawTrail() {
 function viewTopic(app) {
   const f = findTopic(V.t); if (!f) return go('home');
   const { s, t } = f, col = SUBJ_COLOR[s.id], d = S.done[t.id] || {};
-  const tabs = [['learn', 'Learn', 'book', d.l], ['act', 'Train', 'puzzle', d.a], ['quiz', 'Challenge', 'quiz', d.q != null]];
+  const tabs = [['learn', 'Lesson', 'book', d.l], ['revise', 'Revise', 'sun', d.l], ['act', 'Train', 'puzzle', d.a], ['quiz', 'Challenge', 'quiz', d.q != null]];
   const c = crew(s.id), lvl = s.topics.indexOf(t) + 1;
-  const say = { learn: 'Let’s learn this one card at a time. ' + c.line, act: 'Training time! Show me what you learnt.', quiz: 'Challenge round! Score 3 or more to clear this level.' }[V.tab];
+  const say = { learn: (t.B ? 'Let’s start from the very beginning. ' : 'Let’s learn this one card at a time. ') + c.line, revise: 'Quick revision: just the key ideas, in a few short cards.', act: 'Training time! Show me what you learnt.', quiz: 'Challenge round! Score 3 or more to clear this level.' }[V.tab];
   app.innerHTML =
   '<div><button class="back" id="back">' + ic('back') + esc(c.region) + '</button></div>' +
   '<section class="lvl-head" style="--c:' + col + '"><span class="av bob">' + art(c) + '</span>' +
@@ -5073,7 +5428,8 @@ function viewTopic(app) {
   $('#back').onclick = () => go('subject', { s: s.id });
   $$('.tabs button', app).forEach(b => b.onclick = () => go('topic', { t: t.id, tab: b.dataset.tab }));
   const stage = $('#stage');
-  if (V.tab === 'learn') learn(stage, t);
+  if (V.tab === 'learn') { if (t.B) fullLesson(stage, t); else learn(stage, t); }
+  else if (V.tab === 'revise') learn(stage, t);
   else if (V.tab === 'act') activity(stage, t);
   else topicQuiz(stage, t, s);
 }
@@ -5138,6 +5494,95 @@ function learn(stage, t) {
     $('#nxt', stage).onclick = () => {
       if (!last) { i++; draw(); return; }
       const first = !D(t.id).l; D(t.id).l = 1; addXP(first ? 15 : 0);
+      go('topic', { t: t.id, tab: 'act' });
+    };
+  };
+  draw();
+}
+
+/* ---------- resources: links out to free textbooks, worksheets and videos ---------- */
+function resourceLinks(t, g, sid) {
+  const k = (t.B && t.B.k) || t.t, q = encodeURIComponent(k);
+  const out = [['Watch a video explanation', 'YouTube search · watch with an adult', 'https://www.youtube.com/results?search_query=' + encodeURIComponent(k + ' explained for kids grade ' + g), 'video']];
+  const khan = ['Learn and practise on Khan Academy', 'Free lessons and practice questions', 'https://www.khanacademy.org/search?page_search_query=' + q, 'practice'];
+  const bite = ['Read about it on BBC Bitesize', 'Child-friendly explanations and activities', 'https://www.bbc.co.uk/bitesize/search?q=' + q, 'read'];
+  if (sid === 'math') {
+    out.push(khan, ['Read it on Maths is Fun', 'Simple explanations with pictures', 'https://www.mathsisfun.com/search/search.html?query=' + q, 'read']);
+    if (g === 7) out.push(['Siyavula Grade 7 Maths textbook', 'Free CAPS textbook to read online', 'https://www.siyavula.com/read/za/mathematics/grade-7', 'book']);
+  } else if (sid === 'sci' || sid === 'tech') {
+    out.push(khan, bite);
+    if (g === 7 && sid === 'sci') out.push(['Siyavula Grade 7 Natural Sciences textbook', 'Free CAPS textbook to read online', 'https://www.siyavula.com/read/za/natural-sciences/grade-7', 'book']);
+  } else {
+    out.push(bite);
+  }
+  out.push(['CAPS Rainbow Workbooks (DBE)', 'Official free worksheets for every grade and subject', 'https://www.education.gov.za/Curriculum/LearningandTeachingSupportMaterials(LTSM)/Workbooks.aspx', 'worksheet']);
+  return out;
+}
+function resourcesHTML(t, g, sid) {
+  const icons = { video: 'timer', practice: 'puzzle', read: 'book', book: 'book', worksheet: 'quiz' };
+  return '<div class="res-list">' + resourceLinks(t, g, sid).map(r =>
+    '<a class="res" href="' + r[2] + '" target="_blank" rel="noopener noreferrer"><span class="res-ic">' + ic(icons[r[3]] || 'next') + '</span><span><b>' + esc(r[0]) + '</b><small>' + esc(r[1]) + '</small></span><span class="res-go" aria-hidden="true">' + ic('next') + '</span></a>').join('') +
+    '</div><p class="muted" style="font-size:.85rem">These links open other websites in a new tab. Some are search results, so it’s a good idea to look with a parent or teacher.</p>';
+}
+
+/* ---------- full lesson: assumes no prior knowledge ---------- */
+function fullLesson(stage, t) {
+  const f = findTopic(t.id), sid = f.s.id, g = f.g, B = t.B, c = crew(sid);
+  const cards = [{ k: 'start' }].concat(t.L.map((x, i) => ({ k: 'idea', x, i })));
+  if (B.words && B.words.length) cards.push({ k: 'words' });
+  if (t.W) cards.push({ k: 'w' });
+  if (t.X) cards.push({ k: 'x' });
+  if (t.C) cards.push({ k: 'k' });
+  cards.push({ k: 'res' });
+  let i = 0, answered = false;
+  const draw = () => {
+    const card = cards[i], last = i === cards.length - 1;
+    const label = { start: 'Start here', idea: 'Idea ' + ((card.i || 0) + 1) + ' of ' + t.L.length, words: 'Key words', w: 'Step by step', x: 'Watch out', k: 'Quick check', res: 'Find out more' }[card.k];
+    let body = '';
+    if (card.k === 'start') {
+      body = '<h2 class="card-h">' + esc(t.t) + '</h2>' +
+        '<div class="intro"><span class="av bob">' + art(c) + '</span><p class="card-b">' + fmt(B.why) + '</p></div>' +
+        '<div class="learn-list"><p class="eyebrow">In this lesson you will learn</p><ul>' + t.L.map(x => '<li>' + esc(x[0]) + '</li>').join('') + '</ul></div>';
+    } else if (card.k === 'idea') {
+      const x = card.x;
+      body = '<h2 class="card-h">' + esc(x[0]) + '</h2>' +
+        '<p class="card-b">' + fmt(B.more[card.i] || '') + '</p>' +
+        '<div class="inshort"><p class="eyebrow">In short</p><p>' + fmt(x[1]) + '</p></div>' +
+        (x[2] ? '<div class="example"><p class="eyebrow">Example</p><p>' + fmt(x[2]) + '</p></div>' : '');
+    } else if (card.k === 'words') {
+      body = '<h2 class="card-h">Words to know</h2><p class="muted">These words come up a lot. Tap back if you need to see them again.</p>' +
+        '<dl class="glossary">' + B.words.map(w => '<div><dt>' + esc(w[0]) + '</dt><dd>' + fmt(w[1]) + '</dd></div>').join('') + '</dl>';
+    } else if (card.k === 'w') {
+      body = '<h2 class="card-h">Let’s work one out together</h2><p class="muted">Tap to reveal each step. Try to guess the next step before you tap.</p><div id="wk"></div>';
+    } else if (card.k === 'x') {
+      body = '<div class="watch"><span class="av wobble">' + art(c) + '</span><div><h2 class="card-h">' + esc(c.name) + ' says: watch out!</h2><p class="card-b">' + fmt(t.X) + '</p></div></div>';
+    } else if (card.k === 'k') {
+      body = '<h2 class="card-h">Quick check</h2><p class="muted">One question to see if it clicked.</p><div id="chk"></div>';
+    } else {
+      body = '<h2 class="card-h">Want to learn more?</h2><p class="muted">Free textbooks, worksheets and videos about <b>' + esc(t.t.toLowerCase()) + '</b>.</p>' + resourcesHTML(t, g, sid);
+    }
+    stage.innerHTML =
+      '<div class="row end"><span class="eyebrow">' + label + ' · ' + (i + 1) + ' of ' + cards.length + '</span><span class="dots">' + cards.map((_, k) => '<i class="' + (k <= i ? 'on' : '') + '"></i>').join('') + '</span></div>' +
+      body +
+      '<div class="row end"><button class="btn ghost" id="prev"' + (i === 0 ? ' disabled' : '') + '>' + ic('back') + 'Back</button>' +
+      '<button class="btn" id="nxt"' + (card.k === 'k' && !answered ? ' disabled' : '') + '>' + (last ? 'Finish lesson' + ic('check') : 'Next' + ic('next')) + '</button></div>';
+    if (card.k === 'w') mountWorked($('#wk', stage), t.W);
+    if (card.k === 'k') {
+      const o = shuffle(t.C[1]), a = o.indexOf(t.C[1][0]), box = $('#chk', stage);
+      box.innerHTML = '<p class="q" style="margin-bottom:12px">' + esc(t.C[0]) + '</p><div class="answers">' + o.map((x, k) => '<button class="opt" data-k="' + k + '"><span class="key">' + 'ABCD'[k] + '</span><span>' + esc(x) + '</span></button>').join('') + '</div><div class="fbk"></div>';
+      const btns = $$('.opt', box);
+      btns.forEach(b => b.onclick = () => {
+        const k = +b.dataset.k, ok = k === a; answered = true;
+        record(t.id, t.C[0], ok); sfx(ok ? 'good' : 'bad');
+        btns.forEach((x, n) => { x.disabled = true; x.classList.add(n === a ? 'right' : n === k ? 'bad' : 'dim'); });
+        $('.fbk', box).innerHTML = '<div style="margin-top:12px">' + reactHTML(sid, ok, t.C[2] + (ok ? '' : ' Go back a few cards to look again if you need to.')) + '</div>';
+        $('#nxt', stage).disabled = false;
+      });
+    }
+    $('#prev', stage).onclick = () => { i--; draw(); window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' }); };
+    $('#nxt', stage).onclick = () => {
+      if (!last) { i++; draw(); window.scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' }); return; }
+      const first = !D(t.id).l; D(t.id).l = 1; addXP(first ? 20 : 0);
       go('topic', { t: t.id, tab: 'act' });
     };
   };
