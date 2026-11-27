@@ -1,5 +1,5 @@
 // Brainveld offline support. Bump VERSION to roll out an update.
-const VERSION = 'bv-202611271101';
+const VERSION = 'bv-202611271113';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
