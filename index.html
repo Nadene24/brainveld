@@ -645,6 +645,67 @@ main > *{min-width:0}
   .intro{grid-template-columns:56px minmax(0,1fr)} .intro .av{width:56px; height:56px}
 }
 
+/* ---------- lesson visual aids ---------- */
+.viz{margin:2px 0; padding:14px 12px; border-radius:16px; background:var(--surface-2); border:1px solid var(--line); display:grid; gap:10px; min-width:0}
+.viz svg{display:block; max-width:100%; height:auto; margin:0 auto; overflow:visible}
+.viz text{fill:var(--ink); font-family:inherit; font-size:13px}
+.viz .tb{font-weight:700} .viz .tm{fill:var(--muted)} .viz .th{fill:var(--brand); font-weight:700} .viz .tw{fill:var(--brand-ink); font-weight:700} .viz .dk{fill:#1d1d1f; font-weight:700}
+.viz .fill-brand{fill:var(--brand)} .viz .fill-soft{fill:var(--brand-soft)} .viz .fill-s2{fill:var(--surface)} .viz .fill-bad{fill:var(--bad)} .viz .fill-ink{fill:var(--ink)} .viz .fill-none{fill:none}
+.viz .fill-brand-o{fill:var(--brand); fill-opacity:.35} .viz .fill-bad-o{fill:var(--bad); fill-opacity:.45}
+.viz .st-ink{stroke:var(--ink); stroke-width:2} .viz .st-ink2{stroke:var(--ink); stroke-width:1.5} .viz .st-ink3{stroke:var(--ink); stroke-width:3; stroke-linecap:round} .viz .st-ink5{stroke:var(--ink); stroke-width:6; stroke-linecap:round}
+.viz .st-line{stroke:var(--line); stroke-width:1.5} .viz .st-brand{stroke:var(--brand); stroke-width:2.5} .viz .st-brand3{stroke:var(--brand); stroke-width:3.5; stroke-linecap:round} .viz .st-brand4{stroke:var(--brand); stroke-width:4; stroke-linecap:round; stroke-linejoin:round}
+.viz .st-dash{stroke:var(--muted); stroke-width:1.5; stroke-dasharray:4 4} .viz .st-bdash{stroke:var(--brand); stroke-width:2.5; stroke-dasharray:6 5}
+.viz figcaption{font-size:.9rem; color:var(--ink); text-align:center; line-height:1.45}
+.viz .vnote{margin:0; text-align:center; font-size:.92rem}
+.pv{display:grid; grid-template-columns:repeat(var(--n),minmax(0,1fr)); gap:4px}
+.pvc{background:var(--surface); border-radius:10px; padding:6px 2px; text-align:center; display:grid; gap:2px; border:2px solid transparent}
+.pvc.on{border-color:var(--brand); background:var(--brand-soft); color:var(--ink)}
+.pvc.on .pvn{color:var(--ink)}
+.pvn{font-size:.6rem; line-height:1.1; color:var(--muted); min-height:2.2em; display:grid; place-items:center}
+.pvc b{font-family:var(--f-display); font-size:1.6rem; line-height:1.1}
+.pvv{font-size:.68rem; font-variant-numeric:tabular-nums; white-space:nowrap}
+.cmp{display:grid; gap:5px; justify-content:center}
+.cmpr{display:flex; gap:4px; justify-content:flex-end; align-items:center}
+.cmpr span{width:2.1rem; height:2.4rem; display:grid; place-items:center; border-radius:8px; background:var(--surface); font-family:var(--f-display); font-size:1.35rem; border:2px solid transparent}
+.cmpr.hd span{height:auto; background:none; font-size:.68rem; color:var(--muted); font-family:inherit}
+.cmpr .same{opacity:.4} .cmpr .diff{border-color:var(--brand); background:var(--brand-soft); color:var(--ink)}
+.cmpr .cmpd{width:auto; padding:0 6px; background:none; font-size:.75rem; color:var(--muted); margin-right:auto; font-family:inherit}
+.colm{display:grid; grid-template-columns:repeat(var(--n),2.1rem); justify-content:center; text-align:center; font-family:var(--f-display); font-size:1.5rem; line-height:1.45; font-variant-numeric:tabular-nums}
+.colm .hd{font-size:.68rem; color:var(--muted); font-family:inherit; line-height:1.6}
+.colm .note{font-size:.95rem; color:var(--bad); font-weight:700; min-height:1.2em; line-height:1.3}
+.colm .strike{text-decoration:line-through; text-decoration-color:var(--bad); text-decoration-thickness:2px; opacity:.6}
+.colm .op{color:var(--muted)} .colm .res{color:var(--brand); font-weight:700}
+.colm .rule{grid-column:1/-1; border-top:3px solid var(--ink); margin:2px 0}
+.flow{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px}
+.fl{padding:8px 11px; border-radius:12px; background:var(--surface); border:2px solid var(--line); font-weight:600; text-align:center; font-size:.92rem; max-width:100%}
+.fl.again{border-style:dashed; color:var(--muted); font-weight:500}
+.fa{display:grid; justify-items:center; color:var(--brand); line-height:1}
+.fa small{font-size:.62rem; color:var(--muted); max-width:70px; text-align:center} .fa b{font-size:1.3rem}
+.chips{display:flex; flex-wrap:wrap; gap:6px; justify-content:center}
+.chip{display:grid; justify-items:center; padding:6px 10px; border-radius:12px; background:var(--surface); border-bottom:4px solid var(--cc)}
+.chip b{font-size:1.05rem} .chip small{font-size:.62rem; color:var(--cc); font-weight:700; text-transform:uppercase; letter-spacing:.04em; filter:brightness(.85)}
+.chip.plain{border-bottom-color:transparent; opacity:.7}
+.vt-wrap{overflow-x:auto} .vt{border-collapse:collapse; width:100%; font-size:.92rem}
+.vt th{text-align:left; padding:6px 8px; color:var(--brand); border-bottom:2px solid var(--line); font-size:.8rem}
+.vt td{padding:7px 8px; border-bottom:1px solid var(--line); vertical-align:middle}
+.vt tr:last-child td{border-bottom:0}
+.vcols{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:8px}
+.vcol{background:var(--surface); border-top:4px solid var(--cc); border-radius:12px; padding:9px 11px}
+.vcol > b{color:var(--ink)} .vcol ul{margin:6px 0 0; padding-left:18px} .vcol li{font-size:.9rem; margin:2px 0}
+.vstack{display:grid; border-radius:12px; overflow:hidden; border:2px solid var(--line)}
+.vstack div{padding:9px 12px; color:#2a1a0e; font-weight:600; font-size:.92rem}
+.vpaper{background:#FFFDF4; color:#2b2b2b; border-radius:10px; padding:12px 14px; background-image:repeating-linear-gradient(transparent 0 27px,#d9e6f5 27px 28px); line-height:28px; font-family:'Comic Sans MS','Segoe Print',cursive}
+.vpaper p{margin:0}
+.lsc{display:grid; grid-template-columns:repeat(var(--n),minmax(0,1fr)); gap:4px; text-align:center}
+.lsc i{display:block; height:12px; border-radius:6px} .lsc b{display:block; font-size:.74rem; margin-top:4px; overflow-wrap:anywhere} .lsc small{display:block; font-size:.7rem; color:var(--muted); line-height:1.3}
+.xfrow{display:flex; flex-wrap:wrap; gap:14px; justify-content:center}
+.xfp{display:grid; justify-items:center; gap:4px; font-size:.85rem; text-align:center; min-width:0}
+.xfp small{color:var(--muted)}
+.arcl{margin:0; padding-left:22px; display:grid; gap:2px; font-size:.9rem} .arcl li::marker{color:var(--brand); font-weight:700}
+#scene{overflow:hidden; max-width:100vw}
+html, body{overflow-x:clip}
+@media (max-width:560px){ .stats{flex-wrap:wrap; row-gap:6px; justify-content:flex-start} }
+
 .logo-icon{width:40px; height:40px; border-radius:11px; display:block; box-shadow:0 4px 10px -4px rgba(0,0,0,.45)}
 .pick-icon{width:96px; height:96px; border-radius:24px; margin:0 auto; box-shadow:0 12px 24px -10px rgba(0,0,0,.45)}
 
@@ -4813,6 +4874,494 @@ l5i:{ k:'benefits of exercise warm up cool down for kids', why:'Moving your body
  words:[['Exercise','Activity that gets your body moving.'],['Warm-up','Gentle movement to prepare your body for exercise.'],['Cool-down','Slow movement to help your body recover after exercise.'],['Fair play','Playing honestly, by the rules, with respect.']] }
 });
 
+;
+/* Visual aids for lessons: small diagrams drawn from simple data, coloured by the world theme. */
+const BVZ = (() => {
+  const e = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const f = s => e(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  const sp = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const nf = v => sp(String(+(+v).toFixed(2)).replace('.', ','));
+  const r1 = n => Math.round(n * 10) / 10;
+  const PAL = ['var(--c-math)', 'var(--c-sci)', 'var(--c-eng)', 'var(--c-ss)', 'var(--c-ls)', 'var(--brand)'];
+  const PLACES = ['Units', 'Tens', 'Hundreds', 'Thousands', 'Ten thousands', 'Hundred thousands', 'Millions'];
+  const SHORT = ['U', 'T', 'H', 'Th', 'TTh', 'HTh', 'M'];
+  const svg = (w, h, inner, lab) => '<svg viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" role="img" aria-label="' + e(lab || 'diagram') + '"><defs><marker id="bvh" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" class="fill-brand"/></marker></defs>' + inner + '</svg>';
+  const tx = (x, y, s, c, a, size) => '<text x="' + r1(x) + '" y="' + r1(y) + '" text-anchor="' + (a || 'middle') + '"' + (c ? ' class="' + c + '"' : '') + (size ? ' style="font-size:' + size + 'px"' : '') + '>' + e(s) + '</text>';
+  const ln = (x1, y1, x2, y2, c) => '<line x1="' + r1(x1) + '" y1="' + r1(y1) + '" x2="' + r1(x2) + '" y2="' + r1(y2) + '" class="' + (c || 'st-ink') + '"/>';
+  const rect = (x, y, w, h, c, rx) => '<rect x="' + r1(x) + '" y="' + r1(y) + '" width="' + r1(w) + '" height="' + r1(h) + '"' + (rx ? ' rx="' + rx + '"' : '') + ' class="' + c + '"/>';
+  const pt = (cx, cy, r, deg) => [cx + r * Math.sin(deg * Math.PI / 180), cy - r * Math.cos(deg * Math.PI / 180)];
+  const poly = (pts, c, extra) => '<polygon points="' + pts.map(p => r1(p[0]) + ',' + r1(p[1])).join(' ') + '" class="' + c + '"' + (extra || '') + '/>';
+  const V = {};
+
+  /* place value chart */
+  V.pv = o => { const d = String(o.n).replace(/\s/g, '').split(''), L = d.length, hi = [].concat(o.hi == null ? [] : o.hi);
+    return '<div class="pv" style="--n:' + L + '">' + d.map((x, i) => { const p = L - 1 - i;
+      return '<div class="pvc' + (hi.includes(i) ? ' on' : '') + '"><span class="pvn">' + PLACES[p] + '</span><b>' + x + '</b><span class="pvv">' + (x === '0' ? '0' : sp(x + '0'.repeat(p))) + '</span></div>'; }).join('') + '</div>'; };
+
+  /* number line, optionally showing rounding to the nearer end */
+  V.nl = o => { const W = 340, x0 = 26, x1 = W - 26, a = o.a, b = o.b, st = o.step || (b - a) / 10, X = v => x0 + (v - a) / (b - a) * (x1 - x0);
+    let g = ln(x0, 50, x1, 50);
+    const n = Math.round((b - a) / st);
+    for (let k = 0; k <= n; k++) { const v = a + k * st, end = k === 0 || k === n; g += ln(X(v), end ? 40 : 44, X(v), end ? 60 : 56); }
+    g += tx(X(a), 32, sp(a), 'tb') + tx(X(b), 32, sp(b), 'tb');
+    if (o.mid !== false) { const m = (a + b) / 2; g += ln(X(m), 36, X(m), 64, 'st-dash') + tx(X(m), 16, 'halfway ' + sp(m), 'tm', 'middle', 11); }
+    if (o.p != null) { const p = o.p, near = (p - a) >= (b - p) ? b : a;
+      g += '<path d="M' + r1(X(p)) + ' 60 Q' + r1((X(p) + X(near)) / 2) + ' 100 ' + r1(X(near)) + ' 64" class="st-brand" fill="none" marker-end="url(#bvh)"/>';
+      g += '<circle cx="' + r1(X(p)) + '" cy="50" r="7" class="fill-brand"/>' + tx(X(p), 32, sp(p), 'th'); }
+    return svg(W, 104, g, 'number line'); };
+
+  /* comparing two numbers digit by digit */
+  V.cmp = o => { const A = String(o.a).replace(/\s/g, ''), B = String(o.b).replace(/\s/g, '');
+    if (A.length !== B.length) { const big = A.length > B.length ? A : B, sm = big === A ? B : A;
+      return '<div class="cmp">' + [A, B].map(s => '<div class="cmpr"><span class="cmpd">' + s.length + ' digits</span>' + s.split('').map(d => '<span>' + d + '</span>').join('') + '</div>').join('') + '</div><p class="vnote">' + sp(big) + ' has more digits, so <b>' + sp(big) + ' &gt; ' + sp(sm) + '</b>.</p>'; }
+    let k = 0; while (k < A.length && A[k] === B[k]) k++;
+    const sign = k === A.length ? '=' : (A[k] > B[k] ? '>' : '<');
+    const row = s => '<div class="cmpr">' + s.split('').map((d, i) => '<span class="' + (i < k ? 'same' : i === k ? 'diff' : '') + '">' + d + '</span>').join('') + '</div>';
+    const head = '<div class="cmpr hd">' + A.split('').map((_, i) => '<span>' + SHORT[A.length - 1 - i] + '</span>').join('') + '</div>';
+    return '<div class="cmp">' + head + row(A) + row(B) + '</div><p class="vnote">' + (k === A.length ? 'Every digit matches, so they are equal.' :
+      'The digits match until the <b>' + PLACES[A.length - 1 - k].toLowerCase() + '</b>. There ' + A[k] + ' ' + e(sign) + ' ' + B[k] + ', so <b>' + sp(A) + ' ' + e(sign) + ' ' + sp(B) + '</b>.') + '</p>'; };
+
+  /* column addition / subtraction with carrying and borrowing shown */
+  V.col = o => { const add = o.op !== '-', a = o.a, b = o.b, r = add ? a + b : a - b, W = Math.max(String(a).length, String(b).length, String(r).length);
+    const pad = n => String(n).padStart(W, ' ').split('').map(x => x === ' ' ? null : +x);
+    const A = pad(a), Bd = pad(b), R = pad(r), note = Array(W).fill(''), strike = Array(W).fill(false);
+    if (add) { let c = 0; for (let i = W - 1; i >= 0; i--) { const s = (A[i] || 0) + (Bd[i] || 0) + c; c = s >= 10 ? 1 : 0; if (c && i > 0) note[i - 1] = '1'; } }
+    else { const cur = A.slice(); for (let i = W - 1; i >= 0; i--) { if (cur[i] == null) continue; if (cur[i] < (Bd[i] || 0)) { let j = i - 1;
+      while (j >= 0 && cur[j] === 0) { cur[j] = 9; strike[j] = true; note[j] = '9'; j--; }
+      cur[j] -= 1; strike[j] = true; note[j] = String(cur[j]); cur[i] += 10; strike[i] = true; note[i] = String(cur[i]); } } }
+    const c = (x, k) => '<span' + (k ? ' class="' + k + '"' : '') + '>' + (x == null ? '' : x) + '</span>';
+    return '<div class="colm" style="--n:' + (W + 1) + '">' + c('') + Array.from({ length: W }, (_, i) => c(SHORT[W - 1 - i], 'hd')).join('') +
+      c('') + note.map(x => c(x, 'note')).join('') +
+      c('') + A.map((x, i) => c(x, strike[i] ? 'strike' : '')).join('') +
+      c(add ? '+' : '−', 'op') + Bd.map(x => c(x)).join('') + '<i class="rule"></i>' +
+      c('') + R.map(x => c(x, 'res')).join('') + '</div>'; };
+
+  /* array of dots for multiplication */
+  V.arr = o => { const s = 26; let g = '';
+    for (let i = 0; i < o.r; i++) for (let j = 0; j < o.c; j++) g += '<circle cx="' + (10 + j * s + s / 2) + '" cy="' + (5 + i * s + s / 2) + '" r="9" style="fill:' + PAL[i % PAL.length] + '"/>';
+    return svg(o.c * s + 20, o.r * s + 10, g, o.r + ' rows of ' + o.c); };
+
+  /* equal groups for division and fractions of a number */
+  V.grp = o => { const n = o.n, gN = o.g, per = Math.floor(n / gN), rem = n - per * gN, cols = Math.max(1, Math.ceil(Math.sqrt(per))), rows = Math.max(1, Math.ceil(per / cols)), s = 16, gw = cols * s + 18, gh = rows * s + 18;
+    let x = 6, g = '';
+    for (let i = 0; i < gN; i++) { g += rect(x, 6, gw, gh, (o.hl && i < o.hl) ? 'fill-soft st-brand' : 'fill-s2 st-line', 12);
+      for (let k = 0; k < per; k++) g += '<circle cx="' + r1(x + 9 + (k % cols) * s + s / 2) + '" cy="' + r1(15 + Math.floor(k / cols) * s + s / 2) + '" r="5.5" style="fill:' + PAL[i % PAL.length] + '"/>';
+      x += gw + 10; }
+    if (rem) { for (let k = 0; k < rem; k++) g += '<circle cx="' + (x + 8 + k * 16) + '" cy="' + r1(6 + gh / 2) + '" r="5.5" class="fill-bad"/>';
+      g += tx(x + 8 + (rem - 1) * 8, 6 + gh + 16, 'left over', 'tm', 'middle', 11); x += rem * 16 + 10; }
+    return svg(Math.max(x, 80), gh + (rem ? 30 : 14), g, n + ' in ' + gN + ' groups'); };
+
+  /* fraction bars */
+  V.frac = o => { const W = 320, x0 = 52, bw = W - x0 - 8, bh = 30, gap = 10; let g = '';
+    o.f.forEach(([n, d], r) => { const y = 6 + r * (bh + gap), w = bw / d; g += tx(x0 - 10, y + bh / 2 + 6, n + '/' + d, 'tb', 'end', 16);
+      for (let k = 0; k < d; k++) g += rect(x0 + k * w, y, w, bh, (k < n ? 'fill-brand' : 'fill-s2') + ' st-ink2'); });
+    return svg(W, 6 + o.f.length * (bh + gap), g, 'fraction bars'); };
+
+  /* boxes joined by arrows (food chains, steps, cycles) */
+  V.flow = o => '<div class="flow">' + o.d.map((x, i) => '<span class="fl">' + f(x) + '</span>' + (i < o.d.length - 1 ? '<span class="fa">' + (o.lab ? '<small>' + e(o.lab) + '</small>' : '') + '<b>→</b></span>' : '')).join('') +
+    (o.cyc ? '<span class="fa"><b>→</b></span><span class="fl again">↻ ' + e(o.cyc === true ? 'starts again' : o.cyc) + '</span>' : '') + '</div>';
+
+  /* bar graph */
+  V.bar = o => { const d = o.d, mx = Math.max(...d.map(x => x[1])), st = o.step || (mx > 10 ? 5 : 2), top = Math.ceil(mx / st) * st, W = 330, x0 = 36, y0 = 160, hh = 130, bw = (W - x0 - 8) / d.length; let g = '';
+    for (let v = 0; v <= top; v += st) { const y = y0 - v / top * hh; g += ln(x0, y, W - 4, y, 'st-line') + tx(x0 - 6, y + 4, v, 'tm', 'end', 11); }
+    d.forEach(([lab, v], i) => { const h = v / top * hh, x = x0 + i * bw + bw * 0.18, top1 = o.mode && v === mx;
+      g += '<rect x="' + r1(x) + '" y="' + r1(y0 - h) + '" width="' + r1(bw * 0.64) + '" height="' + r1(h) + '" rx="4" style="fill:' + (o.mode ? (top1 ? 'var(--brand)' : 'var(--c-ss)') : PAL[i % 5]) + (o.mode && !top1 ? ';opacity:.55' : '') + '"/>' +
+        tx(x + bw * 0.32, y0 - h - 6, v, 'tb', 'middle', 12) + tx(x + bw * 0.32, y0 + 17, lab, top1 ? 'th' : '', 'middle', 11); });
+    g += ln(x0, y0, W - 4, y0) + ln(x0, y0, x0, y0 - hh - 6);
+    return svg(W, y0 + 26, g, 'bar graph'); };
+
+  /* tally table */
+  const marks = n => { let s = '', gx = 4; for (let k = 0; k < n; k++) { const i = k % 5; if (i < 4) s += ln(gx + i * 7, 4, gx + i * 7, 26, 'st-ink3'); else { s += ln(gx - 4, 22, gx + 25, 8, 'st-brand3'); gx += 40; } }
+    const W = gx + (n % 5) * 7 + 4; return '<svg viewBox="0 0 ' + W + ' 30" width="' + W + '" height="30" aria-label="' + n + ' tally marks">' + s + '</svg>'; };
+  V.tally = o => '<div class="vt-wrap"><table class="vt"><thead><tr><th>' + e(o.h || 'Answer') + '</th><th>Tally</th><th>Frequency</th></tr></thead><tbody>' +
+    o.d.map(([k, n]) => '<tr><td>' + f(k) + '</td><td>' + marks(n) + '</td><td><b>' + n + '</b></td></tr>').join('') + '</tbody></table></div>';
+
+  /* lettered grid with references */
+  V.grid = o => { const c = o.c || 5, r = o.r || 4, s = 44, x0 = 28, y0 = 24, L = 'ABCDEFGHIJ'; let g = '';
+    if (o.hit) { const col = L.indexOf(o.hit[0]), row = +o.hit.slice(1) - 1;
+      g += rect(x0 + col * s, y0, s, r * s, 'fill-soft', 0) + rect(x0, y0 + row * s, c * s, s, 'fill-soft', 0) + rect(x0 + col * s, y0 + row * s, s, s, 'fill-brand-o st-brand', 0); }
+    for (let i = 0; i <= c; i++) g += ln(x0 + i * s, y0, x0 + i * s, y0 + r * s, 'st-line');
+    for (let j = 0; j <= r; j++) g += ln(x0, y0 + j * s, x0 + c * s, y0 + j * s, 'st-line');
+    for (let i = 0; i < c; i++) g += tx(x0 + i * s + s / 2, 16, L[i], o.hit && L[i] === o.hit[0] ? 'th' : 'tb');
+    for (let j = 0; j < r; j++) g += tx(14, y0 + j * s + s / 2 + 5, j + 1, o.hit && +o.hit.slice(1) === j + 1 ? 'th' : 'tb');
+    Object.entries(o.items || {}).forEach(([k, v]) => { const col = L.indexOf(k[0]), row = +k.slice(1) - 1; g += tx(x0 + col * s + s / 2, y0 + row * s + s / 2 + 9, v, '', 'middle', 24); });
+    return svg(x0 + c * s + 6, y0 + r * s + 6, g, 'grid'); };
+
+  /* compass rose */
+  V.compass = () => { const C = 110; let g = '<circle cx="110" cy="110" r="72" class="fill-s2 st-line"/>';
+    [45, 135, 225, 315].forEach(a => g += poly([pt(C, C, 46, a), pt(C, C, 10, a + 45), pt(C, C, 10, a - 45)], 'fill-soft st-line'));
+    [0, 90, 180, 270].forEach(a => g += poly([pt(C, C, 66, a), pt(C, C, 13, a + 45), [C, C], pt(C, C, 13, a - 45)], a === 0 ? 'fill-brand' : 'fill-ink'));
+    [['N', 0], ['E', 90], ['S', 180], ['W', 270]].forEach(([l, a]) => { const p = pt(C, C, 88, a); g += tx(p[0], p[1] + 7, l, a === 0 ? 'th' : 'tb', 'middle', 20); });
+    [['NE', 45], ['SE', 135], ['SW', 225], ['NW', 315]].forEach(([l, a]) => { const p = pt(C, C, 60, a); g += tx(p[0], p[1] + 4, l, 'tm', 'middle', 12); });
+    return svg(220, 220, g, 'compass'); };
+
+  /* shapes with lines of symmetry */
+  const SYM = {
+    square: ['<rect x="15" y="15" width="70" height="70" class="fill-soft st-ink2"/>', [[50, 6, 50, 94], [6, 50, 94, 50], [10, 10, 90, 90], [90, 10, 10, 90]], '4 lines'],
+    rect: ['<rect x="8" y="27" width="84" height="46" class="fill-soft st-ink2"/>', [[50, 18, 50, 82], [2, 50, 98, 50]], '2 lines'],
+    eqtri: [poly([[50, 12], [12, 78], [88, 78]], 'fill-soft st-ink2'), [[50, 4, 50, 86], [6, 82, 73, 43], [94, 82, 27, 43]], '3 lines'],
+    circle: ['<circle cx="50" cy="50" r="38" class="fill-soft st-ink2"/>', [[50, 6, 50, 94], [6, 50, 94, 50], [19, 19, 81, 81], [81, 19, 19, 81]], 'endless'],
+    heart: ['<path d="M50 84 C12 58 14 20 50 34 C86 20 88 58 50 84Z" class="fill-soft st-ink2"/>', [[50, 14, 50, 94]], '1 line'],
+    para: [poly([[28, 25], [94, 25], [72, 75], [6, 75]], 'fill-soft st-ink2'), [], 'no lines'] };
+  V.sym = o => '<div class="xfrow">' + o.s.map(k => { const [shape, lines, lab] = SYM[k];
+    return '<div class="xfp">' + svg(100, 100, shape + lines.map(l => ln(l[0], l[1], l[2], l[3], 'st-bdash')).join(''), k) + '<b>' + lab + '</b></div>'; }).join('') + '</div>';
+
+  /* named 2D shapes */
+  const NAMES = { 0: 'Circle', 3: 'Triangle', 4: 'Square', 5: 'Pentagon', 6: 'Hexagon', 8: 'Octagon' };
+  V.shapes = o => '<div class="xfrow">' + o.s.map((n, i) => { const sh = n === 0 ? '<circle cx="45" cy="45" r="34" style="fill:' + PAL[i % 6] + '"/>' :
+      '<polygon points="' + Array.from({ length: n }, (_, k) => pt(45, 47, 36, k * 360 / n + (n === 4 ? 45 : n % 2 ? 0 : 180 / n)).map(r1).join(',')).join(' ') + '" style="fill:' + PAL[i % 6] + '"/>';
+    return '<div class="xfp">' + svg(90, 90, sh, NAMES[n]) + '<b>' + NAMES[n] + '</b><small>' + (n ? n + ' sides' : '1 curved edge') + '</small></div>'; }).join('') + '</div>';
+
+  /* tables, columns, layers */
+  V.table = o => '<div class="vt-wrap"><table class="vt">' + (o.h ? '<thead><tr>' + o.h.map(x => '<th>' + f(x) + '</th>').join('') + '</tr></thead>' : '') + '<tbody>' + o.rows.map(r => '<tr>' + r.map(x => '<td>' + f(x) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>';
+  V.cols = o => '<div class="vcols">' + o.d.map(([h, items], i) => '<div class="vcol" style="--cc:' + PAL[(o.p || 0) + i] + '"><b>' + f(h) + '</b>' + (items && items.length ? '<ul>' + items.map(x => '<li>' + f(x) + '</li>').join('') + '</ul>' : '') + '</div>').join('') + '</div>';
+  V.stack = o => { const tones = ['#F6E3BF', '#EBCB97', '#DDB07A', '#C9935F', '#B07A4A'];
+    return '<div class="vstack">' + o.d.map((x, i) => '<div style="background:' + ((Array.isArray(x) && x[1]) || tones[i % tones.length]) + '">' + f(Array.isArray(x) ? x[0] : x) + '</div>').join('') + '</div>'; };
+  V.note = o => '<div class="vpaper">' + o.d.map(x => '<p>' + f(x) + '</p>').join('') + '</div>';
+
+  /* earth's layers */
+  V.earth = () => { const c = [['#8D5A2B', 90, 'Crust (we live here)', 30, 38], ['#E8743B', 84, 'Mantle (hot, slow-moving rock)', 75, 70], ['#F5A623', 46, 'Outer core (liquid metal)', 120, 103], ['#FFD75E', 24, 'Inner core (solid metal, hottest)', 165, 108]];
+    let g = c.map(x => '<circle cx="100" cy="105" r="' + x[1] + '" style="fill:' + x[0] + '"/>').join('');
+    const tips = [[163, 42], [160, 80], [138, 105], [112, 112]];
+    c.forEach((x, i) => { g += ln(198, x[3] - 4, tips[i][0], tips[i][1], 'st-ink2') + '<circle cx="' + tips[i][0] + '" cy="' + tips[i][1] + '" r="3" class="fill-ink"/>' + tx(202, x[3], x[2], 'tb', 'start', 12); });
+    return svg(400, 205, g, 'layers of the Earth'); };
+
+  /* thermometer */
+  V.therm = o => { const lo = o.lo == null ? -10 : o.lo, hi = o.hi == null ? 100 : o.hi, Y = v => 186 - (v - lo) / (hi - lo) * 166, r = o.r == null ? 37 : o.r;
+    let g = rect(40, 12, 18, 186, 'fill-s2 st-ink2', 9) + '<circle cx="49" cy="206" r="15" class="fill-bad"/>' + rect(45, Y(r), 8, 206 - Y(r), 'fill-bad', 4);
+    for (let v = Math.ceil(lo / 10) * 10; v <= hi; v += 10) g += ln(58, Y(v), 64, Y(v), 'st-ink2') + tx(34, Y(v) + 4, v, 'tm', 'end', 10);
+    (o.d || []).forEach(([v, lab]) => g += ln(58, Y(v), 92, Y(v), 'st-dash') + tx(96, Y(v) + 4, v + ' °C  ' + lab, v === r ? 'th' : 'tb', 'start', 12));
+    return svg(300, 226, g, 'thermometer'); };
+
+  /* reading a scale */
+  V.scale = o => { const a = o.a, b = o.b, n = o.n, st = (b - a) / n, W = 330, x0 = 26, x1 = W - 26, X = v => x0 + (v - a) / (b - a) * (x1 - x0), u = o.u ? ' ' + o.u : '';
+    let g = rect(x0 - 12, 34, x1 - x0 + 24, 36, 'fill-s2 st-line', 6);
+    for (let k = 0; k <= n; k++) { const v = a + k * st, lab = k === 0 || k === n; g += ln(X(v), 34, X(v), lab ? 60 : 52); if (lab) g += tx(X(v), 88, nf(v), 'tb', 'middle', 14); }
+    g += poly([[X(o.p) - 9, 10], [X(o.p) + 9, 10], [X(o.p), 32]], 'fill-brand') + ln(X(o.p), 32, X(o.p), 70, 'st-brand');
+    return svg(W, 96, g, 'scale') + '<p class="vnote">' + n + ' spaces from ' + nf(a) + ' to ' + nf(b) + ', so each mark is worth ' + nf(b - a) + ' ÷ ' + n + ' = <b>' + nf(st) + u + '</b>. The arrow points to <b>' + nf(o.p) + u + '</b>.</p>'; };
+
+  /* colour wheel */
+  V.cwheel = o => { const cols = [['Red', '#E53935', 1, '#fff'], ['Orange', '#FB8C00', 0, '#1d1d1f'], ['Yellow', '#FDD835', 1, '#1d1d1f'], ['Green', '#43A047', 0, '#fff'], ['Blue', '#1E88E5', 1, '#fff'], ['Purple', '#8E24AA', 0, '#fff']], C = 130, R = 90;
+    let g = '';
+    cols.forEach(([n, col, prim, ink], i) => { const a0 = i * 60 - 30, a1 = a0 + 60, p0 = pt(C, 115, R, a0), p1 = pt(C, 115, R, a1), m = pt(C, 115, 58, i * 60);
+      g += '<path d="M' + C + ' 115 L' + r1(p0[0]) + ' ' + r1(p0[1]) + ' A' + R + ' ' + R + ' 0 0 1 ' + r1(p1[0]) + ' ' + r1(p1[1]) + 'Z" style="fill:' + col + ';stroke:var(--surface);stroke-width:3"/>' +
+        '<text x="' + r1(m[0]) + '" y="' + r1(m[1] + (prim ? 0 : 4)) + '" text-anchor="middle" style="fill:' + ink + ';font-weight:700;font-size:12px">' + n + '</text>' +
+        (prim ? '<text x="' + r1(m[0]) + '" y="' + r1(m[1] + 14) + '" text-anchor="middle" style="fill:' + ink + ';font-size:9px">primary</text>' : ''); });
+    g += '<circle cx="' + C + '" cy="115" r="22" class="fill-s2"/>';
+    if (o.wc) { g += tx(236, 40, 'Warm', 'th', 'middle', 15) + tx(24, 200, 'Cool', 'tb', 'middle', 15) + '<path d="M150 14 A102 102 0 0 1 228 160" class="st-brand" fill="none" marker-end="url(#bvh)"/>' + '<path d="M110 216 A102 102 0 0 1 32 70" class="st-dash" fill="none"/>'; }
+    return svg(260, 225, g, 'colour wheel'); };
+
+  /* slide / flip / turn on a grid */
+  const ORIG = [[1, 1], [1, 2], [1, 3], [2, 3]];
+  const cellsSvg = (cols, rows, img, extra, title) => { const s = 20; let g = '';
+    for (let i = 0; i <= cols; i++) g += ln(2 + i * s, 2, 2 + i * s, 2 + rows * s, 'st-line');
+    for (let j = 0; j <= rows; j++) g += ln(2, 2 + j * s, 2 + cols * s, 2 + j * s, 'st-line');
+    ORIG.forEach(([x, y]) => g += rect(2 + x * s + 2, 2 + y * s + 2, s - 4, s - 4, 'fill-s2 st-dash', 2));
+    img.forEach(([x, y]) => g += rect(2 + x * s + 1, 2 + y * s + 1, s - 2, s - 2, 'fill-brand', 3));
+    return '<div class="xfp"><b>' + title + '</b>' + svg(cols * s + 4, rows * s + 4, g + extra(s), title) + '</div>'; };
+  V.xf = o => '<div class="xfrow">' + [].concat(o.m).map(m => {
+    if (m === 'slide') return cellsSvg(8, 5, ORIG.map(([x, y]) => [x + 4, y]), s => '<path d="M' + (2 + 2.2 * s) + ' ' + (2 + 0.5 * s) + ' L' + (2 + 4.8 * s) + ' ' + (2 + 0.5 * s) + '" class="st-brand" marker-end="url(#bvh)"/>', 'Slide (translation)');
+    if (m === 'flip') return cellsSvg(7, 5, ORIG.map(([x, y]) => [6 - x, y]), s => ln(2 + 3.5 * s, 2, 2 + 3.5 * s, 2 + 5 * s, 'st-bdash'), 'Flip (reflection)');
+    const P = [3, 4]; return cellsSvg(7, 6, ORIG.map(([x, y]) => { const dx = x + 0.5 - P[0], dy = y + 0.5 - P[1]; return [Math.floor(P[0] - dy), Math.floor(P[1] + dx)]; }),
+      s => '<circle cx="' + (2 + P[0] * s) + '" cy="' + (2 + P[1] * s) + '" r="5" class="fill-bad"/>', 'Quarter turn (rotation)');
+  }).join('') + '</div><p class="vnote">Dashed: where the shape started. Coloured: where it ended up.</p>';
+
+  /* tessellation vs gaps */
+  V.tess = () => { let a = '', b = ''; const r = 14, h = Math.sqrt(3) * r;
+    for (let c = 0; c < 7; c++) for (let w = 0; w < 4; w++) { const cx = 10 + c * 1.5 * r, cy = 8 + w * h + (c % 2 ? h / 2 : 0);
+      a += '<polygon points="' + [0, 60, 120, 180, 240, 300].map(d => r1(cx + r * Math.cos(d * Math.PI / 180)) + ',' + r1(cy + r * Math.sin(d * Math.PI / 180))).join(' ') + '" style="fill:' + PAL[(c + w) % 3] + ';stroke:var(--surface);stroke-width:2"/>'; }
+    b = rect(0, 0, 150, 104, 'fill-bad-o', 0);
+    for (let c = 0; c < 6; c++) for (let w = 0; w < 4; w++) b += '<circle cx="' + (13 + c * 25) + '" cy="' + (13 + w * 26) + '" r="11" style="fill:var(--c-sci)"/>';
+    return '<div class="xfrow"><div class="xfp"><b>✓ Hexagons: no gaps</b>' + svg(150, 104, a, 'hexagon tiling') + '</div><div class="xfp"><b>✗ Circles leave gaps</b>' + svg(150, 104, b, 'circles with gaps') + '</div></div>'; };
+
+  /* cube with face, edge and vertex */
+  V.cube = () => { let g = '';
+    g += poly([[40, 70], [80, 35], [170, 35], [130, 70]], 'fill-soft st-ink2') + poly([[130, 70], [170, 35], [170, 125], [130, 160]], 'fill-s2 st-ink2') + rect(40, 70, 90, 90, 'fill-soft st-ink2');
+    g += ln(80, 35, 80, 125, 'st-dash') + ln(80, 125, 40, 160, 'st-dash') + ln(80, 125, 170, 125, 'st-dash');
+    g += ln(80, 35, 170, 35, 'st-brand4') + tx(125, 24, 'edge', 'th', 'middle', 13);
+    g += tx(85, 120, 'face', 'tb', 'middle', 14) + '<circle cx="130" cy="160" r="6" class="fill-bad"/>' + tx(145, 182, 'vertex (corner)', 'tb', 'start', 12);
+    return svg(260, 190, g, 'cube'); };
+
+  /* perimeter / area on squares */
+  V.area = o => { const w = o.w, h = o.h, s = 34, x0 = 34, y0 = 26, u = o.u || 'cm'; let g = '';
+    for (let j = 0; j < h; j++) for (let i = 0; i < w; i++) { g += rect(x0 + i * s, y0 + j * s, s, s, (o.m === 'a' ? 'fill-soft' : 'fill-s2') + ' st-line'); if (o.m === 'a') g += tx(x0 + i * s + s / 2, y0 + j * s + s / 2 + 5, j * w + i + 1, 'tb', 'middle', 13); }
+    if (o.m === 'p') { g += rect(x0, y0, w * s, h * s, 'fill-none st-brand4');
+      g += tx(x0 + w * s / 2, y0 - 8, w + ' ' + u, 'th') + tx(x0 + w * s / 2, y0 + h * s + 20, w + ' ' + u, 'th') + tx(x0 - 6, y0 + h * s / 2 + 5, h + ' ' + u, 'th', 'end') + tx(x0 + w * s + 6, y0 + h * s / 2 + 5, h + ' ' + u, 'th', 'start'); }
+    return svg(x0 * 2 + w * s + 10, y0 * 2 + h * s, g, o.m === 'a' ? 'area' : 'perimeter'); };
+
+  /* volume as layers of cubes */
+  V.vol = o => '<div class="xfrow">' + Array.from({ length: o.h }, (_, k) => { let g = ''; const s = 22;
+    for (let j = 0; j < o.d; j++) for (let i = 0; i < o.w; i++) g += rect(2 + i * s, 2 + j * s, s - 2, s - 2, 'fill-soft st-brand', 3);
+    return '<div class="xfp"><b>Layer ' + (k + 1) + '</b>' + svg(o.w * s + 4, o.d * s + 4, g, 'layer') + '<small>' + o.w + ' × ' + o.d + ' = ' + o.w * o.d + ' cubes</small></div>'; }).join('') + '</div>';
+
+  /* top and front views of a can */
+  V.views = () => { const can = '<path d="M20 25 L20 85 A30 9 0 0 0 80 85 L80 25" class="fill-s2 st-ink2"/><ellipse cx="50" cy="25" rx="30" ry="9" class="fill-soft st-ink2"/>';
+    return '<div class="xfrow"><div class="xfp"><b>The can</b>' + svg(100, 100, can, 'can') + '</div><div class="xfp"><b>Top view</b>' + svg(100, 100, '<circle cx="50" cy="52" r="34" class="fill-soft st-ink2"/>', 'top view') + '<small>a circle</small></div><div class="xfp"><b>Front view</b>' + svg(100, 100, rect(22, 16, 56, 72, 'fill-s2 st-ink2'), 'front view') + '<small>a rectangle</small></div></div>'; };
+
+  /* words in a sentence, labelled by job */
+  V.chips = o => { const roles = []; return (o.rows || [o.d]).map(d => '<div class="chips">' + d.map(([w, r]) => { if (!r) return '<span class="chip plain"><b>' + f(w) + '</b></span>';
+    let i = roles.indexOf(r); if (i < 0) { roles.push(r); i = roles.length - 1; }
+    return '<span class="chip" style="--cc:' + PAL[i % PAL.length] + '"><b>' + f(w) + '</b><small>' + e(r) + '</small></span>'; }).join('') + '</div>').join(''); };
+
+  /* chance scale */
+  V.lscale = o => { const cs = ['var(--bad)', '#F0A24B', 'var(--sun)', '#9CCC65', 'var(--good)'];
+    return '<div class="lsc" style="--n:' + o.d.length + '">' + o.d.map((x, i) => '<div><i style="background:' + cs[i % 5] + '"></i><b>' + e(x[0]) + '</b><small>' + f(x[1]) + '</small></div>').join('') + '</div>'; };
+
+  /* healthy plate */
+  V.plate = () => { let g = '<circle cx="110" cy="105" r="98" style="fill:#fff;stroke:#d9d4cc;stroke-width:3"/>';
+    g += '<path d="M110 20 A85 85 0 0 0 110 190Z" style="fill:#BDE5A6"/><path d="M110 105 L110 20 A85 85 0 0 1 195 105Z" style="fill:#FFE29A"/><path d="M110 105 L195 105 A85 85 0 0 1 110 190Z" style="fill:#F6B9A3"/>';
+    const t = (x, y, s, sz, b) => '<text x="' + x + '" y="' + y + '" text-anchor="middle" style="fill:#1d1d1f;font-size:' + sz + 'px' + (b ? ';font-weight:700' : '') + '">' + e(s) + '</text>';
+    g += t(68, 96, '🥦🍎', 22) + t(68, 118, 'Vegetables', 12, 1) + t(68, 132, 'and fruit', 12, 1) + t(68, 148, '(half)', 11);
+    g += t(146, 66, '🍞', 20) + t(146, 84, 'Starch', 12, 1) + t(146, 128, '🥚', 20) + t(146, 146, 'Protein', 12, 1);
+    g += tx(250, 80, '💧', '', 'middle', 26) + tx(250, 100, 'Water', 'tb', 'middle', 12) + tx(250, 145, '🥛', '', 'middle', 26) + tx(250, 165, 'Dairy', 'tb', 'middle', 12);
+    return svg(290, 212, g, 'healthy plate'); };
+
+  /* three things needed (fire triangle, rust) */
+  V.tri3 = o => { let g = poly([[140, 36], [44, 168], [236, 168]], 'fill-soft st-brand');
+    g += tx(140, 24, o.d[0], 'tb', 'middle', 15) + tx(44, 190, o.d[1], 'tb', 'middle', 15) + tx(236, 190, o.d[2], 'tb', 'middle', 15) + tx(140, 132, o.mid, 'th', 'middle', 17);
+    return svg(280, 200, g, o.mid); };
+
+  /* story mountain */
+  V.arc = o => { const P = [[24, 112], [97, 74], [170, 22], [243, 74], [316, 112]]; let g = '<polyline points="' + P.map(p => p.join(',')).join(' ') + '" class="st-brand4" fill="none"/>';
+    o.d.forEach((x, i) => { const p = P[i]; g += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="13" class="fill-brand"/>' + tx(p[0], p[1] + 5, i + 1, 'tw', 'middle', 14); });
+    return svg(340, 130, g, 'story mountain') + '<ol class="arcl">' + o.d.map(x => { const [t, s] = [].concat(x); return '<li><b>' + f(t) + '</b>' + (s ? ': ' + f(s) : '') + '</li>'; }).join('') + '</ol>'; };
+
+  /* 12 and 24 hour clock */
+  V.clock = o => { const C = 110; let g = '<circle cx="110" cy="110" r="104" class="fill-s2 st-ink2"/><circle cx="110" cy="110" r="74" class="fill-soft"/>';
+    for (let k = 1; k <= 12; k++) { const a = k * 30, p = pt(C, C, 60, a), q = pt(C, C, 90, a), outer = k === 12 ? '00' : String(k + 12), on = o.h >= 12 && (o.h === 12 ? k === 12 : k === o.h - 12);
+      if (on) g += '<circle cx="' + r1(q[0]) + '" cy="' + r1(q[1]) + '" r="13" class="fill-brand"/>';
+      g += tx(p[0], p[1] + 5, k, 'tb', 'middle', 15) + tx(q[0], q[1] + 4, outer, on ? 'tw' : 'th', 'middle', 12); }
+    const ha = ((o.h % 12) + o.m / 60) * 30, ma = o.m * 6, hp = pt(C, C, 40, ha), mp = pt(C, C, 62, ma);
+    g += ln(C, C, hp[0], hp[1], 'st-ink5') + ln(C, C, mp[0], mp[1], 'st-brand3') + '<circle cx="110" cy="110" r="5" class="fill-ink"/>';
+    return svg(220, 220, g, 'clock'); };
+
+  /* frame vs triangle strength */
+  V.brace = () => { let g = rect(34, 36, 70, 70, 'fill-none st-ink2') + poly([[54, 36], [124, 36], [104, 106], [34, 106]], 'fill-none st-bdash') + '<path d="M6 36 L30 36" class="st-brand" marker-end="url(#bvh)"/>' + tx(80, 128, 'Square: pushes over', 'tb', 'middle', 12);
+    g += poly([[190, 106], [280, 106], [235, 36]], 'fill-soft st-ink2') + '<path d="M196 30 L226 36" class="st-brand" marker-end="url(#bvh)"/>' + tx(235, 128, 'Triangle: stays strong', 'th', 'middle', 12);
+    return svg(310, 136, g, 'square and triangle frames'); };
+
+  /* side view of South Africa's land */
+  V.profile = () => { let g = '<rect x="0" y="112" width="44" height="40" style="fill:#64B5F6"/><path d="M42 152 L42 112 L96 106 L118 62 L134 38 L150 56 L340 50 L340 152Z" style="fill:#C8A165"/>';
+    g += tx(22, 136, 'Sea', 'dk', 'middle', 11) + tx(70, 98, 'Coastal plain', 'tb', 'middle', 11) + tx(134, 28, 'Mountains', 'tb', 'middle', 11) + tx(150, 100, 'Great Escarpment', 'dk', 'start', 11) + tx(256, 40, 'Plateau (high and flat)', 'tb', 'middle', 11);
+    g += '<path d="M146 96 L118 76" class="st-ink2" marker-end="url(#bvh)"/>';
+    return svg(340, 152, g, 'side view of the land'); };
+
+  /* farming village */
+  V.village = () => { let g = '<circle cx="130" cy="100" r="42" style="fill:#C8E6C9;stroke:#7A5A3A;stroke-width:3;stroke-dasharray:5 4"/>' + tx(130, 104, '🐄🐄', '', 'middle', 22) + tx(130, 124, 'kraal', 'dk', 'middle', 12);
+    for (let k = 0; k < 7; k++) { const p = pt(130, 100, 82, k * 51 + 20); g += tx(p[0], p[1] + 10, '🛖', '', 'middle', 28); }
+    return svg(260, 200, g, 'village'); };
+
+  const render = o => { try { return (V[o.t] ? V[o.t](o) : '') + (o.cap ? '<figcaption>' + f(o.cap) + '</figcaption>' : ''); } catch (err) { return ''; } };
+  return { render: spec => [].concat(spec).filter(Boolean).map(render).join('') };
+})();
+
+;
+/* Grade 5 visual aids, one slot per idea card (null = no picture). Maths and English. */
+const VIS = {
+m5a:[[{t:'pv', n:'352041', hi:0, cap:'In 352 041 the 3 sits in the **hundred thousands** place, so it is worth **300 000**. The 0s keep the empty places.'},
+      {t:'table', h:['Number','Where is the 3?','The 3 is worth'], rows:[['**3**','Units','3'],['**3**5','Tens','30'],['**3**52','Hundreds','300'],['**3**5 204','Ten thousands','30 000']], cap:'The same digit is worth more each time it moves one place to the left.'}],
+     {t:'nl', a:340, b:350, step:1, p:347, cap:'Round 347 to the nearest 10. It lies between 340 and 350 and is past halfway (345), so it rounds **up to 350**.'},
+     {t:'cmp', a:'45832', b:'45382'}],
+m5b:[{t:'arr', r:3, c:4, cap:'3 rows of 4 dots: **3 × 4 = 12**. Turn the picture on its side and you see 4 rows of 3, so 4 × 3 = 12 too.'},
+     {t:'table', h:['Part','Multiply','Answer'], rows:[['200','200 × 6','1 200'],['40','40 × 6','240'],['3','3 × 6','18'],['**243**','**Add the answers**','**1 458**']], cap:'243 × 6 broken into hundreds, tens and units.'},
+     {t:'grp', n:14, g:3, cap:'14 shared into 3 equal groups: 4 in each group and **2 left over**. So 14 ÷ 3 = 4 remainder 2.'}],
+m5c:[{t:'frac', f:[[3,4]], cap:'The bar is cut into **4** equal parts (the denominator) and **3** are shaded (the numerator). That is 3/4.'},
+     {t:'frac', f:[[1,2],[2,4],[4,8]], cap:'The same amount is shaded in every bar, so **1/2 = 2/4 = 4/8**. Smaller pieces, but more of them.'},
+     {t:'grp', n:18, g:3, hl:2, cap:'2/3 of 18: share 18 into **3** groups of 6, then take **2** of the groups. 6 + 6 = **12**.'}],
+m5d:[{t:'table', h:['Measures','Units','Key fact'], rows:[['📏 Length','mm, cm, m, km','1 m = 100 cm, 1 km = 1 000 m'],['⚖️ Mass','g, kg','1 kg = 1 000 g'],['🥛 Capacity','ml, l','1 l = 1 000 ml']]},
+     {t:'cols', d:[['Big unit ➜ small unit: **multiply**',['3 m = 3 × 100 = **300 cm**','2 kg = 2 × 1 000 = **2 000 g**']],['Small unit ➜ big unit: **divide**',['500 cm = 500 ÷ 100 = **5 m**','4 000 ml = 4 000 ÷ 1 000 = **4 l**']]], cap:'Smaller units are tiny, so you need **more** of them.'},
+     [{t:'clock', h:15, m:30, cap:'Inner numbers: 12-hour time. Outer ring: 24-hour time. The clock shows half past 3 in the afternoon: **3:30 p.m. = 15:30**.'},
+      {t:'table', h:['12-hour','24-hour'], rows:[['7:00 a.m.','07:00'],['12:00 noon','12:00'],['1:00 p.m.','**13:00**'],['9:45 p.m.','**21:45**'],['12:00 midnight','**00:00**']], cap:'After noon, add 12 to the hour.'}]],
+m5e:[{t:'shapes', s:[3,4,5,6,8,0], cap:'Count the straight sides to name the shape.'},
+     {t:'cube', cap:'A cube has **6 faces**, **12 edges** and **8 vertices**. The dashed lines are edges hiding at the back.'},
+     [{t:'flow', d:['3','7','11','15','**?**'], lab:'+ 4', cap:'The rule is **add 4**, so the next number is 19.'},
+      {t:'tally', h:'Favourite fruit', d:[['🍎 Apple',7],['🍌 Banana',4],['🍊 Orange',5]], cap:'Each bundle of four lines with a line across counts as **5**.'}]],
+m5f:[{t:'col', op:'+', a:3452, b:125, cap:'Line up the **units** under the units, the **tens** under the tens, and so on. The shorter number moves to the right.'},
+     {t:'col', op:'+', a:458, b:276, cap:'8 + 6 = 14: write 4 and **carry 1** to the tens. 5 + 7 + 1 = 13: write 3 and carry 1 to the hundreds. 4 + 2 + 1 = 7. Answer: **734**.'},
+     {t:'col', op:'-', a:503, b:178, cap:'3 − 8 will not work, and the tens column holds 0, so borrow from the hundreds: 5 becomes 4, the 0 becomes 9 and the 3 becomes 13. Then 13 − 8 = 5, 9 − 7 = 2, 4 − 1 = 3. Answer: **325**.'}],
+m5g:[{t:'chips', d:[['5','number'],['+','operation'],['3','number'],['=','equals sign'],['8','number']], cap:'Both sides are worth 8, like a balanced scale ⚖️.'},
+     {t:'flow', d:['□ + 15 = 40','Undo + 15 by doing − 15','□ = 40 − 15','**□ = 25**'], cap:'Check: 25 + 15 = 40 ✓'},
+     {t:'table', h:['Clue words','Operation'], rows:[['more, altogether, total','add **+**'],['left, gave away, difference','subtract **−**'],['groups of, each, times','multiply **×**'],['share equally, split','divide **÷**']]}],
+m5h:[{t:'flow', d:['❓ Ask a question','📝 Collect data','🗂️ Sort it','📊 Show it','💬 Explain it'], cyc:'ask a new question'},
+     {t:'tally', h:'Favourite sport', d:[['⚽ Soccer',8],['🏐 Netball',5],['🏏 Cricket',3]]},
+     {t:'bar', d:[['Soccer',8],['Netball',5],['Cricket',3],['Rugby',6]], mode:true, cap:'The tallest bar is soccer, so the **mode** is soccer.'}],
+m5j:[{t:'sym', s:['heart','para'], cap:'The heart folds onto itself along the dashed line. The slanted shape has **no** line of symmetry: no fold makes the halves match.'},
+     {t:'sym', s:['square','rect','eqtri','circle'], cap:'Careful: a rectangle’s corner-to-corner lines are **not** lines of symmetry. Fold a paper rectangle that way and the halves do not match.'},
+     {t:'cols', d:[['Symmetrical',['Letters A, H, M, O, T','🦋 Butterfly','🍁 Leaf']],['Not symmetrical',['Letters F, G, J, R','👟 One shoe']]]}],
+m5k:[{t:'table', h:['To measure','Use a'], rows:[['Length','📏 ruler or tape measure'],['Mass','⚖️ scale'],['Capacity','🥛 measuring jug'],['Temperature','🌡️ thermometer'],['Time','⏱️ clock or stopwatch']]},
+     {t:'scale', a:0, b:10, n:5, p:6, u:'kg', cap:'Not every mark has a number. Work out what each mark is worth first.'},
+     {t:'cols', d:[['Benchmarks',['🚪 A door: about 2 m high','🧃 1 litre of water: about 1 kg','📎 A paper clip: about 1 g']],['Estimate, then check',['Guess: about 1 m','Measure: 94 cm','Close, so it makes sense ✓']]]}],
+m5m:[{t:'area', w:5, h:3, m:'p', cap:'Perimeter: add all four sides. 5 + 3 + 5 + 3 = **16 cm**.'},
+     {t:'area', w:5, h:3, m:'a', cap:'Area: count the squares inside. 3 rows of 5 = **15 cm²**. Same rectangle, but now we count the inside, not the edge.'},
+     {t:'vol', w:3, d:2, h:2, cap:'Each layer has 3 × 2 = 6 cubes. 2 layers: 6 × 2 = **12 cubic units**.'}],
+m5n:[{t:'views', cap:'The same can looks different depending on where you look from.'},
+     {t:'grid', c:3, r:3, items:{B2:'📦',B1:'🐱',B3:'🐶',A2:'⚽',C2:'🌳'}, cap:'The cat is **above** the box, the dog is **below** it, the ball is to the **left** and the tree is to the **right** (as you look at the picture).'},
+     {t:'grid', c:5, r:4, hit:'C3', items:{C3:'🏫',A1:'🏠',E2:'🌳'}, cap:'C3: go **across** to column C, then **down** to row 3. The school is in C3 and the house is in A1.'}],
+m5o:[{t:'xf', m:'slide'},
+     {t:'xf', m:['flip','turn'], cap:'A flip makes a mirror image over the dashed line. A turn spins the shape around the red dot.'},
+     {t:'tess'}],
+m5p:[null,
+     {t:'therm', r:37, d:[[100,'Water boils'],[37,'Healthy body'],[20,'Comfortable room'],[0,'Water freezes']]},
+     {t:'scale', a:20, b:30, n:5, p:24, u:'°C', cap:'Read the number at the **top** of the liquid, looking straight across.'}],
+m5q:[{t:'lscale', d:[['Impossible','A cow lays an egg'],['Unlikely','Snow in Durban today'],['Even chance','A coin lands on heads'],['Likely','Rain in a Cape Town winter'],['Certain','The sun rises tomorrow']]},
+     {t:'cols', d:[['🪙 Coin: 2 outcomes',['Heads','Tails']],['🎲 Dice: 6 outcomes',['1, 2, 3, 4, 5 or 6']]]},
+     {t:'tally', h:'Result', d:[['Heads',11],['Tails',9]], cap:'20 flips gave 11 heads and 9 tails: close to half each, but not exactly. More flips get closer to half.'}],
+
+/* ===== English ===== */
+e5a:[{t:'chips', d:[['Thabo','proper noun'],['kicked'],['the'],['ball','noun'],['in'],['Durban.','proper noun']], cap:'Names of people and places are **proper nouns** and start with capital letters.'},
+     {t:'chips', d:[['The'],['tall','adjective'],['giraffe'],['ate','verb'],['green','adjective'],['leaves.']], cap:'The adjectives tell us **what kind** of giraffe and leaves.'},
+     {t:'chips', d:[['She','pronoun'],['ran','verb'],['quickly','adverb'],['outside.','adverb']], cap:'**She** replaces a name. **Quickly** tells how she ran and **outside** tells where.'}],
+e5b:[{t:'chips', d:[['On','capital letter'],['Monday'],['I','capital letter'],['met'],['Lerato','capital letter'],['in'],['Soweto','capital letter'],['.','full stop']]},
+     {t:'chips', rows:[[['We'],['bought'],['apples,','comma'],['bread,','comma'],['milk'],['and'],['eggs.']],[['Where'],['are'],['you'],['going?','question mark']],[['Watch'],['out!','exclamation mark']]]},
+     {t:'table', h:['Job','Example'], rows:[['Belonging','**Sipho’s** bag (the bag that belongs to Sipho)'],['Missing letters','**don’t** = do not (the o is missing)'],['Speech marks','"I am hungry," said Ayanda.']]}],
+e5c:[{t:'flow', d:['⬅️ **Past**: I walked','**Present**: I walk','**Future**: I will walk ➡️'], cap:'The verb changes to show **when**.'},
+     {t:'table', h:['Now','Past'], rows:[['walk','walk**ed**'],['play','play**ed**'],['go','**went**'],['eat','**ate**'],['see','**saw**'],['run','**ran**']], cap:'Walk and play follow the -ed rule. The others are **irregular** and must be learnt.'},
+     {t:'chips', d:[['Tomorrow','clue word'],['I'],['will','helping verb'],['visit','verb'],['Gogo.']]}],
+e5d:[{t:'cols', d:[['Main idea',['Cheetahs are built for speed.']],['Supporting details',['Long, thin legs','A bendy spine','A tail for balance']]], cap:'The details all hold up the main idea, like legs holding up a table.'},
+     {t:'cols', d:[['Fact ✓ (can be checked)',['The Orange River is in South Africa.','A cheetah can run 100 km/h.']],['Opinion 💭 (a feeling)',['Cheetahs are the best animals.','Maths is boring.']]]},
+     {t:'flow', d:['**First** the egg cracked','**Then** a chick pushed out','**Finally** it stood up'], cap:'Signal words show the order.'}],
+e5e:[{t:'cols', d:[['Characters 👧',['Zola and her dog, Rex']],['Setting 🏞️',['A farm, one stormy night']],['Plot ⚡',['Rex goes missing']]]},
+     {t:'arc', d:[['Beginning','meet Zola'],['Problem','Rex is missing'],['Exciting part','search in the storm'],['Solution','found in the barn'],['End','safe and dry']], cap:'A story climbs to its most exciting part, then the problem is solved.'},
+     {t:'table', h:['Plain','Alive'], rows:[['The dog went away.','The dog **bolted** into the dark.'],['It was raining.','Rain **hammered** on the tin roof.'],['She was scared.','Her heart **pounded**.']]}],
+e5f:[{t:'flow', d:['👵 Gogo tells the story','🧒 Children remember it','🧑 They grow up','👶 They tell their children'], cap:'Folktales were passed on by speaking, not by books.'},
+     {t:'cols', d:[['Myth',['Explains something in nature','Why the zebra has stripes']],['Legend',['A hero’s brave deeds','May be partly true']]]},
+     {t:'table', h:['Look for','Example'], rows:[['An old-time opening','"Long, long ago..."'],['Animal characters','Clever Hare, sly Jackal'],['Things in threes','Three tries, three brothers'],['A moral','Be kind, and kindness returns']]}],
+e5g:[{t:'note', d:['**Stanza 1**','The sun climbs high,','The birds fly by.','**Stanza 2**','The rain comes down','On every town.'], cap:'Short lines grouped into **stanzas**, like paragraphs in a story.'},
+     {t:'chips', rows:[[['The'],['cat','rhyme'],['sat'],['on'],['the'],['mat.','rhyme']],[['TWIN','beat'],['kle'],['TWIN','beat'],['kle'],['LIT','beat'],['tle'],['STAR','beat']]], cap:'Clap on each **beat** word to feel the rhythm.'},
+     {t:'table', h:['Tool','Example'], rows:[['Simile','as quick **as** a cheetah'],['Alliteration','**s**ix **s**illy **s**nakes'],['Onomatopoeia','buzz, splash, boom 💥']]}],
+e5h:[{t:'note', d:['**How to Make Vetkoek**','You will need: ...','1. ...'], cap:'The title tells the reader straight away what they will make.'},
+     {t:'cols', d:[['You will need',['2 cups flour','1 cup warm water','A pinch of salt']],['Steps',['1. **Mix** the flour and salt.','2. **Add** the water slowly.','3. **Knead** for 5 minutes.']]]},
+     {t:'chips', d:[['Pour','command verb'],['the'],['milk'],['into'],['the'],['bowl.']], cap:'The command verb comes **first** and tells the reader exactly what to do.'}],
+e5i:[{t:'table', h:['Question','Answer'], rows:[['Who?','My class and I'],['What?','Visited the zoo'],['Where?','Johannesburg Zoo'],['When?','Last Friday'],['Why?','To learn about animals']]},
+     {t:'note', d:['Friday, 14 March','Dear Diary,','Today **I** went to the zoo. **I** felt so excited when **we** saw the lions!'], cap:'Date, greeting, first person (I, we) and feelings.'},
+     {t:'flow', d:['**First** we got on the bus','**Then** we saw the lions','**After that** we had lunch','**Finally** we went home']}],
+e5j:[{t:'cols', d:[['Synonyms (same)',['big = large','happy = glad','fast = quick']],['Antonyms (opposite)',['hot ↔ cold','up ↔ down','open ↔ closed']]]},
+     {t:'chips', rows:[[['un','prefix'],['happy','root word']],[['hope','root word'],['ful','suffix']],[['re','prefix'],['play','root word']]], cap:'**un** = not, **re** = again, **ful** = full of.'},
+     {t:'table', h:['Word','Meaning'], rows:[['**sea**','the ocean 🌊'],['**see**','with your eyes 👀'],['**two**','the number 2'],['**too**','also, or too much'],['**to**','towards: go to school']], cap:'They sound the same, so read the whole sentence to choose.'}],
+e5k:[{t:'table', h:['One thing','Two things','Three or more'], rows:[['tall','tall**er**','tall**est**'],['fast','fast**er**','fast**est**'],['big','big**ger**','big**gest**']]},
+     {t:'table', h:['One thing','Two things','Three or more'], rows:[['beautiful','**more** beautiful','**most** beautiful'],['good','**better**','**best**'],['bad','**worse**','**worst**']], cap:'Never use both: "more taller" is wrong.'},
+     {t:'chips', rows:[[['I'],['was'],['hungry,'],['so','result'],['I'],['ate.']],[['I'],['stayed'],['inside'],['because','reason'],['it'],['rained.']],[['Tea'],['or','choice'],['juice?']]]}],
+e5l:[{t:'flow', d:['🖼️ Picture','🔤 Words','🎨 Colour and layout'], lab:'+', cap:'All three work together to give one message.'},
+     {t:'table', h:['Advert trick','What it wants you to do'], rows:[['Slogan: "Fizz up your day!"','Remember the drink'],['A famous face','Copy the star'],['"The best ever!"','Believe it without proof'],['Bright colours','Notice it first']]},
+     {t:'cols', d:[['Can be checked',['330 ml can','Costs R15']],['Just exciting words',['Tastes amazing!','Everyone loves it!']]], cap:'Ask: what is being sold, who is it for, and what is missing?'}],
+e5m:[{t:'cols', d:[['Good listener ✓',['Looks at the speaker','Waits for a turn','Asks a question after']],['Not listening ✗',['Talks over others','Fiddles with things','Looks away']]]},
+     {t:'flow', d:['**Introduction**: your topic','**Point 1**','**Point 2**','**Conclusion**: sum up']},
+     {t:'table', h:['Do this','Because'], rows:[['Speak clearly 🗣️','Every word is understood'],['Look up 👀','The audience feels included'],['Pause ⏸️','Important points stand out']]}],
+e5n:[{t:'table', h:['Words','Look at','In order'], rows:[['**c**at, **b**ag','1st letter','bag, cat'],['b**a**ll, b**e**d','2nd letter','ball, bed'],['ch**i**n, ch**a**t','3rd letter','chat, chin']]},
+     {t:'flow', d:['📕 **lamp** (first word)','lazy','leaf','📕 **lion** (last word)'], cap:'Lazy and leaf fall between the guide words, so they are on this page. **Lock** comes after lion, so turn the page.'},
+     {t:'table', h:['Word ends in','Rule','Example'], rows:[['most letters','add -s','cat ➜ cat**s**'],['s, x, ch, sh','add -es','box ➜ box**es**'],['consonant + y','y ➜ i, add -es','baby ➜ bab**ies**'],['irregular','learn them','child ➜ **children**']]}]
+};
+
+;
+/* Grade 5 visual aids: Natural Sciences & Technology, Social Sciences, Life Skills. Then attach all to DEEP. */
+Object.assign(VIS, {
+n5a:[{t:'flow', d:['☀️ Sunlight','💧 Water','💨 Air','🌿 Food made in the leaf'], lab:'+', cap:'Plants **produce** their own food, so they are producers.'},
+     {t:'cols', d:[['Herbivore 🦓',['Plants only','Zebra, cow']],['Carnivore 🦁',['Animals only','Lion, eagle']],['Omnivore 🐒',['Both','Baboon, people']]]},
+     {t:'flow', d:['🌿 Grass','🦓 Zebra','🦁 Lion'], lab:'is eaten by', cap:'The arrow points **to the eater**. It shows which way the energy goes.'}],
+n5b:[{t:'cols', d:[['Support 🧍',['Holds you up','Gives you shape']],['Protect 🛡️',['Skull: brain','Ribs: heart and lungs']],['Move 🏃',['Muscles pull on bones']]]},
+     {t:'cols', d:[['Vertebrates (backbone)',['🐟 Fish','🐸 Frog','🦎 Lizard','🐦 Bird','🐕 Dog']],['Invertebrates (no backbone)',['🪱 Worm','🐌 Snail','🐜 Ant','🕷️ Spider']]]},
+     {t:'flow', d:['🦗 Shell gets too tight','It splits open','Soft new shell','Hardens, bigger'], cap:'This is called **moulting**.'}],
+n5c:[{t:'cols', d:[['Metals 🔩',['Shiny','Conduct heat and electricity','Bend without breaking']],['Non-metals 🪵',['Usually dull','Insulators','Often snap or break']]]},
+     null,
+     {t:'cols', d:[['🍳 Pot',['Metal bottom: conducts heat to the food','Plastic handle: insulates your hand']],['🔌 Cable',['Copper inside: carries electricity','Plastic outside: keeps you safe']]], cap:'Each part is chosen for what it must **do**.'}],
+n5d:[{t:'earth', cap:'Like a peach: thin skin (crust), thick flesh (mantle) and a stone in the middle (core).'},
+     {t:'stack', d:['Newest layer: on top','Sand layer','Mud layer 🐚 (a fossil shell)','Oldest layer: at the bottom'], cap:'Layers pile up one on top of another, so the **bottom** layers are the **oldest**.'},
+     {t:'flow', d:['🐟 Animal dies','Quickly covered by mud','Mud slowly turns to rock','🦴 Fossil found, millions of years later']}],
+n5e:[null,
+     {t:'table', h:['Habitat','Animal','Helpful feature'], rows:[['🏜️ Desert','Camel','Wide feet for sand'],['🌊 Ocean','Fish','Gills to breathe in water'],['🌾 Grassland','Zebra','Stripes confuse lions']]},
+     {t:'cols', d:[['Animals need plants',['Food','Oxygen to breathe','Shelter']],['Plants need animals',['🐝 Carry pollen','🐦 Spread seeds','💩 Manure feeds soil']]]}],
+n5f:[{t:'flow', d:['Born','Grows','Adult','Has young'], cyc:'the young start again'},
+     {t:'flow', d:['🥚 Egg','🐛 Caterpillar (larva)','Pupa (in a chrysalis)','🦋 Butterfly'], cyc:'lays eggs', cap:'The body changes shape completely: **metamorphosis**.'},
+     {t:'flow', d:['🌰 Seed','🌱 Seedling','🪴 Adult plant','🌼 Flowers make seeds'], cyc:'back to seed'}],
+n5g:[null,
+     {t:'cols', d:[['Frame 🗼',['Pylon','Bicycle','Skeleton']],['Shell 🥚',['Egg','Tortoise shell','Can']],['Solid 🧱',['Brick wall','Dam wall']]]},
+     {t:'brace', cap:'Push the top corner and a square frame leans over, but a triangle keeps its shape. Look for triangles in roofs and bridges.'}],
+n5h:[{t:'table', h:['Metal','Special property','Used for'], rows:[['Steel','Strong','Bridges, nails'],['Copper','Conducts electricity','Wires'],['Aluminium','Light','Cans, aeroplanes'],['Gold','Never rusts','Jewellery']]},
+     {t:'tri3', d:['Iron','Water','Air (oxygen)'], mid:'🟠 Rust', cap:'Rust needs all three. Take away the water **or** the air and rust cannot form.'},
+     {t:'cols', d:[['Ways to stop rust',['🎨 Paint','🛢️ Oil or grease','🧴 Plastic coating','⚙️ Zinc coating (galvanising)']]]}],
+n5i:[{t:'table', h:['Raw (from nature)','Processed (made useful)'], rows:[['🐑 Wool','🧶 Yarn, jerseys'],['🌳 Wood','🪑 Chairs, paper'],['🟫 Clay','🧱 Bricks, pots'],['🏖️ Sand','🪟 Glass']]},
+     null,
+     {t:'flow', d:['🟫 Soft clay','🔥 Baked in a kiln','🧱 Hard, waterproof brick'], cap:'Processing gave the clay new, better **properties**.'}],
+n5j:[null,
+     {t:'flow', d:['☀️ Sun','🌿 Plants store its energy','Buried for millions of years','⛏️ Coal'], cap:'Burning coal releases energy that came from the Sun long ago.'},
+     {t:'tri3', d:['Fuel','Heat','Oxygen'], mid:'🔥 Fire', cap:'Remove any one side and the fire goes out. Sand on a fire cuts off the **oxygen**.'}],
+n5k:[{t:'cols', d:[['Cell 🔋',['One store of energy','Like a torch battery']],['Battery 🔋🔋',['Two or more cells joined']]]},
+     {t:'flow', d:['🏭 Power station','⚡ Pylons and wires','🏠 Plug point at home']},
+     {t:'cols', d:[['Safe ✓',['Dry hands on plugs','Switch off when you leave']],['Danger ✗',['Wet hands near plugs','Objects pushed into plugs','Climbing pylons']]]}],
+n5l:[{t:'flow', d:['💪 You stretch the band','Energy is stored','👋 You let go','💨 Movement energy']},
+     {t:'table', h:['Pull the catapult back','The stone goes'], rows:[['A little','A short way'],['More','Further'],['Too far','💥 The band snaps']]},
+     null],
+n5m:[{t:'flow', d:['🛞 Wheel','Rod through the middle (axle)','Rolls instead of dragging'], lab:'+'},
+     {t:'cols', d:[['Fixed axle',['Wheels and axle turn together','Toy train']],['Free axle',['Axle stays still, wheels spin','Wheelbarrow, trolley']]]},
+     {t:'cols', d:[['Dragging 📦',['Whole bottom rubs','Lots of friction','Hard work']],['Rolling 🛞',['Only a small part touches','Little friction','Easy work']]]}],
+n5n:[null,
+     {t:'table', h:['Earth’s movement','Takes','Gives us'], rows:[['🔄 Spins on its axis','24 hours','Day and night'],['☀️ Travels around the Sun','About 365 days','A year']]},
+     {t:'flow', d:['🌑 New moon','🌓 Half','🌕 Full moon','🌗 Half'], cyc:'about a month', cap:'The Moon reflects sunlight, so the lit part we see changes shape.'}],
+n5o:[{t:'flow', d:['🪨 Rock','Cracked by heat, cold, water and roots','Small stones and sand','+ rotted plants (humus)','🟫 Soil']},
+     {t:'table', h:['Soil','Feels','Water'], rows:[['Sandy','Gritty','Drains away fast'],['Clay','Sticky','Holds lots'],['Loam 🌱','Crumbly','Just right for plants']]},
+     {t:'cols', d:[['Bare soil ✗',['Rain washes it away','Wind blows it off']],['Covered by plants ✓',['Roots hold the soil','Leaves soften the rain']]]}],
+
+/* ===== Social Sciences ===== */
+s5a:[{t:'compass', cap:'Going clockwise from the top: **N**ever **E**at **S**our **W**atermelons.'},
+     {t:'grid', c:5, r:4, hit:'B4', items:{B4:'⛺',D1:'⛰️',A2:'🌊'}, cap:'B4: go across to column **B**, then to row **4**. The tent is in B4.'},
+     {t:'table', h:['Map symbol','Means'], rows:[['🟦 Blue line','River'],['⬛ Black line','Road'],['🔺 Triangle','Mountain'],['✚ Cross','Hospital']], cap:'Scale example: if 1 cm on the map = 10 km, then 3 cm on the map = **30 km**.'}],
+s5b:[{t:'profile', cap:'A side view of the land from the sea to the inland plateau.'},
+     {t:'flow', d:['⛰️ Source: starts high up','〰️ Flows downhill','🌊 Mouth: reaches the sea']},
+     {t:'cols', d:[['Weather (today) 🌦️',['Sunny and 28 °C','Windy this afternoon']],['Climate (usual, over many years) 📅',['Hot, wet summers','Cool, dry winters']]]}],
+s5c:[{t:'cols', d:[['Hunting 🏹',['Eland and other buck','Bows and poisoned arrows']],['Gathering 🧺',['Roots, berries, insects','Digging sticks']]]},
+     null,
+     {t:'cols', d:[['San',['Hunter-gatherers','Moved to find food']],['Khoikhoi',['Herders of cattle and sheep','Moved to find grazing']]]}],
+s5d:[{t:'flow', d:['🌧️ The Nile floods','🟫 Rich black mud left behind','🌾 Crops grow well','🏘️ People live by the river']},
+     {t:'stack', d:[['👑 Pharaoh','#F6E3BF'],['Priests and nobles','#EBCB97'],['Scribes','#DDB07A'],['Farmers and workers','#C9935F']], cap:'Like a pyramid: a few people at the top, many at the bottom.'},
+     null],
+s5e:[{t:'cols', d:[['Smallest province',['Gauteng (but the most people)']],['Biggest province',['Northern Cape (but few people)']]]},
+     {t:'table', h:['Province','Capital city'], rows:[['Gauteng','Johannesburg'],['Limpopo','Polokwane'],['Mpumalanga','Mbombela'],['North West','Mahikeng'],['Free State','Bloemfontein'],['KwaZulu-Natal','Pietermaritzburg'],['Eastern Cape','Bhisho'],['Western Cape','Cape Town'],['Northern Cape','Kimberley']]},
+     {t:'cols', d:[['Share a border with us',['Namibia','Botswana','Zimbabwe','Mozambique','Eswatini']],['Surrounded by us',['Lesotho']]]}],
+s5f:[{t:'cols', d:[['Hunter-gatherers',['Move around','No crops']],['First farmers',['Settle in one place','Grow crops, keep animals']]]},
+     {t:'flow', d:['⛏️ Dig up iron ore','🔥 Heat it in a furnace','🔨 Shape hoes and spears']},
+     {t:'village', cap:'Round huts around a central **kraal** where the cattle were kept safe.'}],
+s5g:[{t:'table', h:['Instrument','Measures'], rows:[['🌡️ Thermometer','Temperature (°C)'],['🌧️ Rain gauge','Rainfall (mm)'],['🚩 Wind vane','Wind direction'],['🌀 Anemometer','Wind speed']]},
+     {t:'table', h:['City','Weather','Min','Max'], rows:[['Johannesburg','⛈️','14 °C','26 °C'],['Cape Town','☀️','12 °C','22 °C'],['Durban','🌦️','19 °C','27 °C']], cap:'Min is the lowest temperature of the day, max is the highest.'},
+     {t:'cols', d:[['West: dry 🏜️',['Northern Cape','Very little rain']],['East: wet 🌧️',['KwaZulu-Natal','Summer storms']],['South-west ❄️',['Western Cape','Winter rain']]]}],
+s5h:[{t:'table', h:['Mineral','Used for'], rows:[['💛 Gold','Jewellery, electronics'],['💎 Diamonds','Jewellery, cutting tools'],['⚫ Coal','Making electricity'],['⚪ Platinum','Car parts, jewellery']]},
+     {t:'flow', d:['1867: 💎 Diamonds near Kimberley','1886: 💛 Gold on the Witwatersrand','🏙️ Johannesburg grows fast']},
+     {t:'cols', d:[['Open-cast ⛏️',['A huge pit dug from the surface','The Big Hole, Kimberley']],['Underground (shaft) 🕳️',['Deep tunnels','Some gold mines go over 3 km down']]]}],
+s5i:[null,
+     {t:'cols', d:[['Tangible (you can touch it) ✋',['Buildings','Beadwork','Tools']],['Intangible (you cannot touch it) 🎶',['Songs and dances','Languages','Stories']]]},
+     {t:'table', h:['World Heritage Site','Province'], rows:[['Robben Island','Western Cape'],['Cradle of Humankind','Gauteng'],['Mapungubwe','Limpopo'],['iSimangaliso Wetland Park','KwaZulu-Natal']]}],
+
+/* ===== Life Skills ===== */
+l5a:[{t:'table', h:['Food group','Examples','Job'], rows:[['🍞 Starch','pap, bread, rice','Energy'],['🥚 Protein','beans, eggs, fish','Build and repair'],['🥕 Fruit and veg','apples, spinach','Vitamins'],['🥛 Dairy','milk, maas','Strong bones']]},
+     {t:'plate', cap:'Half the plate vegetables and fruit, a quarter starch, a quarter protein.'},
+     {t:'cols', d:[['Choose often ✓',['💧 Water','🍎 Fruit snacks']],['Only sometimes',['🥤 Fizzy drinks','🍟 Fried food']]]}],
+l5b:[null,
+     {t:'table', h:['My right','My responsibility'], rows:[['To learn','Let others learn too'],['To be safe','Do not hurt others'],['To be heard','Listen to others']]},
+     {t:'flow', d:['🤝 I help you','😊 You feel cared for','💛 We are stronger together'], cap:'Ubuntu: "I am because we are".'}],
+l5c:[null,
+     {t:'flow', d:['😠 Strong feeling','🛑 Stop','😮‍💨 Breathe slowly','🤔 Think','✅ Choose what to do']},
+     {t:'cols', d:[['Bullying',['On purpose','Again and again','Hurts or scares someone']],['Not bullying',['An accident','A once-off argument']]], cap:'Either way, tell a trusted adult if you feel unsafe.'}],
+l5d:[null,
+     {t:'table', h:['Religion','Celebration'], rows:[['✝️ Christianity','Christmas, Easter'],['☪️ Islam','Eid'],['🪔 Hinduism','Diwali'],['✡️ Judaism','Passover, Hanukkah']]},
+     null],
+l5e:[{t:'cols', d:[['Bacteria',['TB','Some tummy bugs']],['Viruses',['Flu','Colds']],['Fungi',['Athlete’s foot']]]},
+     {t:'flow', d:['🤧 Sneeze','💨 Droplets fly','✋ Land on hands and desks','👃 Touch your face','🤒 Germs get in']},
+     {t:'flow', d:['💧 Wet hands','🧼 Soap','👐 Rub for 20 seconds','🚿 Rinse','🧻 Dry']}],
+l5f:[{t:'flow', d:['🛑 Stop at the kerb','👉 Look right','👈 Look left','👉 Look right again','🚶 Walk across']},
+     null,
+     {t:'table', h:['Call','For'], rows:[['**10111**','🚓 Police'],['**10177**','🚑 Ambulance'],['**112**','📱 Any emergency, from a cell phone']]}],
+l5g:[null,
+     [{t:'cwheel', cap:'Primary colours cannot be mixed from other colours.'},
+      {t:'table', h:['Mix','Makes'], rows:[['🔴 Red + 🟡 Yellow','🟠 Orange'],['🟡 Yellow + 🔵 Blue','🟢 Green'],['🔵 Blue + 🔴 Red','🟣 Purple']]}],
+     {t:'cwheel', wc:true, cap:'**Warm** colours feel like sun and fire. **Cool** colours feel like water and grass.'}],
+l5h:[{t:'cols', d:[['Beat 💓',['Steady, like a heartbeat','tap, tap, tap, tap']],['Rhythm 🥁',['Long and short sounds','tap, ta-ta, tap, ta-ta']]]},
+     {t:'table', h:['Word','Means'], rows:[['Tempo','Fast 🐇 or slow 🐢'],['Dynamics','Loud 🔊 or soft 🔈'],['Forte (f)','Loud'],['Piano (p)','Soft']]},
+     {t:'cols', d:[['Percussion 🥁',['Drum, shaker']],['String 🎸',['Guitar, violin']],['Wind 🎺',['Flute, trumpet']],['Keyboard 🎹',['Piano']]]}],
+l5i:[null,
+     {t:'flow', d:['🔥 Warm up','⚽ Exercise','🧘 Cool down']},
+     null]
+});
+Object.keys(VIS).forEach(k => { if (typeof DEEP !== 'undefined' && DEEP[k]) DEEP[k].v = VIS[k]; });
+
 (function () {
 'use strict';
 const $ = (s, el) => (el || document).querySelector(s);
@@ -5546,7 +6095,7 @@ function fullLesson(stage, t) {
     } else if (card.k === 'idea') {
       const x = card.x;
       body = '<h2 class="card-h">' + esc(x[0]) + '</h2>' +
-        '<p class="card-b">' + fmt(B.more[card.i] || '') + '</p>' +
+        '<p class="card-b">' + fmt(B.more[card.i] || '') + '</p>' + (B.v && B.v[card.i] ? '<figure class="viz">' + BVZ.render(B.v[card.i]) + '</figure>' : '') +
         '<div class="inshort"><p class="eyebrow">In short</p><p>' + fmt(x[1]) + '</p></div>' +
         (x[2] ? '<div class="example"><p class="eyebrow">Example</p><p>' + fmt(x[2]) + '</p></div>' : '');
     } else if (card.k === 'words') {
